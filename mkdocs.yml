@@ -1,10 +1,10 @@
 site_name: Metagenome tutorial
 
 pages:
-- [index.md, Home]
-- [startup.md, Jupyter startup]
-- [qc.md, FastQC]
-- [assembly.md, Metagenome assembly]
-- [binning.md, Genome binning]
-- [hic.md, Metagenome HiC]
+- Home: 'index.md'
+- Jupyter: 'startup.md'
+- FastQC: 'qc.md'
+- Assembly: 'assembly.md'
+- Binning: 'binning.md'
+- HiC: 'hic.md'
 
