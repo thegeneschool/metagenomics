@@ -23,7 +23,7 @@
         {
             "location": "/startup/",
             "text": "Starting up a Jupyter server\n\n\nlog in to amazon\n\n\nselect AMI\n\n\nlaunch",
-            "title": "Startup"
+            "title": "Jupyter startup"
         },
         {
             "location": "/startup/#starting-up-a-jupyter-server",
@@ -44,6 +44,86 @@
             "location": "/startup/#launch",
             "text": "",
             "title": "launch"
+        },
+        {
+            "location": "/qc/",
+            "text": "Sequencing run QC",
+            "title": "FastQC"
+        },
+        {
+            "location": "/qc/#sequencing-run-qc",
+            "text": "",
+            "title": "Sequencing run QC"
+        },
+        {
+            "location": "/assembly/",
+            "text": "Metagenome assembly\n\n\nWhat is assembly?\n\n\nAssembling metagenomes\n\n\nCoassembly or single sample?",
+            "title": "Metagenome assembly"
+        },
+        {
+            "location": "/assembly/#metagenome-assembly",
+            "text": "",
+            "title": "Metagenome assembly"
+        },
+        {
+            "location": "/assembly/#what-is-assembly",
+            "text": "",
+            "title": "What is assembly?"
+        },
+        {
+            "location": "/assembly/#assembling-metagenomes",
+            "text": "Coassembly or single sample?",
+            "title": "Assembling metagenomes"
+        },
+        {
+            "location": "/binning/",
+            "text": "Metagenome Assembled Genomes (MAGs) from metagenome binning\n\n\nWhat is a MAG?\n\n\nWhat is a good MAG?\n\n\nMaking MAGs",
+            "title": "Genome binning"
+        },
+        {
+            "location": "/binning/#metagenome-assembled-genomes-mags-from-metagenome-binning",
+            "text": "",
+            "title": "Metagenome Assembled Genomes (MAGs) from metagenome binning"
+        },
+        {
+            "location": "/binning/#what-is-a-mag",
+            "text": "",
+            "title": "What is a MAG?"
+        },
+        {
+            "location": "/binning/#what-is-a-good-mag",
+            "text": "",
+            "title": "What is a good MAG?"
+        },
+        {
+            "location": "/binning/#making-mags",
+            "text": "",
+            "title": "Making MAGs"
+        },
+        {
+            "location": "/hic/",
+            "text": "Metagenomic HiC\n\n\nWhat is Metagenomic HiC?\n\n\nQC: is my library ok?\n\n\nMetagenome binning with HiC data",
+            "title": "Metagenome HiC"
+        },
+        {
+            "location": "/hic/#metagenomic-hic",
+            "text": "",
+            "title": "Metagenomic HiC"
+        },
+        {
+            "location": "/hic/#what-is-metagenomic-hic",
+            "text": "",
+            "title": "What is Metagenomic HiC?"
+        },
+        {
+            "location": "/hic/#qc-is-my-library-ok",
+            "text": "",
+            "title": "QC: is my library ok?"
+        },
+        {
+            "location": "/hic/#metagenome-binning-with-hic-data",
+            "text": "",
+            "title": "Metagenome binning with HiC data"
         }
     ]
 }

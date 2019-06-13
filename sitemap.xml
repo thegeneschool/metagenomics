@@ -17,4 +17,36 @@
     </url>
     
 
+    
+    <url>
+     <loc>None/qc/</loc>
+     <lastmod>2019-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>None/assembly/</loc>
+     <lastmod>2019-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>None/binning/</loc>
+     <lastmod>2019-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>None/hic/</loc>
+     <lastmod>2019-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
 </urlset>
