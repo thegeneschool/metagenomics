@@ -23,7 +23,7 @@
         {
             "location": "/startup/",
             "text": "Starting up a Jupyter server\n\n\nlog in to amazon\n\n\nselect AMI\n\n\nlaunch",
-            "title": "Jupyter startup"
+            "title": "Jupyter"
         },
         {
             "location": "/startup/#starting-up-a-jupyter-server",
@@ -58,7 +58,7 @@
         {
             "location": "/assembly/",
             "text": "Metagenome assembly\n\n\nWhat is assembly?\n\n\nAssembling metagenomes\n\n\nCoassembly or single sample?",
-            "title": "Metagenome assembly"
+            "title": "Assembly"
         },
         {
             "location": "/assembly/#metagenome-assembly",
@@ -78,7 +78,7 @@
         {
             "location": "/binning/",
             "text": "Metagenome Assembled Genomes (MAGs) from metagenome binning\n\n\nWhat is a MAG?\n\n\nWhat is a good MAG?\n\n\nMaking MAGs",
-            "title": "Genome binning"
+            "title": "Binning"
         },
         {
             "location": "/binning/#metagenome-assembled-genomes-mags-from-metagenome-binning",
@@ -103,7 +103,7 @@
         {
             "location": "/hic/",
             "text": "Metagenomic HiC\n\n\nWhat is Metagenomic HiC?\n\n\nQC: is my library ok?\n\n\nMetagenome binning with HiC data",
-            "title": "Metagenome HiC"
+            "title": "HiC"
         },
         {
             "location": "/hic/#metagenomic-hic",
