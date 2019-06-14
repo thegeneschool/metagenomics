@@ -91,6 +91,7 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#metagenomic-hic">Metagenomic HiC</a></li>
             <li><a href="#what-is-metagenomic-hic">What is Metagenomic HiC?</a></li>
+            <li><a href="#the-hi-c-library-protocol">The Hi-C library protocol</a></li>
             <li><a href="#qc-is-my-library-ok">QC: is my library ok?</a></li>
             <li><a href="#metagenome-binning-with-hic-data">Metagenome binning with HiC data</a></li>
     </ul>
@@ -102,6 +103,45 @@
 <p>As the name suggest, Metagenomic Hi-C incorporates a new form of sequencing datas, named Hi-C, in to traditional shotgun metagenomes. In doing so, modern analyses, such as genome binning, can be performed accurately and precisely using only a single time-point.</p>
 <p>The Hi-C protocol was designed to capture genome-wide evidence of DNA molecules in close physical proximity <em>in vivo</em>, prior to cellular lysis. With the flexible nature of a chromosome and its capacity to bend back on itself, the most frequently captured interactions are usually those between loci on the same chromosome. After this, the most frequently observed interactions are inter-chromosomal. Lastly come inter-cellular interactions, which are often far below the rates of those found within a cell.</p>
 <p>The original purpose of Hi-C was to study the 3-dimensional conformation of the human genome (Lieberman-Aiden 2009), but the proximity information can just as well be exploited to infer which DNA assembly fragments belong together in a bin.  Depending on the subject of study, the implied precision of "together" can range from a genome to chromosome. For metagenomic studies, methods currently aim to associate assembly fragments believed to come from the same genome.</p>
+<h2 id="the-hi-c-library-protocol">The Hi-C library protocol</h2>
+<p>Hi-C data-sets are generated using conventional Illumina paired-end sequencing;  the difference lies in the library protocol. </p>
+<h3 id="protcol-outline">Protcol outline</h3>
+<ol>
+<li>
+<p><strong>DNA Fixation:</strong> Beginning with intact cells, the first step of the Hi-C protocol is formalin fixation. The act of cross-linking freezes close-by conformation arrangements within the DNA that existed in the cells at the time of fixation.</p>
+</li>
+<li>
+<p><strong>Cell Lysis:</strong> The cells are lysed and DNA-protein complexes extracted and purified.</p>
+</li>
+<li>
+<p><strong>Restriction Digest:</strong> The DNA is digested using a restriction endonuclease. In metagenomic Hi-C, enzymes with large overhangs and 4-nt recognition sites are common choices (i.e. Sau3AI, MluCI, DpnII). Differences in the GC bias of the recognition site and the target DNA is an important factor, as inefficient digestion will produce fewer Hi-C read-pairs.</p>
+</li>
+<li>
+<p><strong>Biotin Tagging:</strong> The overhangs produced during digestion are end-filled with biotinylated nucleotides.</p>
+</li>
+<li>
+<p><strong>Free-end Ligation:</strong> in dilute conditions or immobilised on a substrate, free-ends protruding from the DNA-protein complexes are ligated. This stochastic process favours any two ends which were nearby within the complex, however random ligation and self-ligation can occur and are non-informative.</p>
+</li>
+<li>
+<p><strong>Crosslink Reversal:</strong> The formalin fixation is reversed, allowing the now free DNA to be purified.</p>
+</li>
+<li>
+<p><strong>Un-ligated End Clean-up:</strong> Free-ends which failed to form ligation products are unwanted in subsequent steps but could still be biotin tagged. To minimise their inclusion, a light exonuclease 3' to 5' favoured chew-back can be applied.</p>
+</li>
+<li>
+<p><strong>DNA Sheering:</strong> With ligation completed, the DNA is mechanically sheered and the size range of the resulting fragment selected suitability with Illumina paired-end sequencing. </p>
+</li>
+<li>
+<p><strong>DNA repair:</strong> Sonication can lead to damaged ends and nicks, which can be repaired.</p>
+</li>
+<li>
+<p><strong>Proximity Ligation Enrichment:</strong> Biotin tagged fragments are pulled down using affinity purification. </p>
+</li>
+<li>
+<p><strong>Adpater Ligation:</strong> Illumina paired-end adapter ligation and associated steps to produce a sequencing library are now applied.</p>
+</li>
+</ol>
+<p><img alt="hic protocol steps" src="../img/hi-c_steps.png" /></p>
 <h2 id="qc-is-my-library-ok">QC: is my library ok?</h2>
 <h2 id="metagenome-binning-with-hic-data">Metagenome binning with HiC data</h2></div>
         </div>
