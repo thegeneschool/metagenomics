@@ -6,13 +6,17 @@ As the name suggest, Metagenomic Hi-C incorporates a new form of sequencing data
 
 The Hi-C protocol was designed to capture genome-wide evidence of DNA molecules in close physical proximity _in vivo_, prior to cellular lysis. With the flexible nature of a chromosome and its capacity to bend back on itself, the most frequently captured interactions are usually those between loci on the same chromosome. After this, the most frequently observed interactions are inter-chromosomal. Lastly come inter-cellular interactions, which are often far below the rates of those found within a cell.
 
-The original purpose of Hi-C was to study the 3-dimensional conformation of the human genome (Lieberman-Aiden 2009), but the proximity information can just as well be exploited to infer which DNA assembly fragments belong together in a bin.  Depending on the subject of study, the implied precision of "together" can range from a genome to chromosome. For metagenomic studies, methods currently aim to associate assembly fragments believed to come from the same genome.
+The original purpose of Hi-C was to study the 3-dimensional conformation of the human genome [1], but the proximity information can just as well be exploited to infer which DNA assembly fragments belong together in a bin.  Depending on the subject of study, the implied precision of "together" can range from a genome to chromosome. For metagenomic studies, methods currently aim to associate assembly fragments believed to come from the same genome.
 
 ## The Hi-C library protocol
 
-Hi-C data-sets are generated using conventional Illumina paired-end sequencing;  the difference lies in the library protocol. 
+Hi-C data-sets are generated using conventional high-throughput Illumina paired-end sequencing; the difference lies in the library protocol.
 
-### Protcol outline
+## 
+![hic protocol steps](img/hi-c_steps.png)
+**Fig 1** Large-scale steps involved in creating a Hi-C sequencing library.
+
+### Protocol outline
 
 1. **DNA Fixation:** Beginning with intact cells, the first step of the Hi-C protocol is formalin fixation. The act of cross-linking freezes close-by conformation arrangements within the DNA that existed in the cells at the time of fixation.
 
@@ -37,10 +41,11 @@ Hi-C data-sets are generated using conventional Illumina paired-end sequencing; 
 11. **Adpater Ligation:** Illumina paired-end adapter ligation and associated steps to produce a sequencing library are now applied.
 
 
-![hic protocol steps](img/hi-c_steps.png)
-
-
 ## QC: is my library ok?
 
 
 ## Metagenome binning with HiC data
+
+## References
+
+1. Lieberman-Aiden, E., van Berkum, N. L., Williams, L., Imakaev, M., Ragoczy, T., Telling, A., … Dekker, J. (2009). Comprehensive mapping of long-range interactions reveals folding principles of the human genome. _Science_, 326(5950), 289–293. https://doi.org/10.1126/science.1181369
