@@ -3,7 +3,7 @@
 
     
     <url>
-     <loc>/</loc>
+     <loc>None/</loc>
      <lastmod>2019-06-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -11,7 +11,7 @@
 
     
     <url>
-     <loc>/startup/</loc>
+     <loc>None/startup/</loc>
      <lastmod>2019-06-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -19,7 +19,7 @@
 
     
     <url>
-     <loc>/qc/</loc>
+     <loc>None/qc/</loc>
      <lastmod>2019-06-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -27,7 +27,7 @@
 
     
     <url>
-     <loc>/assembly/</loc>
+     <loc>None/assembly/</loc>
      <lastmod>2019-06-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -35,7 +35,7 @@
 
     
     <url>
-     <loc>/binning/</loc>
+     <loc>None/binning/</loc>
      <lastmod>2019-06-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -43,7 +43,7 @@
 
     
     <url>
-     <loc>/hic/</loc>
+     <loc>None/hic/</loc>
      <lastmod>2019-06-14</lastmod>
      <changefreq>daily</changefreq>
     </url>

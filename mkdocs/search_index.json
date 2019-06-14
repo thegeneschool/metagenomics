@@ -52,7 +52,7 @@
         },
         {
             "location": "/assembly/",
-            "text": "Metagenome assembly\n\n\nWhat is assembly?\n\n\nAssembling metagenomes\n\n\nCoassembly or single sample?",
+            "text": "Metagenome assembly\n\n\nWhat is assembly?\n\n\nAssembly is the process of reconstructing long DNA sequences from a collection of overlapping shorter pieces.\nIn the context of single genomes (e.g. microbial isolates) the goal is usually to reconstruct a single chromosome and any associated plasmids or other replicons.\nWhen presented with metagenomic data though, the microbial community might in reality have millions of genomes present in it.\nGenerally speaking, it is impossible to accurately reconstruct every genome of every cell in a metagenomic sample with current technology.\nInstead we usually aim to reconstruct chromosome sequences that represent a consensus of many cells.\n\n\nAssembling metagenomes\n\n\nThere are several available metagenome assembly tools. \nSome examples include metaSPAdes and MEGAHIT.\nIn this tutorial we will use MEGAHIT.\n\n\nsingularity run docker://bioboxes/megahit:latest \n\n\n\n\n\nCoassembly or single sample?\n\n\nJust as important as deciding what assembler to use is deciding on \nwhat to assemble\n.\nOne approach is to assemble all of the metagenome samples together.\nThis can be useful if there is not much data per sample, or if low abundance organisms exist in the samples that would not have enough coverage in a single sample to be assembled.\n\n\nLimitations of metagenome assembly\n\n\nCurrent assembly methods are limited in their ability to resolve chromosomes of closely related species and strains in a sample.\nThis is because most assembly methods collapse sequences > 95% or 98% identity into a single contig sequence, usually as a means to cope with sequencing error.\nTherefore as a consensus representation, these assembled chromosome sequences may mask fine-scale genetic variation in the population.",
             "title": "Assembly"
         },
         {
@@ -62,18 +62,18 @@
         },
         {
             "location": "/assembly/#what-is-assembly",
-            "text": "",
+            "text": "Assembly is the process of reconstructing long DNA sequences from a collection of overlapping shorter pieces.\nIn the context of single genomes (e.g. microbial isolates) the goal is usually to reconstruct a single chromosome and any associated plasmids or other replicons.\nWhen presented with metagenomic data though, the microbial community might in reality have millions of genomes present in it.\nGenerally speaking, it is impossible to accurately reconstruct every genome of every cell in a metagenomic sample with current technology.\nInstead we usually aim to reconstruct chromosome sequences that represent a consensus of many cells.",
             "title": "What is assembly?"
         },
         {
             "location": "/assembly/#assembling-metagenomes",
-            "text": "",
+            "text": "There are several available metagenome assembly tools. \nSome examples include metaSPAdes and MEGAHIT.\nIn this tutorial we will use MEGAHIT.  singularity run docker://bioboxes/megahit:latest   Coassembly or single sample?  Just as important as deciding what assembler to use is deciding on  what to assemble .\nOne approach is to assemble all of the metagenome samples together.\nThis can be useful if there is not much data per sample, or if low abundance organisms exist in the samples that would not have enough coverage in a single sample to be assembled.",
             "title": "Assembling metagenomes"
         },
         {
-            "location": "/assembly/#coassembly-or-single-sample",
-            "text": "",
-            "title": "Coassembly or single sample?"
+            "location": "/assembly/#limitations-of-metagenome-assembly",
+            "text": "Current assembly methods are limited in their ability to resolve chromosomes of closely related species and strains in a sample.\nThis is because most assembly methods collapse sequences > 95% or 98% identity into a single contig sequence, usually as a means to cope with sequencing error.\nTherefore as a consensus representation, these assembled chromosome sequences may mask fine-scale genetic variation in the population.",
+            "title": "Limitations of metagenome assembly"
         },
         {
             "location": "/binning/",
@@ -119,11 +119,6 @@
             "location": "/hic/#the-hi-c-library-protocol",
             "text": "Hi-C data-sets are generated using conventional high-throughput Illumina paired-end sequencing; the difference lies in the library protocol.",
             "title": "The Hi-C library protocol"
-        },
-        {
-            "location": "/hic/#protocol-outline",
-            "text": "DNA Fixation:  Beginning with intact cells, the first step of the Hi-C protocol is formalin fixation. The act of cross-linking freezes close-by conformation arrangements within the DNA that existed in the cells at the time of fixation.    Cell Lysis:  The cells are lysed and DNA-protein complexes extracted and purified.    Restriction Digest:  The DNA is digested using a restriction endonuclease. In metagenomic Hi-C, enzymes with large overhangs and 4-nt recognition sites are common choices (i.e. Sau3AI, MluCI, DpnII). Differences in the GC bias of the recognition site and the target DNA is an important factor, as inefficient digestion will produce fewer Hi-C read-pairs.    Biotin Tagging:  The overhangs produced during digestion are end-filled with biotinylated nucleotides.    Free-end Ligation:  in dilute conditions or immobilised on a substrate, free-ends protruding from the DNA-protein complexes are ligated. This stochastic process favours any two ends which were nearby within the complex, however random ligation and self-ligation can occur and are non-informative.    Crosslink Reversal:  The formalin fixation is reversed, allowing the now free DNA to be purified.    Un-ligated End Clean-up:  Free-ends which failed to form ligation products are unwanted in subsequent steps but could still be biotin tagged. To minimise their inclusion, a light exonuclease 3' to 5' favoured chew-back can be applied.    DNA Sheering:  With ligation completed, the DNA is mechanically sheered and the size range of the resulting fragment selected suitability with Illumina paired-end sequencing.     DNA repair:  Sonication can lead to damaged ends and nicks, which can be repaired.    Proximity Ligation Enrichment:  Biotin tagged fragments are pulled down using affinity purification.     Adpater Ligation:  Illumina paired-end adapter ligation and associated steps to produce a sequencing library are now applied.",
-            "title": "Protocol outline"
         },
         {
             "location": "/hic/#qc-is-my-library-ok",
