@@ -13,8 +13,11 @@ The original purpose of Hi-C was to study the 3-dimensional conformation of the 
 Hi-C data-sets are generated using conventional high-throughput Illumina paired-end sequencing; the difference lies in the library protocol.
 
 ## 
-![hic protocol steps](img/hi-c_steps.png)
-**Fig 1** Large-scale steps involved in creating a Hi-C sequencing library.
+
+> :camera: **Fig 1** Major steps of the Hi-C protocol
+> ![zoomify](img/hi-c_steps.png){.center .small}
+
+##
 
 ### Protocol outline
 
