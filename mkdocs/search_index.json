@@ -2,23 +2,18 @@
     "docs": [
         {
             "location": "/",
-            "text": "Welcome to MkDocs\n\n\nFor full documentation visit \nmkdocs.org\n.\n\n\nCommands\n\n\n\n\nmkdocs new [dir-name]\n - Create a new project.\n\n\nmkdocs serve\n - Start the live-reloading docs server.\n\n\nmkdocs build\n - Build the documentation site.\n\n\nmkdocs help\n - Print this help message.\n\n\n\n\nProject layout\n\n\nmkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.",
+            "text": "Welcome to the Metagenome Tutorial\n\n\nThese tutorials describe some current approaches for metagenome analysis using a genome-resolved approach.\n\n\nAuthors\n\n\n\n\nAaron E Darling\n\n\nMatt Z DeMaere",
             "title": "Home"
         },
         {
-            "location": "/#welcome-to-mkdocs",
-            "text": "For full documentation visit  mkdocs.org .",
-            "title": "Welcome to MkDocs"
+            "location": "/#welcome-to-the-metagenome-tutorial",
+            "text": "These tutorials describe some current approaches for metagenome analysis using a genome-resolved approach.",
+            "title": "Welcome to the Metagenome Tutorial"
         },
         {
-            "location": "/#commands",
-            "text": "mkdocs new [dir-name]  - Create a new project.  mkdocs serve  - Start the live-reloading docs server.  mkdocs build  - Build the documentation site.  mkdocs help  - Print this help message.",
-            "title": "Commands"
-        },
-        {
-            "location": "/#project-layout",
-            "text": "mkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.",
-            "title": "Project layout"
+            "location": "/#authors",
+            "text": "Aaron E Darling  Matt Z DeMaere",
+            "title": "Authors"
         },
         {
             "location": "/startup/",
@@ -72,8 +67,13 @@
         },
         {
             "location": "/assembly/#assembling-metagenomes",
-            "text": "Coassembly or single sample?",
+            "text": "",
             "title": "Assembling metagenomes"
+        },
+        {
+            "location": "/assembly/#coassembly-or-single-sample",
+            "text": "",
+            "title": "Coassembly or single sample?"
         },
         {
             "location": "/binning/",
@@ -102,7 +102,7 @@
         },
         {
             "location": "/hic/",
-            "text": "Metagenomic HiC\n\n\nWhat is Metagenomic HiC?\n\n\nQC: is my library ok?\n\n\nMetagenome binning with HiC data",
+            "text": "Metagenomic HiC\n\n\nWhat is Metagenomic HiC?\n\n\nAs the name suggest, Metagenomic Hi-C incorporates a new form of sequencing datas, named Hi-C, in to traditional shotgun metagenomes. In doing so, modern analyses, such as genome binning, can be performed accurately and precisely using only a single time-point.\n\n\nThe Hi-C protocol was designed to capture genome-wide evidence of DNA molecules in close physical proximity \nin vivo\n, prior to cellular lysis. With the flexible nature of a chromosome and its capacity to bend back on itself, the most frequently captured interactions are usually those between loci on the same chromosome. After this, the most frequently observed interactions are inter-chromosomal. Lastly come inter-cellular interactions, which are often far below the rates of those found within a cell.\n\n\nThe original purpose of Hi-C was to study the 3-dimensional conformation of the human genome (Lieberman-Aiden 2009), but the proximity information can just as well be exploited to infer which DNA assembly fragments belong together in a bin.  Depending on the subject of study, the implied precision of \"together\" can range from a genome to chromosome. For metagenomic studies, methods currently aim to associate assembly fragments believed to come from the same genome.\n\n\nQC: is my library ok?\n\n\nMetagenome binning with HiC data",
             "title": "HiC"
         },
         {
@@ -112,7 +112,7 @@
         },
         {
             "location": "/hic/#what-is-metagenomic-hic",
-            "text": "",
+            "text": "As the name suggest, Metagenomic Hi-C incorporates a new form of sequencing datas, named Hi-C, in to traditional shotgun metagenomes. In doing so, modern analyses, such as genome binning, can be performed accurately and precisely using only a single time-point.  The Hi-C protocol was designed to capture genome-wide evidence of DNA molecules in close physical proximity  in vivo , prior to cellular lysis. With the flexible nature of a chromosome and its capacity to bend back on itself, the most frequently captured interactions are usually those between loci on the same chromosome. After this, the most frequently observed interactions are inter-chromosomal. Lastly come inter-cellular interactions, which are often far below the rates of those found within a cell.  The original purpose of Hi-C was to study the 3-dimensional conformation of the human genome (Lieberman-Aiden 2009), but the proximity information can just as well be exploited to infer which DNA assembly fragments belong together in a bin.  Depending on the subject of study, the implied precision of \"together\" can range from a genome to chromosome. For metagenomic studies, methods currently aim to associate assembly fragments believed to come from the same genome.",
             "title": "What is Metagenomic HiC?"
         },
         {
