@@ -2,10 +2,10 @@
 
 ## Get some sequence data
 
-The first thing we'll do is to get some sequence data to work with.
+The first thing we'll do is to get some sequence data to work with. If you are working on a new sequencing project the data might come from a sequencing facility. For this tutorial we'll work with data that is available in public databases.
 Published sequence data is usually archived in the NCBI SRA, the ENA, and the DDBJ.
 These databases provide a [convenient interface to search](https://www.ncbi.nlm.nih.gov/) the descriptions of samples by keyword, and by sample type (e.g. shotgun metagenome).
-For the following exercises we'll use accession SRR9323808 which is a small dataset and therefore quick to process.
+For the following exercises we'll use a set of small datasets (SRA accessions SRR9323808, SRR9323810, SRR9323811, SRR9323809) which will be quick to process because they are small.
 The easiest way to download data from these databases is via the `fastq-dump` software.
 First, let's install the parallel version of fastq-dump using conda.
 To do this, start a terminal session in your Jupyter server (click the Terminal icon) and run the following command (ok to copy and paste):
@@ -22,16 +22,19 @@ parallel-fastq-dump -s SRR9323808 -s SRR9323810 -s SRR9323811 -s SRR9323809 --th
 
 If the download was successful you should see something like the following on your terminal:
 
-![Screenshot of parallel-fastq-dump](../img/screenshot_fastq_dump.png)
+![Screenshot of parallel-fastq-dump](img/screenshot_fastq_dump.png)
 
 
 ## Evaluating sequence quality with FastQC and MultiQC
 
+The very first thing one would normally do when working with a new dataset is to look at some basic quality statistics on the data.
+There are many, many tools available to compute quality metrics. For our current data we will use the FastQC software, applied to each sample, and then combine the results using MultiQC to a single report. First step is to install `fastqc` and `multiqc`.
 
 ```
 conda install -c bioconda fastqc
 pip install multiqc
 ```
+In the above we've used conda to install fastqc, but we've used another way to install multiqc -- something called `pip`. pip is an installer for python programs, and like conda it will download and install the software along with any dependencies. The reason we use pip in this case is because conda can be very, very slow to install some programs and in this case pip is much faster.
 
 ```
 cd qc_data
@@ -48,15 +51,15 @@ multiqc .
 ```
 
 At this point a multiqc file will appear inside the QC directory. First double click to open the QC folder.
-![Screenshot of QC folder](../img/qc_folder.png)
+![Screenshot of QC folder](img/qc_folder.png)
 
 Once that's open a file called `multiqc_report.html` will appear in the listing. 
 We can open this file from within our jupyter browser environment and inspect it.
 To open it, we need to right click (or two-finger tap) on the file name to get a context menu that will give several options for how to open it. It looks like this:
 
-![Opening MultiQC context menu](../img/qc_open_in_browser_tab.png)
+![Opening MultiQC context menu](img/qc_open_in_browser_tab.png)
 
-Click the option to "Open in a New Browser Tab"
+Click the option to "Open in a New Browser Tab". From here we can evaluate the quality of the libraries.
 
 
 
@@ -66,24 +69,51 @@ Click the option to "Open in a New Browser Tab"
 ## Taxonomic analysis
 
 Metagenome taxonomic analysis offers a means to estimate a microbial community profile from metagenomic sequence data.
+It can give us a very high-level, rough idea of what kinds of microbes are present in a sample.
+It can also give an idea of how complex/diverse the microbial community is -- whether there are many species or few.
+It is useful as an initial quality check to ensure that the microbial community composition looks roughly as expected, and to confirm that nothing obvious went wrong during the sample collection and sequencing steps.
 
-### Taxonomic analysis with Kraken2
+### Taxonomic analysis with Kraken2 and bracken
 
+As with all bioinformatics
 ```
 conda install -c bioconda kraken2
+conda install -c bioconda bracken
+cd ; wget -c ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v2_8GB_201904_UPDATE.tgz
 ```
 
 ### Taxonomic analysis with Metaphlan2
 
 While it may be possible to install metaphlan2 via conda, at least in my experience, conda struggles with "solving the environment".
-Another way to install it if you're using a debian-derived Linux (e.g. ubuntu) is via apt-get, thanks to the debian-med team who have packaged it:
+Therefore it's suggested to install it via the simple download method described on the [metaphlan tutorial page](https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial):
 
 ```
-sudo apt-get install metaphlan2
+cd ; wget -c -O metaphlan.tar.bz2 https://bitbucket.org/nsegata/metaphlan/get/default.tar.bz2
+tar xvjf metaphlan.tar.bz2
+mv nsegata-metaphlan* metaphlan
 ```
 
-The install can be quite slow because it needs to create a bowtie index of the database of marker gene sequences that metaphlan2 uses. It also requires a fair bit of RAM, so ensure your machine has at least 8G RAM before trying to install this.
+Once metaphlan has been downloaded we can run it on our QC samples:
 
+```
+cd ~/qc_data
+pig_samples="SRR9323808 SRR9323810 SRR9323811 SRR9323809"
+for s in ${pig_samples}
+do
+     zcat ${s}*.fastq.gz | python2 ~/metaphlan/metaphlan.py --input_type multifastq --bt2_ps very-sensitive --bowtie2db ~/metaphlan/bowtie2db/mpa  --bowtie2out ${s}.bt2out -o ${s}.mph2
+done
+```
+
+
+Finally we can plot the taxonomic profile of the samples:
+```
+python2 ~/metaphlan/utils/merge_metaphlan_tables.py *.mph2 > pig_mph2.merged
+python2 ~/metaphlan/plotting_scripts/metaphlan_hclust_heatmap.py -c bbcry --top 25 --minv 0.1 -s log --in pig_mph2.merged --out mph2_heatmap.png
+```
+
+Once that has completed successfully, a new file called `mph2_heatmap.png` will appear in the qc_data folder of our Jupyter file browser. We can double click it to view.
+
+There are other ways to visualize the data, and they are described in the graphlan section of the [metaphlan tutorial](https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial) page.
 
 ### Taxonomic analysis with other tools
 
