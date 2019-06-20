@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>FastQC - Metagenome tutorial</title>
+	<title>QC - Metagenome tutorial</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -66,7 +66,7 @@
                 
                 
                     <li class="active">
-                        <a href="./">FastQC</a>
+                        <a href="./">QC</a>
                     </li>
                 
                 
@@ -79,6 +79,12 @@
                 
                     <li >
                         <a href="../binning/">Binning</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../anvio/">Visualization</a>
                     </li>
                 
                 
@@ -122,12 +128,92 @@
     
         <li class="main active"><a href="#sequencing-run-qc">Sequencing run QC</a></li>
         
+            <li><a href="#get-some-sequence-data">Get some sequence data</a></li>
+        
+            <li><a href="#evaluating-sequence-quality-with-fastqc-and-multiqc">Evaluating sequence quality with FastQC and MultiQC</a></li>
+        
+            <li><a href="#taxonomic-analysis">Taxonomic analysis</a></li>
+        
+            <li><a href="#a-note-on-negative-controls">A note on negative controls</a></li>
+        
     
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="sequencing-run-qc">Sequencing run QC</h1></div>
+<h1 id="sequencing-run-qc">Sequencing run QC</h1>
+<h2 id="get-some-sequence-data">Get some sequence data</h2>
+<p>The first thing we'll do is to get some sequence data to work with.
+Published sequence data is usually archived in the NCBI SRA, the ENA, and the DDBJ.
+These databases provide a <a href="https://www.ncbi.nlm.nih.gov/">convenient interface to search</a> the descriptions of samples by keyword, and by sample type (e.g. shotgun metagenome).
+For the following exercises we'll use accession SRR9323808 which is a small dataset and therefore quick to process.
+The easiest way to download data from these databases is via the <code>fastq-dump</code> software.
+First, let's install the parallel version of fastq-dump using conda.
+To do this, start a terminal session in your Jupyter server (click the Terminal icon) and run the following command (ok to copy and paste):</p>
+<pre><code>conda install -c bioconda parallel-fastq-dump 
+</code></pre>
+
+<p>Now that you've installed fastq-dump we can use it to download data by accession number. Copy and paste the following to your terminal:</p>
+<pre><code>parallel-fastq-dump -s SRR9323808 -s SRR9323810 -s SRR9323811 -s SRR9323809 --threads 4 --outdir qc_data/ --split-files --gzip
+</code></pre>
+
+<p>If the download was successful you should see something like the following on your terminal:</p>
+<p><img alt="Screenshot of parallel-fastq-dump" src="../../img/screenshot_fastq_dump.png" /></p>
+<h2 id="evaluating-sequence-quality-with-fastqc-and-multiqc">Evaluating sequence quality with FastQC and MultiQC</h2>
+<pre><code>conda install -c bioconda fastqc
+pip install multiqc
+</code></pre>
+
+<pre><code>cd qc_data
+find . -name &quot;*.fastq.gz&quot; -exec fastqc {} \;
+</code></pre>
+
+<p>Let's unpack those commands a bit. The first part, <code>cd qc_data</code> just changes the current directory to qc_data, so any following commands run will run in that directory.
+The next command is <code>find . -name "*.fastq.gz" -exec fastqc {} \;</code>. The first part, <code>find</code> is a command that finds files. If you just run <code>find .</code> it will find all the files in and below the current directory (the <code>.</code> part specifies to look in the current directory). The next part, <code>-name "*.fastq.gz"</code> tells <code>find</code> that we only want it to find files with names that end with <code>.fastq.gz</code>. The <code>*</code> is a wildcard that matches anything. Finally, the last part <code>-exec fastqc {} \;</code> tells <code>find</code> that whenever it finds a file, it should run <code>fastqc</code> on that file, putting the name of the file where the <code>{}</code> are.</p>
+<p>If this step has worked, then you should have several new <code>.zip</code> files containing the QC data in that directory, along with some html files. When we have a lot of samples it is too tedious to look at all the QC reports individually for each sample, so we can summarize them using multiqc:</p>
+<pre><code>multiqc .
+</code></pre>
+
+<p>At this point a multiqc file will appear inside the QC directory. First double click to open the QC folder.
+<img alt="Screenshot of QC folder" src="../../img/qc_folder.png" /></p>
+<p>Once that's open a file called <code>multiqc_report.html</code> will appear in the listing. 
+We can open this file from within our jupyter browser environment and inspect it.
+To open it, we need to right click (or two-finger tap) on the file name to get a context menu that will give several options for how to open it. It looks like this:</p>
+<p><img alt="Opening MultiQC context menu" src="../../img/qc_open_in_browser_tab.png" /></p>
+<p>Click the option to "Open in a New Browser Tab"</p>
+<h2 id="taxonomic-analysis">Taxonomic analysis</h2>
+<p>Metagenome taxonomic analysis offers a means to estimate a microbial community profile from metagenomic sequence data.</p>
+<h3 id="taxonomic-analysis-with-kraken2">Taxonomic analysis with Kraken2</h3>
+<pre><code>conda install -c bioconda kraken2
+</code></pre>
+
+<h3 id="taxonomic-analysis-with-metaphlan2">Taxonomic analysis with Metaphlan2</h3>
+<p>While it may be possible to install metaphlan2 via conda, at least in my experience, conda struggles with "solving the environment".
+Another way to install it if you're using a debian-derived Linux (e.g. ubuntu) is via apt-get, thanks to the debian-med team who have packaged it:</p>
+<pre><code>sudo apt-get install metaphlan2
+</code></pre>
+
+<p>The install can be quite slow because it needs to create a bowtie index of the database of marker gene sequences that metaphlan2 uses. It also requires a fair bit of RAM, so ensure your machine has at least 8G RAM before trying to install this.</p>
+<h3 id="taxonomic-analysis-with-other-tools">Taxonomic analysis with other tools</h3>
+<p>There are a whole range of other software tools available for metagenome taxonomic analysis. 
+They all have strengths and weaknesses.</p>
+<p>A few other commonly used tools are listed here:</p>
+<ul>
+<li><a href="http://ab.inf.uni-tuebingen.de/software/megan6/">MEGAN</a></li>
+<li><a href="http://www.ccb.jhu.edu/software/centrifuge/manual.shtml">Centrifuge</a></li>
+<li><a href="http://clark.cs.ucr.edu/">CLARK</a></li>
+</ul>
+<h3 id="evaluating-the-host-genomic-content">Evaluating the host genomic content</h3>
+<p>The above samples were sourced from a pig gut. Each one of the samples was taken from a different part of the pig gut, including the duodenum, jejunum, ileum, colon, and caecum.</p>
+<p>If we were to design a large study around these samples which of them would be suitable for metagenomics, and why?</p>
+<h2 id="a-note-on-negative-controls">A note on negative controls</h2>
+<p>Negative controls are a key element in any microbiome profiling or metagenome analysis work.
+Every aspect of the sample collection and processing can be impacted by the presence of contaminating microbial DNA.
+This is true even of 'sterile' material -- just because no viable cells exist in a sample collection swab, for example, does not mean there is no microbial DNA on that swab.
+It is well known that molecular biology reagents frequently contain contaminating DNA.
+Usually it is at low levels, but this is not always the case.</p>
+<p>Therefore, the best practice is to collect multiple negative control samples that are taken all the way through sequencing.
+These negative controls can then be used to correct for contamination artifacts in the remaining samples.</p></div>
             
         </div>
 
