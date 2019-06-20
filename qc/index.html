@@ -143,7 +143,7 @@
 
 <h1 id="sequencing-run-qc">Sequencing run QC</h1>
 <h2 id="get-some-sequence-data">Get some sequence data</h2>
-<p>The first thing we'll do is to get some sequence data to work with.
+<p>The first thing we'll do is to get some sequence data to work with. If you are working on a new sequencing project the data might come from a sequencing facility. For this tutorial we'll work with data that is available in public databases.
 Published sequence data is usually archived in the NCBI SRA, the ENA, and the DDBJ.
 These databases provide a <a href="https://www.ncbi.nlm.nih.gov/">convenient interface to search</a> the descriptions of samples by keyword, and by sample type (e.g. shotgun metagenome).
 For the following exercises we'll use a set of small datasets (SRA accessions SRR9323808, SRR9323810, SRR9323811, SRR9323809) which will be quick to process because they are small.
@@ -185,18 +185,34 @@ To open it, we need to right click (or two-finger tap) on the file name to get a
 <p><img alt="Opening MultiQC context menu" src="../img/qc_open_in_browser_tab.png" /></p>
 <p>Click the option to "Open in a New Browser Tab". From here we can evaluate the quality of the libraries.</p>
 <h2 id="taxonomic-analysis">Taxonomic analysis</h2>
-<p>Metagenome taxonomic analysis offers a means to estimate a microbial community profile from metagenomic sequence data.</p>
-<h3 id="taxonomic-analysis-with-kraken2">Taxonomic analysis with Kraken2</h3>
-<pre><code>conda install -c bioconda kraken2
-</code></pre>
-
+<p>Metagenome taxonomic analysis offers a means to estimate a microbial community profile from metagenomic sequence data.
+It can give us a very high-level, rough idea of what kinds of microbes are present in a sample.
+It can also give an idea of how complex/diverse the microbial community is -- whether there are many species or few.
+It is useful as an initial quality check to ensure that the microbial community composition looks roughly as expected, and to confirm that nothing obvious went wrong during the sample collection and sequencing steps.</p>
 <h3 id="taxonomic-analysis-with-metaphlan2">Taxonomic analysis with Metaphlan2</h3>
 <p>While it may be possible to install metaphlan2 via conda, at least in my experience, conda struggles with "solving the environment".
-Another way to install it if you're using a debian-derived Linux (e.g. ubuntu) is via apt-get, thanks to the debian-med team who have packaged it:</p>
-<pre><code>sudo apt-get install metaphlan2
+Therefore it's suggested to install it via the simple download method described on the <a href="https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial">metaphlan tutorial page</a>:</p>
+<pre><code>cd ; wget -c -O metaphlan.tar.bz2 https://bitbucket.org/nsegata/metaphlan/get/default.tar.bz2
+tar xvjf metaphlan.tar.bz2
+mv nsegata-metaphlan* metaphlan
 </code></pre>
 
-<p>The install can be quite slow because it needs to create a bowtie index of the database of marker gene sequences that metaphlan2 uses. It also requires a fair bit of RAM, so ensure your machine has at least 8G RAM before trying to install this.</p>
+<p>Once metaphlan has been downloaded we can run it on our QC samples:</p>
+<pre><code>cd ~/qc_data
+pig_samples=&quot;SRR9323808 SRR9323810 SRR9323811 SRR9323809&quot;
+for s in ${pig_samples}
+do
+     zcat ${s}*.fastq.gz | python2 ~/metaphlan/metaphlan.py --input_type multifastq --bt2_ps very-sensitive --bowtie2db ~/metaphlan/bowtie2db/mpa  --bowtie2out ${s}.bt2out -o ${s}.mph2
+done
+</code></pre>
+
+<p>Finally we can plot the taxonomic profile of the samples:</p>
+<pre><code>python2 ~/metaphlan/utils/merge_metaphlan_tables.py *.mph2 &gt; pig_mph2.merged
+python2 ~/metaphlan/plotting_scripts/metaphlan_hclust_heatmap.py -c bbcry --top 25 --minv 0.1 -s log --in pig_mph2.merged --out mph2_heatmap.png
+</code></pre>
+
+<p>Once that has completed successfully, a new file called <code>mph2_heatmap.png</code> will appear in the qc_data folder of our Jupyter file browser. We can double click it to view.</p>
+<p>There are other ways to visualize the data, and they are described in the graphlan section of the <a href="https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial">metaphlan tutorial</a> page.</p>
 <h3 id="taxonomic-analysis-with-other-tools">Taxonomic analysis with other tools</h3>
 <p>There are a whole range of other software tools available for metagenome taxonomic analysis. 
 They all have strengths and weaknesses.</p>
