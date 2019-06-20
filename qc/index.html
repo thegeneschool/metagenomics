@@ -158,7 +158,7 @@ To do this, start a terminal session in your Jupyter server (click the Terminal 
 </code></pre>
 
 <p>If the download was successful you should see something like the following on your terminal:</p>
-<p><img alt="Screenshot of parallel-fastq-dump" src="../../img/screenshot_fastq_dump.png" /></p>
+<p><img alt="Screenshot of parallel-fastq-dump" src="../img/screenshot_fastq_dump.png" /></p>
 <h2 id="evaluating-sequence-quality-with-fastqc-and-multiqc">Evaluating sequence quality with FastQC and MultiQC</h2>
 <pre><code>conda install -c bioconda fastqc
 pip install multiqc
@@ -175,11 +175,11 @@ The next command is <code>find . -name "*.fastq.gz" -exec fastqc {} \;</code>. T
 </code></pre>
 
 <p>At this point a multiqc file will appear inside the QC directory. First double click to open the QC folder.
-<img alt="Screenshot of QC folder" src="../../img/qc_folder.png" /></p>
+<img alt="Screenshot of QC folder" src="../img/qc_folder.png" /></p>
 <p>Once that's open a file called <code>multiqc_report.html</code> will appear in the listing. 
 We can open this file from within our jupyter browser environment and inspect it.
 To open it, we need to right click (or two-finger tap) on the file name to get a context menu that will give several options for how to open it. It looks like this:</p>
-<p><img alt="Opening MultiQC context menu" src="../../img/qc_open_in_browser_tab.png" /></p>
+<p><img alt="Opening MultiQC context menu" src="../img/qc_open_in_browser_tab.png" /></p>
 <p>Click the option to "Open in a New Browser Tab"</p>
 <h2 id="taxonomic-analysis">Taxonomic analysis</h2>
 <p>Metagenome taxonomic analysis offers a means to estimate a microbial community profile from metagenomic sequence data.</p>
