@@ -73,15 +73,6 @@ It can give us a very high-level, rough idea of what kinds of microbes are prese
 It can also give an idea of how complex/diverse the microbial community is -- whether there are many species or few.
 It is useful as an initial quality check to ensure that the microbial community composition looks roughly as expected, and to confirm that nothing obvious went wrong during the sample collection and sequencing steps.
 
-### Taxonomic analysis with Kraken2 and bracken
-
-As with all bioinformatics
-```
-conda install -c bioconda kraken2
-conda install -c bioconda bracken
-cd ; wget -c ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v2_8GB_201904_UPDATE.tgz
-```
-
 ### Taxonomic analysis with Metaphlan2
 
 While it may be possible to install metaphlan2 via conda, at least in my experience, conda struggles with "solving the environment".
