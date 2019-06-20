@@ -160,10 +160,13 @@ To do this, start a terminal session in your Jupyter server (click the Terminal 
 <p>If the download was successful you should see something like the following on your terminal:</p>
 <p><img alt="Screenshot of parallel-fastq-dump" src="../img/screenshot_fastq_dump.png" /></p>
 <h2 id="evaluating-sequence-quality-with-fastqc-and-multiqc">Evaluating sequence quality with FastQC and MultiQC</h2>
+<p>The very first thing one would normally do when working with a new dataset is to look at some basic quality statistics on the data.
+There are many, many tools available to compute quality metrics. For our current data we will use the FastQC software, applied to each sample, and then combine the results using MultiQC to a single report. First step is to install <code>fastqc</code> and <code>multiqc</code>.</p>
 <pre><code>conda install -c bioconda fastqc
 pip install multiqc
 </code></pre>
 
+<p>In the above we've used conda to install fastqc, but we've used another way to install multiqc -- something called <code>pip</code>. pip is an installer for python programs, and like conda it will download and install the software along with any dependencies. The reason we use pip in this case is because conda can be very, very slow to install some programs and in this case pip is much faster.</p>
 <pre><code>cd qc_data
 find . -name &quot;*.fastq.gz&quot; -exec fastqc {} \;
 </code></pre>
