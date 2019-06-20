@@ -3,8 +3,9 @@ site_name: Metagenome tutorial
 pages:
 - Home: 'index.md'
 - Jupyter: 'startup.md'
-- FastQC: 'qc.md'
+- QC: 'qc.md'
 - Assembly: 'assembly.md'
 - Binning: 'binning.md'
+- Visualization: 'anvio.md'
 - HiC: 'hic.md'
 
