@@ -37,3 +37,13 @@ IMPORTANT: replace the string of numbers `112233445566778899` with your own stri
 ## Connect to the Jupyter web interface
 
 We're finally ready to connect to the web interface. To do so simply point your browser at `XX.XX.XX.XX:8888` where XX.XX.XX.XX is again the public IP address of the VM that you've launched in AWS. 8888 is the TCP port number that Jupyter listens on by default, and we added a special security rule to open this port when creating the VM in AWS (remember?). If you missed that step, don't worry, it's possible to go into the EC2 dashboard and update the security settings to open port 8888. Assumming everything has worked you'll arrive at a Jupyter page asking for the security token. This is where you provide the super secret number that you selected above. And that's it, you're ready to use Jupyter!
+
+## Ways to get started without using Amazon Web Services
+
+Not everyone will have access to Amazon EC2, or may not have access all the time.
+Another alternative is to run a Linux VM locally, provided that you have access to a computer with enough RAM and free storage space.
+One way to do this is to install VirtualBox on your machine, and then obtain an Ubuntu 18.04 LTS image to start up.
+This tutorial won't cover how to do this but don't worry, it's not hard.
+Plenty of people have documented how to do it.
+Look around, [duckduckgo](https://duckduckgo.com) is your friend.
+
