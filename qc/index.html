@@ -134,6 +134,8 @@
         
             <li><a href="#taxonomic-analysis">Taxonomic analysis</a></li>
         
+            <li><a href="#evaluating-the-host-genomic-content">Evaluating the host genomic content</a></li>
+        
             <li><a href="#a-note-on-negative-controls">A note on negative controls</a></li>
         
     
@@ -206,6 +208,7 @@ do
 done
 </code></pre>
 
+<p>The above series of commands creates a "for loop" where each iteration processes one of our metagenome samples. This is a convenient way to process many samples without having to type out the commands for each sample. The sample names get stored in a variable <code>$pig_samples</code> and at each loop iteration, one of the sample names is placed into the loop variable <code>${s}</code>, where it can get used in the command inside the loop.</p>
 <p>Finally we can plot the taxonomic profile of the samples:</p>
 <pre><code>python2 ~/metaphlan/utils/merge_metaphlan_tables.py *.mph2 &gt; pig_mph2.merged
 python2 ~/metaphlan/plotting_scripts/metaphlan_hclust_heatmap.py -c bbcry --top 25 --minv 0.1 -s log --in pig_mph2.merged --out mph2_heatmap.png
@@ -218,11 +221,12 @@ python2 ~/metaphlan/plotting_scripts/metaphlan_hclust_heatmap.py -c bbcry --top 
 They all have strengths and weaknesses.</p>
 <p>A few other commonly used tools are listed here:</p>
 <ul>
+<li><a href="https://ccb.jhu.edu/software/kraken2/index.shtml">kraken2</a></li>
 <li><a href="http://ab.inf.uni-tuebingen.de/software/megan6/">MEGAN</a></li>
 <li><a href="http://www.ccb.jhu.edu/software/centrifuge/manual.shtml">Centrifuge</a></li>
 <li><a href="http://clark.cs.ucr.edu/">CLARK</a></li>
 </ul>
-<h3 id="evaluating-the-host-genomic-content">Evaluating the host genomic content</h3>
+<h2 id="evaluating-the-host-genomic-content">Evaluating the host genomic content</h2>
 <p>The above samples were sourced from a pig gut. Each one of the samples was taken from a different part of the pig gut, including the duodenum, jejunum, ileum, colon, and caecum.</p>
 <p>If we were to design a large study around these samples which of them would be suitable for metagenomics, and why?</p>
 <h2 id="a-note-on-negative-controls">A note on negative controls</h2>

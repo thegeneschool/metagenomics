@@ -132,7 +132,7 @@
         
             <li><a href="#assembling-metagenomes">Assembling metagenomes</a></li>
         
-            <li><a href="#limitations-of-metagenome-assembly">Limitations of metagenome assembly</a></li>
+            <li><a href="#assembling-some-example-data">Assembling some example data</a></li>
         
     
     </ul>
@@ -149,19 +149,26 @@ Instead we usually aim to reconstruct chromosome sequences that represent a cons
 <h2 id="assembling-metagenomes">Assembling metagenomes</h2>
 <p>There are several available metagenome assembly tools. 
 Some examples include metaSPAdes and MEGAHIT.
-In this tutorial we will use MEGAHIT.</p>
-<pre><code>singularity run docker://bioboxes/megahit:latest 
+In this tutorial we will use MEGAHIT. It can be installed via conda:</p>
+<pre><code>conda install -c bioconda megahit 
 
 </code></pre>
 
 <h3 id="coassembly-or-single-sample">Coassembly or single sample?</h3>
 <p>Just as important as deciding what assembler to use is deciding on <em>what to assemble</em>.
 One approach is to assemble all of the metagenome samples together.
-This can be useful if there is not much data per sample, or if low abundance organisms exist in the samples that would not have enough coverage in a single sample to be assembled.</p>
-<h2 id="limitations-of-metagenome-assembly">Limitations of metagenome assembly</h2>
+This can be useful if there is not much data per sample, or if low abundance organisms exist in the samples that would not have enough coverage in a single sample to be assembled.
+But it can create problems if closely related species or strains exist in the different samples.</p>
+<h3 id="limitations-of-metagenome-assembly">Limitations of metagenome assembly</h3>
 <p>Current assembly methods are limited in their ability to resolve chromosomes of closely related species and strains in a sample.
 This is because most assembly methods collapse sequences &gt; 95% or 98% identity into a single contig sequence, usually as a means to cope with sequencing error.
-Therefore as a consensus representation, these assembled chromosome sequences may mask fine-scale genetic variation in the population.</p></div>
+Therefore as a consensus representation, these assembled chromosome sequences may mask fine-scale genetic variation in the population.</p>
+<h2 id="assembling-some-example-data">Assembling some example data</h2>
+<pre><code>parallel-fastq-dump -t 4 -s ASDFASDF --minSpotId 0 --maxSpotId 500000
+</code></pre>
+
+<p>The above command will download the first half-million reads of a set of samples.
+All of these samples come from the same pig, and were collected at different time points in consecutive weeks.</p></div>
             
         </div>
 

@@ -141,8 +141,30 @@
 
 <h1 id="metagenome-assembled-genomes-mags-from-metagenome-binning">Metagenome Assembled Genomes (MAGs) from metagenome binning</h1>
 <h2 id="what-is-a-mag">What is a MAG?</h2>
+<p>A MAG, or Metagenome Assembled Genome, is a genome that has been reconstructed from metagenomic data.
+Because these genomes do not derive from a clonal culture they typically represent a consensus of the genomes of many closely related cells in one or more metagenomic samples, and for this reason they are sometimes called <em>population genomes</em>.
+It is important to remember that because of the way MAGs are inferred from the data the resulting sequence is usually fragmentary and may not accurately represent the genome of <em>any</em> cell in the community.
+It is merely an average estimate, and there are well-known problems with taking averages, see for example the wikipedia page on <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson's paradox</a> to get an idea of how averages can go wrong.</p>
 <h2 id="what-is-a-good-mag">What is a good MAG?</h2>
-<h2 id="making-mags">Making MAGs</h2></div>
+<p>The international genomics community has made an effort to define quality standards for MAGs via the <a href="https://www.nature.com/articles/nbt.3893">Minimum Information about a Metagenome Assembled Genome (MIMAG)</a> standards.
+The basic idea is to require certain minimum levels of estimated completenes and maximal levels of estimated contamination in the MAG for it to be considered as one of "Low-quality", "Medium-quality", "High-quality", or "Finished". See <a href="https://www.nature.com/articles/nbt.3893/tables/1">Table 1</a> in the above-linked paper for the full details.
+Generally speaking it is hard to achieve "High-quality" and nearly impossible to get "Finished" with short read sequencing data alone.
+Long read metagenome data has been shown to produce results in these categories, although it can be difficult to obtain sufficient DNA for those methods, and they currently remain more expensive than short read sequencing.</p>
+<h2 id="making-mags">Making MAGs</h2>
+<p>There are many binning tools available to extract MAGs from metagenome assemblies.
+When timeseries data is available, <a href="https://bitbucket.org/berkeleylab/metabat/src/master/">MetaBAT2</a> is a good choice because it is both easy to use and offers good performance.
+MetaBAT2 can be installed via conda as follows:</p>
+<pre><code>conda install -c bioconda metabat2
+</code></pre>
+
+<h3 id="metabat2-input-data">MetaBAT2 input data</h3>
+<p>As input, MetaBAT2 requires reads from each of the shotgun metagenome samples to be mapped back to the metagenome assembly.
+We will not cover the read mapping process in this tutorial, but it can be carried out using standard mapping software such as <a href="https://github.com/lh3/bwa">bwa mem</a> or <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">bowtie2</a>.
+Be sure to sort and index the bam files with <a href="http://www.htslib.org/">samtools</a> prior to running metabat.
+Assuming we have bam files of mapped reads and the metagenome assembly available in a directory called <code>~/data</code> we can compute genome bins as follows:</p>
+<pre><code>mkdir ~/metabat ; cd ~/metabat
+runMetaBat.sh ~/data/metagenome_assembly.fa ~/data/*.bam 
+</code></pre></div>
             
         </div>
 
