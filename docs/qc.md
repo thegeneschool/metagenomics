@@ -95,6 +95,7 @@ do
 done
 ```
 
+The above series of commands creates a "for loop" where each iteration processes one of our metagenome samples. This is a convenient way to process many samples without having to type out the commands for each sample. The sample names get stored in a variable `$pig_samples` and at each loop iteration, one of the sample names is placed into the loop variable `${s}`, where it can get used in the command inside the loop.
 
 Finally we can plot the taxonomic profile of the samples:
 ```
@@ -113,12 +114,13 @@ They all have strengths and weaknesses.
 
 A few other commonly used tools are listed here:
 
+* [kraken2](https://ccb.jhu.edu/software/kraken2/index.shtml)
 * [MEGAN](http://ab.inf.uni-tuebingen.de/software/megan6/)
 * [Centrifuge](http://www.ccb.jhu.edu/software/centrifuge/manual.shtml)
 * [CLARK](http://clark.cs.ucr.edu/)
 
 
-### Evaluating the host genomic content
+## Evaluating the host genomic content
 
 The above samples were sourced from a pig gut. Each one of the samples was taken from a different part of the pig gut, including the duodenum, jejunum, ileum, colon, and caecum.
 
