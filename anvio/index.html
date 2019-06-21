@@ -126,11 +126,27 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
+        <li class="main active"><a href="#visualization-of-metagenome-data">Visualization of metagenome data</a></li>
+        
+            <li><a href="#installing-anvio">Installing anvi'o</a></li>
+        
+    
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-</div>
+<h1 id="visualization-of-metagenome-data">Visualization of metagenome data</h1>
+<p>In this section we will explore ways to visualize the metagenomic data, with a view toward understanding the MAGs that we have reconstructed from our metagenomes.
+For this we will use software called anvi'o, a highly versatile visualization and analysis environment for metagenomic (and pan-genomic) data.
+The anvi'o software is extensively documented on <a href="http://merenlab.org/software/anvio/">the anvi'o website</a>, and rather than recapitulate all of that material here we will just go through the basic steps involved in getting our data loaded into anvi'o.
+For further details on using the variety of features in anvi'o you can refer to the above site.</p>
+<h2 id="installing-anvio">Installing anvi'o</h2>
+<p>The simplest way to install anvi'o is via conda:</p>
+<pre><code>conda create -n anvio5 -c bioconda -c conda-forge anvio=5.5.0
+</code></pre>
+
+<p>Notice this command is slightly different to our previous conda software installations, in this command we are invoking <code>conda create</code> which creates a new conda environment for anvi'o.
+After the installation has completed, to use anvi'o we will first need to activate the environment with <code>conda activate anvio5</code>.</p></div>
             
         </div>
 
