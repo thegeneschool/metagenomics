@@ -17,24 +17,34 @@ Notice this command is slightly different to our previous conda software install
 After the installation has completed, to use anvi'o we will first need to activate the environment with `conda activate anvio5`.
 
 
-## Using anvi'o
+## Preparing data for anvi'o
 
 First we need to prepare our data for use in anvi'o.
 Because we already have binning results from MetaBAT2 we will ask anvi'o to import those bins rather than computing new bins.
 This will allow us to use anvi'o to browse the bins and interactively check and refine them as necessary.
 
 ```
-cp contigs.fa contigs-fixnames.fa
-perl -p -i -e "s/(>\w+) flag.*/\$1/g" contigs-fixnames.fa
-#anvi-script-reformat-fasta contigs.fa -o contigs-anvio.fa -l 1000 --simplify-names 
 anvi-gen-contigs-database -f contigs-fixnames.fa -o contigs.db -n 'A gene school DB'
 anvi-run-hmms -c contigs.db
 for bam in `ls *.bam`; do anvi-profile -i $bam -c contigs.db; done
-anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db
-anvi-import-collection binning_results.txt -p SAMPLES-MERGED/PROFILE.db -c contigs.db --source "MetaBAT2"
+anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clustering
 ```
 
 The above series of commands will take us from assembly contigs to a working anvi'o database, but there is a lot of compute along the way so if the data set is anything more than extremely trivial you will have to be _very patient_.
+The pig metagenome timeseries dataset we are using in this tutorial will take 24 hours or more to process with the above commands.
+Next, we need to create a file that will allow us to import our MetaBAT2 bins into anvi'o.
+This is a pretty simple process:
+
+```
+cd contigs-fixnames.fa.metabat-bins/
+grep ">" bin.*fa | perl -p -i -e "s/(.+).fa:>(.+)/\$2\t\$1/g" > ../binning_results.txt
+cd ..
+anvi-import-collection binning_results.txt -p SAMPLES-MERGED/PROFILE.db -c contigs.db --source "MetaBAT2"
+```
+
+The idea is to create a tab-delimited text file with two columns: the first is contig name and the second is the name of the bin that contig belongs to.
+The command `grep ">" bin.*fa` pulls out the contig names from each FastA bin file, and pipes the result to this command `perl -p -i -e "s/(.+).fa:>(.+)/\$2\t\$1/g"` which is using a perl regular expression to extract the contig name (in $2) and bin name (in $1) and report them in two columns separated by the tab character `\t`.
+The results are saved in a file called `binning_results.txt`.
 
 
 ## Connecting to an anvi'o server
