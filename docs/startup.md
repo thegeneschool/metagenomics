@@ -38,6 +38,14 @@ IMPORTANT: replace the string of numbers `112233445566778899` with your own stri
 
 We're finally ready to connect to the web interface. To do so simply point your browser at `XX.XX.XX.XX:8888` where XX.XX.XX.XX is again the public IP address of the VM that you've launched in AWS. 8888 is the TCP port number that Jupyter listens on by default, and we added a special security rule to open this port when creating the VM in AWS (remember?). If you missed that step, don't worry, it's possible to go into the EC2 dashboard and update the security settings to open port 8888. Assumming everything has worked you'll arrive at a Jupyter page asking for the security token. This is where you provide the super secret number that you selected above. And that's it, you're ready to use Jupyter!
 
+## Other software
+
+Some of the steps in the tutorial use [singularity](https://singularity.lbl.gov) to run analysis tools.
+To carry out those steps singularity will need to be installed on the machine:
+```
+sudo apt install -y singularity-container
+```
+
 ## Ways to get started without using Amazon Web Services
 
 Not everyone will have access to Amazon EC2, or may not have access all the time.
