@@ -62,10 +62,6 @@ To open it, we need to right click (or two-finger tap) on the file name to get a
 Click the option to "Open in a New Browser Tab". From here we can evaluate the quality of the libraries.
 
 
-
-
-
-
 ## Taxonomic analysis
 
 Metagenome taxonomic analysis offers a means to estimate a microbial community profile from metagenomic sequence data.
@@ -122,10 +118,56 @@ A few other commonly used tools are listed here:
 
 ## Evaluating the host genomic content
 
-The above samples were sourced from a pig gut. Each one of the samples was taken from a different part of the pig gut, including the duodenum, jejunum, ileum, colon, and caecum.
+In many applications of metagenomics we are working with host-associated samples. 
+The samples might have come from an animal gut, mouth, or other surface.
+Similarly for plants we might be working with leaf or root surfaces or rhizobia.
+When such samples are collected the resulting DNA extracts can include a significant fraction of host material.
+Let's have a look at what this looks like in data.
+To do so, we'll download another set of pig gut samples: a set of samples that was taken using scrapings or swabs from different parts of the porcine digestive system, including the duodenum, jejunum, ileum, colon, and caecum.
+Rather than using metaphlan2 to profile these, we will use the kraken2 classifier in conjunction with the bracken tool for estimating relative abundances.
+We first need to install kraken2 and bracken:
+```
+conda install -c bioconda kraken2 bracken
+```
 
-If we were to design a large study around these samples which of them would be suitable for metagenomics, and why?
+Next, we need to get a kraken2 database.
+For this tutorial we will simply use a precomputed kraken2 database but note the very important limitation that the only non-microbial genome it includes is the human genome.
+If you would like to evaluate host genomic content on plants or other things you should follow the instructions on the kraken2 web site to build a complete database.
+We can download and unpack the kraken2 database with:
+```
+cd ; wget -c ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v2_8GB_201904_UPDATE.tgz
+tar xvzf minikraken2_v2_8GB_201904_UPDATE.tgz
+```
 
+Finally we are ready to profile our samples with kraken2 and bracken.
+We'll first download the sample set with `parallel-fastq-dump` and then run kraken2 and bracken's `est_abundance.py` script on each sample using a bash for loop.
+The analysis can be run as follows:
+```
+parallel-fastq-dump  -s SRR9332442 -s SRR9332438 -s SRR9332439 -s SRR9332443 -s SRR9332440 --threads 4 --outdir host_qc/ --split-files --gzip
+cd host_qc
+samples="SRR9332442 SRR9332438 SRR9332439 SRR9332443 SRR9332440"
+for s in $samples; do kraken2 --paired ${s}_1.fastq.gz ${s}_2.fastq.gz --db ../minikraken2_v2_8GB_201904_UPDATE/ --report ${s}.kreport > ${s}.kraken; done
+for s in $samples; do est_abundance.py -i ${s}.kreport -k ../minikraken2_v2_8GB_201904_UPDATE/database150mers.kmer_distrib -o ${s}.bracken; done
+```
+
+Once the above has completed, navigate over to the `host_qc` folder in the Jupyter file browser and click on the `*.bracken` files to open them.
+What do you see?
+In particular, why does sample SRR9332438 look so different to sample SRR9332440?
+Keep in mind the isolation sources of the samples were as follows:
+
+| Sample     | Source   |
+|------------|----------|
+| SRR9332442 | Duodenum |
+| SRR9332440 | Caecum   |
+| SRR9332439 | Ileum    |
+| SRR9332438 | Jejunum  |
+| SRR9332443 | Colon    |
+
+### Some challenge questions
+* If we sequenced samples from pigs, why is human DNA being predicted in these samples?
+* If we were to design a large study around these samples which of them would be suitable for metagenomics, and why?
+* How much sequencing data would we need to generate from sample SRR9332440 to reconstruct the genome of the _Bifidobacterium_ in that sample? What about the _E. coli_?
+* Are there really six species of _Lactobacillus_ present in SRR9332440?
 
 ## A note on negative controls
 
