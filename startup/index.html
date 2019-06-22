@@ -134,6 +134,10 @@
         
             <li><a href="#connect-to-the-jupyter-web-interface">Connect to the Jupyter web interface</a></li>
         
+            <li><a href="#other-software">Other software</a></li>
+        
+            <li><a href="#ways-to-get-started-without-using-amazon-web-services">Ways to get started without using Amazon Web Services</a></li>
+        
     
     </ul>
 </div></div>
@@ -164,7 +168,20 @@ jupyter lab --no-browser --ip 0.0.0.0 --LabApp.token=112233445566778899
 
 <p>IMPORTANT: replace the string of numbers <code>112233445566778899</code> with your own string -- this is the secret key that will allow you (and only you) to connect to your jupyter server and run commands, so you want something that neither human nor robot will guess. Hexadecimal (lowercase) values are ok here too.</p>
 <h2 id="connect-to-the-jupyter-web-interface">Connect to the Jupyter web interface</h2>
-<p>We're finally ready to connect to the web interface. To do so simply point your browser at <code>XX.XX.XX.XX:8888</code> where XX.XX.XX.XX is again the public IP address of the VM that you've launched in AWS. 8888 is the TCP port number that Jupyter listens on by default, and we added a special security rule to open this port when creating the VM in AWS (remember?). If you missed that step, don't worry, it's possible to go into the EC2 dashboard and update the security settings to open port 8888. Assumming everything has worked you'll arrive at a Jupyter page asking for the security token. This is where you provide the super secret number that you selected above. And that's it, you're ready to use Jupyter!</p></div>
+<p>We're finally ready to connect to the web interface. To do so simply point your browser at <code>XX.XX.XX.XX:8888</code> where XX.XX.XX.XX is again the public IP address of the VM that you've launched in AWS. 8888 is the TCP port number that Jupyter listens on by default, and we added a special security rule to open this port when creating the VM in AWS (remember?). If you missed that step, don't worry, it's possible to go into the EC2 dashboard and update the security settings to open port 8888. Assumming everything has worked you'll arrive at a Jupyter page asking for the security token. This is where you provide the super secret number that you selected above. And that's it, you're ready to use Jupyter!</p>
+<h2 id="other-software">Other software</h2>
+<p>Some of the steps in the tutorial use <a href="https://singularity.lbl.gov">singularity</a> to run analysis tools.
+To carry out those steps singularity will need to be installed on the machine:</p>
+<pre><code>sudo apt install -y singularity-container
+</code></pre>
+
+<h2 id="ways-to-get-started-without-using-amazon-web-services">Ways to get started without using Amazon Web Services</h2>
+<p>Not everyone will have access to Amazon EC2, or may not have access all the time.
+Another alternative is to run a Linux VM locally, provided that you have access to a computer with enough RAM and free storage space.
+One way to do this is to install VirtualBox on your machine, and then obtain an Ubuntu 18.04 LTS image to start up.
+This tutorial won't cover how to do this but don't worry, it's not hard.
+Plenty of people have documented how to do it.
+Look around, <a href="https://duckduckgo.com">duckduckgo</a> is your friend.</p></div>
             
         </div>
 

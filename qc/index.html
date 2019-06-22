@@ -227,8 +227,76 @@ They all have strengths and weaknesses.</p>
 <li><a href="http://clark.cs.ucr.edu/">CLARK</a></li>
 </ul>
 <h2 id="evaluating-the-host-genomic-content">Evaluating the host genomic content</h2>
-<p>The above samples were sourced from a pig gut. Each one of the samples was taken from a different part of the pig gut, including the duodenum, jejunum, ileum, colon, and caecum.</p>
-<p>If we were to design a large study around these samples which of them would be suitable for metagenomics, and why?</p>
+<p>In many applications of metagenomics we are working with host-associated samples. 
+The samples might have come from an animal gut, mouth, or other surface.
+Similarly for plants we might be working with leaf or root surfaces or rhizobia.
+When such samples are collected the resulting DNA extracts can include a significant fraction of host material.
+Let's have a look at what this looks like in data.
+To do so, we'll download another set of pig gut samples: a set of samples that was taken using scrapings or swabs from different parts of the porcine digestive system, including the duodenum, jejunum, ileum, colon, and caecum.
+Rather than using metaphlan2 to profile these, we will use the kraken2 classifier in conjunction with the bracken tool for estimating relative abundances.
+We first need to install kraken2 and bracken:</p>
+<pre><code>conda install -c bioconda kraken2 bracken
+</code></pre>
+
+<p>Next, we need to get a kraken2 database.
+For this tutorial we will simply use a precomputed kraken2 database but note the very important limitation that the only non-microbial genome it includes is the human genome.
+If you would like to evaluate host genomic content on plants or other things you should follow the instructions on the kraken2 web site to build a complete database.
+We can download and unpack the kraken2 database with:</p>
+<pre><code>cd ; wget -c ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v2_8GB_201904_UPDATE.tgz
+tar xvzf minikraken2_v2_8GB_201904_UPDATE.tgz
+</code></pre>
+
+<p>Finally we are ready to profile our samples with kraken2 and bracken.
+We'll first download the sample set with <code>parallel-fastq-dump</code> and then run kraken2 and bracken's <code>est_abundance.py</code> script on each sample using a bash for loop.
+The analysis can be run as follows:</p>
+<pre><code>parallel-fastq-dump  -s SRR9332442 -s SRR9332438 -s SRR9332439 -s SRR9332443 -s SRR9332440 --threads 4 --outdir host_qc/ --split-files --gzip
+cd host_qc
+samples=&quot;SRR9332442 SRR9332438 SRR9332439 SRR9332443 SRR9332440&quot;
+for s in $samples; do kraken2 --paired ${s}_1.fastq.gz ${s}_2.fastq.gz --db ../minikraken2_v2_8GB_201904_UPDATE/ --report ${s}.kreport &gt; ${s}.kraken; done
+for s in $samples; do est_abundance.py -i ${s}.kreport -k ../minikraken2_v2_8GB_201904_UPDATE/database150mers.kmer_distrib -o ${s}.bracken; done
+</code></pre>
+
+<p>Once the above has completed, navigate over to the <code>host_qc</code> folder in the Jupyter file browser and click on the <code>*.bracken</code> files to open them.
+What do you see?
+In particular, why does sample SRR9332438 look so different to sample SRR9332440?
+Keep in mind the isolation sources of the samples were as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Sample</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SRR9332442</td>
+<td>Duodenum</td>
+</tr>
+<tr>
+<td>SRR9332440</td>
+<td>Caecum</td>
+</tr>
+<tr>
+<td>SRR9332439</td>
+<td>Ileum</td>
+</tr>
+<tr>
+<td>SRR9332438</td>
+<td>Jejunum</td>
+</tr>
+<tr>
+<td>SRR9332443</td>
+<td>Colon</td>
+</tr>
+</tbody>
+</table>
+<h3 id="some-challenge-questions">Some challenge questions</h3>
+<ul>
+<li>If we sequenced samples from pigs, why is human DNA being predicted in these samples?</li>
+<li>If we were to design a large study around these samples which of them would be suitable for metagenomics, and why?</li>
+<li>How much sequencing data would we need to generate from sample SRR9332440 to reconstruct the genome of the <em>Bifidobacterium</em> in that sample? What about the <em>E. coli</em>?</li>
+<li>Are there really six species of <em>Lactobacillus</em> present in SRR9332440?</li>
+</ul>
 <h2 id="a-note-on-negative-controls">A note on negative controls</h2>
 <p>Negative controls are a key element in any microbiome profiling or metagenome analysis work.
 Every aspect of the sample collection and processing can be impacted by the presence of contaminating microbial DNA.

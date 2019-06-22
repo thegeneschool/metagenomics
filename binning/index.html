@@ -151,7 +151,8 @@ The basic idea is to require certain minimum levels of estimated completenes and
 Generally speaking it is hard to achieve "High-quality" and nearly impossible to get "Finished" with short read sequencing data alone.
 Long read metagenome data has been shown to produce results in these categories, although it can be difficult to obtain sufficient DNA for those methods, and they currently remain more expensive than short read sequencing.</p>
 <h2 id="making-mags">Making MAGs</h2>
-<p>There are many binning tools available to extract MAGs from metagenome assemblies.
+<p>The process of reconstructing genomes from a metagenome is often referred to as <em>metagenome binning</em> or just <em>binning</em>, from the process of assigning contigs to one 'bin' per genome.
+There are many binning tools available to extract MAGs from metagenome assemblies.
 When timeseries data is available, <a href="https://bitbucket.org/berkeleylab/metabat/src/master/">MetaBAT2</a> is a good choice because it is both easy to use and offers good performance.
 MetaBAT2 can be installed via conda as follows:</p>
 <pre><code>conda install -c bioconda metabat2
@@ -163,8 +164,12 @@ We will not cover the read mapping process in this tutorial, but it can be carri
 Be sure to sort and index the bam files with <a href="http://www.htslib.org/">samtools</a> prior to running metabat.
 Assuming we have bam files of mapped reads and the metagenome assembly available in a directory called <code>~/data</code> we can compute genome bins as follows:</p>
 <pre><code>mkdir ~/metabat ; cd ~/metabat
-runMetaBat.sh ~/data/metagenome_assembly.fa ~/data/*.bam 
-</code></pre></div>
+runMetaBat.sh ~/data/contigs-fixnames.fa ~/data/*.bam 
+</code></pre>
+
+<p>Depending on how much data you've got this can take a long time to compute.
+Luckily MetaBAT2 has a good parallel implementation so it can go faster if you run on a large multi-core machine.
+At the end of the process MetaBAT2 will produce a directory called <code>contigs-fixnames.fa.metabat-bins</code>, which contains one FastA file of contigs for each genome bin that it inferred.</p></div>
             
         </div>
 
