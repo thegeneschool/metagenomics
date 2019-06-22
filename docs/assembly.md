@@ -56,7 +56,15 @@ Therefore the programs running inside the container (e.g. megahit) will be able 
 This includes parameters `-1` and `-2` with a list of the FastQ files we want to assemble. 
 Finally we ask megahit to save the assembly in the container path `/data/metaasm`, so it will show up in `~/assembly/metaasm` when the container has finished running.
 
-At the end of this process we will have a metagenome assembly saved in the file `~/assembly/final.contigs.fa`. We will use this file for the next part of the tutorial where we learn to extract individual genomes from metagenomic data.
+At the end of this process we will have a metagenome assembly saved in the file `~/assembly/final.contigs.fa`. 
+We can use this file for subsequent analyses.
+One small detail we need to resolve is the formatting of contig names in the assembly file.
+megahit creates contigs with names like ``, but the whitespace in these names causes problems for certain downstream analyses, such as visualization with anvi'o.
+Therefore as a final step in the assembly process we need to rename the contigs with the following commands:
 
-
+```
+cd assembly
+cp final.contigs.fa contigs-fixnames.fa
+perl -p -i -e "s/(>\w+) flag.*/\$1/g" contigs-fixnames.fa
+```
 
