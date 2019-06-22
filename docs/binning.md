@@ -16,7 +16,7 @@ Long read metagenome data has been shown to produce results in these categories,
 
 
 ## Making MAGs
-
+The process of reconstructing genomes from a metagenome is often referred to as _metagenome binning_ or just _binning_, from the process of assigning contigs to one 'bin' per genome.
 There are many binning tools available to extract MAGs from metagenome assemblies.
 When timeseries data is available, [MetaBAT2](https://bitbucket.org/berkeleylab/metabat/src/master/) is a good choice because it is both easy to use and offers good performance.
 MetaBAT2 can be installed via conda as follows:
@@ -34,6 +34,10 @@ Assuming we have bam files of mapped reads and the metagenome assembly available
 
 ```
 mkdir ~/metabat ; cd ~/metabat
-runMetaBat.sh ~/data/metagenome_assembly.fa ~/data/*.bam 
+runMetaBat.sh ~/data/contigs-fixnames.fa ~/data/*.bam 
 ```
+
+Depending on how much data you've got this can take a long time to compute.
+Luckily MetaBAT2 has a good parallel implementation so it can go faster if you run on a large multi-core machine.
+At the end of the process MetaBAT2 will produce a directory called `contigs-fixnames.fa.metabat-bins`, which contains one FastA file of contigs for each genome bin that it inferred.
 
