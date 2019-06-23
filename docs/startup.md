@@ -46,10 +46,16 @@ We're finally ready to connect to the web interface. To do so simply point your 
 
 ## Other software
 
-Some of the steps in the tutorial use [singularity](https://singularity.lbl.gov) to run analysis tools.
+Some of the steps in the tutorial use [singularity](https://singularity.lbl.gov) or [docker](https://docker.com) to run analysis tools.
 To carry out those steps singularity will need to be installed on the machine:
+```bash
+sudo apt install -y singularity-container docker.io
 ```
-sudo apt install -y singularity-container
+
+Docker requires a few extra steps to begin working 
+```bash
+sudo systemctl start docker
+sudo systemctl enable docker
 ```
 
 ## Ways to get started without using Amazon Web Services

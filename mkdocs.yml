@@ -1,12 +1,72 @@
-site_name: Metagenome tutorial
+markdown_extensions:
+  - admonition
+  - pymdownx.extra
+  - pymdownx.arithmatex
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tilde
+  - pymdownx.highlight:
+      linenums: false
+      css_class: codehilite
+      extend_pygments_lang:
+        - name: php-inline
+          lang: php
+          options:
+            startinline: true
+        - name: pycon3
+          lang: pycon
+          options:
+            python3: true
+      linenums_style: pymdownx-inline
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      preserve_tabs: true
+      custom_fences:
+        - name: flow
+          class: uml-flowchart
+          format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: sequence
+          class: uml-sequence-diagram
+          format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: math
+          class: arithmatex
+          format: !!python/name:pymdownx.arithmatex.fence_mathjax_format
 
-pages:
-- Home: 'index.md'
+site_name: Metagenome tutorial
+site_description: A tutorial covering practical elements of metagenomic analysis
+
+nav:
+#- Home: 'index.md'
 - Jupyter: 'startup.md'
 - QC: 'qc.md'
 - Assembly: 'assembly.md'
 - Binning: 'binning.md'
 - Visualization: 'anvio.md'
-- HiC: 'hic.md'
+- Hi-C: 'hic.md'
 - Everything Else: 'everythingelse.md'
 
+theme:
+  name: 'material'
+  language: 'en'
+  palette:
+    primary: 'indigo'
+    accent: 'indigo'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+  feature:
+    tabs: true
+
+repo_name: 'thegeneschool/metagenomics'
+repo_url: 'https://github.com/thegeneschool/metagenomics'
+
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML'
+extra_css:
+  - css/extra.css
