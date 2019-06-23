@@ -132,7 +132,7 @@ Lets assemble the shotgun data and map both library types to the resulting conti
     # enter the hic data directory
     cd hic_data
     # launch spades in metagenomic mode
-    sudo docker -v $PWD:/opt/app-root cerebis/bin3c:latest spades.py --meta -1 SRR8960211_1.fastq.gz -2 SRR8960211_2.fastq.gz -o asm
+    sudo docker run -v $PWD:/opt/app-root cerebis/bin3c:latest spades.py --meta -1 SRR8960211_1.fastq.gz -2 SRR8960211_2.fastq.gz -o asm
     # index the contig fasta
     sudo docker run -v $PWD:/opt/app-root cerebis/bin3c:latest bwa index asm/contigs.fasta
     # map hi-c reads to the contigs 
@@ -301,9 +301,9 @@ With a set of reference sequences and Hi-C to reference BAM file in hand (from a
     # enter hic data directory
     cd hic_data
     # Make contact map
-    docker run -v $PWD:/opt/app-root bin3C mkmap -v -e Sau3AI -e MluCI --eta --bin-size 5000 asm/contigs.fasta hic_to_ctg.bam bin3C_out
+    sudo docker run -v $PWD:/opt/app-root cerebis/bin3c:latest bin3C -v mkmap -e Sau3AI -e MluCI --eta --bin-size 5000 asm/contigs.fasta hic_to_ctg.bam bin3C_out
     # Cluster contact map
-    docker run -v $PWD:/opt/app-root bin3C cluster -v --clobber --only-large bin3C_out/contact_map.p.gz bin3C_out 
+    sudo docker run -v $PWD:/opt/app-root cerebis/bin3c:latest bin3C -v cluster --clobber --only-large bin3C_out/contact_map.p.gz bin3C_out 
     # return to your home directory
     cd
     ```
