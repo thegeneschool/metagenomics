@@ -22,6 +22,7 @@ After the installation has completed, to use anvi'o we will first need to activa
 First we need to prepare our data for use in anvi'o.
 Because we already have binning results from MetaBAT2 we will ask anvi'o to import those bins rather than computing new bins.
 This will allow us to use anvi'o to browse the bins and interactively check and refine them as necessary.
+But before we get to that, we need to get anvi'o to process the metagenome assembly contigs and the bam files of mapped reads:
 
 ```
 anvi-gen-contigs-database -f contigs-fixnames.fa -o contigs.db -n 'A gene school DB'
@@ -37,13 +38,13 @@ This is a pretty simple process:
 
 ```
 cd contigs-fixnames.fa.metabat-bins/
-grep ">" bin.*fa | perl -p -i -e "s/(.+).fa:>(.+)/\$2\t\$1/g" > ../binning_results.txt
+grep ">" bin.*fa | perl -p -i -e "s/bin\.(.+).fa:>(.+)/\$2\tbin_\$1/g" > ../binning_results.txt
 cd ..
-anvi-import-collection binning_results.txt -p SAMPLES-MERGED/PROFILE.db -c contigs.db --source "MetaBAT2"
+anvi-import-collection binning_results.txt -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C "MetaBAT2" --contigs-mode
 ```
 
 The idea is to create a tab-delimited text file with two columns: the first is contig name and the second is the name of the bin that contig belongs to.
-The command `grep ">" bin.*fa` pulls out the contig names from each FastA bin file, and pipes the result to this command `perl -p -i -e "s/(.+).fa:>(.+)/\$2\t\$1/g"` which is using a perl regular expression to extract the contig name (in $2) and bin name (in $1) and report them in two columns separated by the tab character `\t`.
+The command `grep ">" bin.*fa` pulls out the contig names from each FastA bin file, and pipes the result to this command `perl -p -i -e "s/(.+).fa:>(.+)/\$2\t\$1/g"` which is using a perl regular expression to extract the contig name (in $2) and bin ID (in $1) and report them in two columns separated by the tab character `\t`.
 The results are saved in a file called `binning_results.txt`.
 
 
@@ -56,5 +57,5 @@ anvi'o's interactive mode does not currently work with any other browsers.
 You can try it of course but you're on your own when something goes wrong (which, in fact, could be said of almost anything in bioinformatics).
 
 ```
-anvi-interactive -p MERGED/PROFILE.db -c CONTIGS.db -s SAMPLES.db --server-only -P 8080 --password-protected
+anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2
 ```
