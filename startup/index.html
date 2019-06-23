@@ -94,6 +94,12 @@
                     </li>
                 
                 
+                
+                    <li >
+                        <a href="../everythingelse/">Everything Else</a>
+                    </li>
+                
+                
                 </ul>
             
 
@@ -161,6 +167,11 @@ bash Anaconda3-2018.12-Linux-x86_64.sh
 </code></pre>
 
 <p>Be sure to answer <code>yes</code> to the license question and the question about installing the configuration to the <code>.bashrc</code> file.</p>
+<p>Many of the steps in the tutorial involve command-line work, so let's also install the bash kernel:</p>
+<pre><code>pip install bash_kernel
+python -m bash_kernel.install
+</code></pre>
+
 <p>Now we're ready to launch a jupyter server:</p>
 <pre><code>source .bashrc
 jupyter lab --no-browser --ip 0.0.0.0 --LabApp.token=112233445566778899
