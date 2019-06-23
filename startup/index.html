@@ -1,238 +1,587 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A tutorial covering practical elements of metagenomic analysis">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Jupyter - Metagenome tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
         
         
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
         
-        <link rel="shortcut icon" href="../img/favicon.ico">
-
-	<title>Jupyter - Metagenome tutorial</title>
-
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/highlight.css">
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
         
-    </head>
-
-    <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-            <a class="navbar-brand" href="..">Metagenome tutorial</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#setting-up-a-working-environment-jupyter" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Metagenome tutorial" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Metagenome tutorial
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Jupyter
+              
+            </span>
+          
         </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="..">Home</a>
-                    </li>
-                
-                
-                
-                    <li class="active">
-                        <a href="./">Jupyter</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../qc/">QC</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../assembly/">Assembly</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../binning/">Binning</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../anvio/">Visualization</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../hic/">HiC</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../everythingelse/">Everything Else</a>
-                    </li>
-                
-                
-                </ul>
-            
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                
-                    <li >
-                        <a rel="next" href="..">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../qc/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
-                
-                
-            </ul>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-        <div class="container">
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
             
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-    
-        <li class="main active"><a href="#setting-up-a-working-environment-jupyter">Setting up a working environment (Jupyter)</a></li>
-        
-            <li><a href="#launch-a-server-via-amazon-web-services-ec2">Launch a server via Amazon Web Services EC2</a></li>
-        
-            <li><a href="#log-in-and-launch-jupyter">Log in and launch Jupyter</a></li>
-        
-            <li><a href="#connect-to-the-jupyter-web-interface">Connect to the Jupyter web interface</a></li>
-        
-            <li><a href="#other-software">Other software</a></li>
-        
-            <li><a href="#ways-to-get-started-without-using-amazon-web-services">Ways to get started without using Amazon Web Services</a></li>
-        
-    
-    </ul>
-</div></div>
-                <div class="col-md-9" role="main">
 
-<h1 id="setting-up-a-working-environment-jupyter">Setting up a working environment (Jupyter)</h1>
+
+  
+
+<a href="https://github.com/thegeneschool/metagenomics/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    thegeneschool/metagenomics
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Metagenome tutorial" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Metagenome tutorial
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/thegeneschool/metagenomics/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    thegeneschool/metagenomics
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Jupyter
+      </label>
+    
+    <a href="./" title="Jupyter" class="md-nav__link md-nav__link--active">
+      Jupyter
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#launch-a-server-via-amazon-web-services-ec2" title="Launch a server via Amazon Web Services EC2" class="md-nav__link">
+    Launch a server via Amazon Web Services EC2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-in-and-launch-jupyter" title="Log in and launch Jupyter" class="md-nav__link">
+    Log in and launch Jupyter
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect-to-the-jupyter-web-interface" title="Connect to the Jupyter web interface" class="md-nav__link">
+    Connect to the Jupyter web interface
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-software" title="Other software" class="md-nav__link">
+    Other software
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ways-to-get-started-without-using-amazon-web-services" title="Ways to get started without using Amazon Web Services" class="md-nav__link">
+    Ways to get started without using Amazon Web Services
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../qc/" title="QC" class="md-nav__link">
+      QC
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../assembly/" title="Assembly" class="md-nav__link">
+      Assembly
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../binning/" title="Binning" class="md-nav__link">
+      Binning
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../anvio/" title="Visualization" class="md-nav__link">
+      Visualization
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../hic/" title="Hi-C" class="md-nav__link">
+      Hi-C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../everythingelse/" title="Everything Else" class="md-nav__link">
+      Everything Else
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#launch-a-server-via-amazon-web-services-ec2" title="Launch a server via Amazon Web Services EC2" class="md-nav__link">
+    Launch a server via Amazon Web Services EC2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-in-and-launch-jupyter" title="Log in and launch Jupyter" class="md-nav__link">
+    Log in and launch Jupyter
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect-to-the-jupyter-web-interface" title="Connect to the Jupyter web interface" class="md-nav__link">
+    Connect to the Jupyter web interface
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-software" title="Other software" class="md-nav__link">
+    Other software
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ways-to-get-started-without-using-amazon-web-services" title="Ways to get started without using Amazon Web Services" class="md-nav__link">
+    Ways to get started without using Amazon Web Services
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/thegeneschool/metagenomics/edit/master/docs/startup.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="setting-up-a-working-environment-jupyter">Setting up a working environment (Jupyter)<a class="headerlink" href="#setting-up-a-working-environment-jupyter" title="Permanent link">&para;</a></h1>
 <p>In these tutorials we will work in a Jupyter notebook server environment.
 Jupyter is a versatile web interface system for data analysis, supporting work in languages such as Python and R, as well as the unix command-line.
 If you are working through this tutorial in one of The Gene School workshops we will provide a pre-configured Jupyter server for you to use and there is no need to carry out the setup process described on this page.</p>
-<h2 id="launch-a-server-via-amazon-web-services-ec2">Launch a server via Amazon Web Services EC2</h2>
+<h2 id="launch-a-server-via-amazon-web-services-ec2">Launch a server via Amazon Web Services EC2<a class="headerlink" href="#launch-a-server-via-amazon-web-services-ec2" title="Permanent link">&para;</a></h2>
 <p>First, either log in or sign up for AWS and navigate to to the EC2 section.
 Then select the option to launch a new instance. We will use the Ubuntu 18.04 LTS base image in this example.
 As you continue to click through the instance configuration details, there are two important settings that need to be changed from defaults: (1) the disk volume size, which should be set to 500GB or more to give ample space for metagenomic datasets (note that this will incur costs), and (2) the security groups settings. In the security groups, you will need to add access to TCP port 8888 for the IP address from which you'll be connecting to the servers. If you don't know your source IP range then this can be set to <code>0.0.0.0/0</code> but note the that this will enable the whole world to connect to the server and there is a security risk, even if the Jupyter server is password or token protected.</p>
 <p>If this is the first time you've used AWS you will need to generate and save an ssh key that will be used to log into the VMs. Keep this in a safe place. It will need to be made read only to the user account before it can be used with ssh, e.g. <code>chmod 400 my_aws_key.pem</code></p>
-<h2 id="log-in-and-launch-jupyter">Log in and launch Jupyter</h2>
+<h2 id="log-in-and-launch-jupyter">Log in and launch Jupyter<a class="headerlink" href="#log-in-and-launch-jupyter" title="Permanent link">&para;</a></h2>
 <p>Having started up an AWS instance you are now ready to log in and install Jupyter.
 The process is fairly straightforward. First ssh into the instance: <code>ssh -i my_aws_key.pem ubuntu@XX.XX.XX.XX</code> where XX.XX.XX.XX is the public IP address shown in the AWS EC2 console for the VM you have launched.
 Once logged in there are a few steps to installing the Jupyter server. First download and install anaconda:</p>
-<pre><code>wget https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
+<div class="codehilite"><pre><span></span>wget https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
 bash Anaconda3-2018.12-Linux-x86_64.sh
-</code></pre>
+</pre></div>
 
-<p>Be sure to answer <code>yes</code> to the license question and the question about installing the configuration to the <code>.bashrc</code> file.</p>
-<p>Many of the steps in the tutorial involve command-line work, so let's also install the bash kernel:</p>
-<pre><code>pip install bash_kernel
+<div class="admonition warning">
+<p class="admonition-title">Don't go too fast here</p>
+<p>Be sure to answer <code>yes</code> to the license agreement <strong><ins>and</ins></strong> the question about installing the configuration to the <code>.bashrc</code> file. If not, conda will not be configured properly.</p>
+</div>
+<p>Many of the steps in the tutorial involve command-line work, so let's also install the bash kernel:
+<div class="codehilite"><pre><span></span>pip install bash_kernel
 python -m bash_kernel.install
-</code></pre>
-
+</pre></div></p>
 <p>Now we're ready to launch a jupyter server:</p>
-<pre><code>source .bashrc
+<div class="codehilite"><pre><span></span>source .bashrc
 jupyter lab --no-browser --ip 0.0.0.0 --LabApp.token=112233445566778899
-</code></pre>
+</pre></div>
 
-<p>IMPORTANT: replace the string of numbers <code>112233445566778899</code> with your own string -- this is the secret key that will allow you (and only you) to connect to your jupyter server and run commands, so you want something that neither human nor robot will guess. Hexadecimal (lowercase) values are ok here too.</p>
-<h2 id="connect-to-the-jupyter-web-interface">Connect to the Jupyter web interface</h2>
+<div class="admonition warning">
+<p class="admonition-title">IMPORTANT</p>
+<p>Make sure to replace the string of numbers <code>112233445566778899</code> with your own string -- this is the secret key that will allow you (and only you) to connect to your jupyter server and run commands, so you want something that neither human nor robot will guess. Hexadecimal (lowercase) values are ok here too.</p>
+</div>
+<h2 id="connect-to-the-jupyter-web-interface">Connect to the Jupyter web interface<a class="headerlink" href="#connect-to-the-jupyter-web-interface" title="Permanent link">&para;</a></h2>
 <p>We're finally ready to connect to the web interface. To do so simply point your browser at <code>XX.XX.XX.XX:8888</code> where XX.XX.XX.XX is again the public IP address of the VM that you've launched in AWS. 8888 is the TCP port number that Jupyter listens on by default, and we added a special security rule to open this port when creating the VM in AWS (remember?). If you missed that step, don't worry, it's possible to go into the EC2 dashboard and update the security settings to open port 8888. Assumming everything has worked you'll arrive at a Jupyter page asking for the security token. This is where you provide the super secret number that you selected above. And that's it, you're ready to use Jupyter!</p>
-<h2 id="other-software">Other software</h2>
-<p>Some of the steps in the tutorial use <a href="https://singularity.lbl.gov">singularity</a> to run analysis tools.
-To carry out those steps singularity will need to be installed on the machine:</p>
-<pre><code>sudo apt install -y singularity-container
-</code></pre>
-
-<h2 id="ways-to-get-started-without-using-amazon-web-services">Ways to get started without using Amazon Web Services</h2>
+<h2 id="other-software">Other software<a class="headerlink" href="#other-software" title="Permanent link">&para;</a></h2>
+<p>Some of the steps in the tutorial use <a href="https://singularity.lbl.gov">singularity</a> or <a href="https://docker.com">docker</a> to run analysis tools.
+To carry out those steps singularity will need to be installed on the machine:
+<div class="codehilite"><pre><span></span>sudo apt update
+sudo apt install -y singularity-container docker.io
+</pre></div></p>
+<p>Docker requires a few extra steps to begin working 
+<div class="codehilite"><pre><span></span>sudo systemctl start docker
+sudo systemctl <span class="nb">enable</span> docker
+</pre></div></p>
+<h2 id="ways-to-get-started-without-using-amazon-web-services">Ways to get started without using Amazon Web Services<a class="headerlink" href="#ways-to-get-started-without-using-amazon-web-services" title="Permanent link">&para;</a></h2>
 <p>Not everyone will have access to Amazon EC2, or may not have access all the time.
 Another alternative is to run a Linux VM locally, provided that you have access to a computer with enough RAM and free storage space.
 One way to do this is to install VirtualBox on your machine, and then obtain an Ubuntu 18.04 LTS image to start up.
 This tutorial won't cover how to do this but don't worry, it's not hard.
 Plenty of people have documented how to do it.
-Look around, <a href="https://duckduckgo.com">duckduckgo</a> is your friend.</p></div>
-            
+Look around, <a href="https://duckduckgo.com">duckduckgo</a> is your friend.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
-        <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-        <script src="../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+        
+          <a href="../qc/" title="QC" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                QC
+              </span>
             </div>
-        </div>
-
-    </body>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML"></script>
+      
+    
+  </body>
 </html>

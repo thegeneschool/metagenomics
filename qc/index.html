@@ -1,156 +1,541 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A tutorial covering practical elements of metagenomic analysis">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>QC - Metagenome tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
         
         
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
         
-        <link rel="shortcut icon" href="../img/favicon.ico">
-
-	<title>QC - Metagenome tutorial</title>
-
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/highlight.css">
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
         
-    </head>
-
-    <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-            <a class="navbar-brand" href="..">Metagenome tutorial</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#sequencing-run-qc" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Metagenome tutorial" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Metagenome tutorial
+            </span>
+            <span class="md-header-nav__topic">
+              
+                QC
+              
+            </span>
+          
         </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="..">Home</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../startup/">Jupyter</a>
-                    </li>
-                
-                
-                
-                    <li class="active">
-                        <a href="./">QC</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../assembly/">Assembly</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../binning/">Binning</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../anvio/">Visualization</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../hic/">HiC</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../everythingelse/">Everything Else</a>
-                    </li>
-                
-                
-                </ul>
-            
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                
-                    <li >
-                        <a rel="next" href="../startup/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../assembly/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
-                
-                
-            </ul>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-        <div class="container">
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
             
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-    
-        <li class="main active"><a href="#sequencing-run-qc">Sequencing run QC</a></li>
-        
-            <li><a href="#get-some-sequence-data">Get some sequence data</a></li>
-        
-            <li><a href="#evaluating-sequence-quality-with-fastqc-and-multiqc">Evaluating sequence quality with FastQC and MultiQC</a></li>
-        
-            <li><a href="#taxonomic-analysis">Taxonomic analysis</a></li>
-        
-            <li><a href="#evaluating-the-host-genomic-content">Evaluating the host genomic content</a></li>
-        
-            <li><a href="#a-note-on-negative-controls">A note on negative controls</a></li>
-        
-    
-    </ul>
-</div></div>
-                <div class="col-md-9" role="main">
 
-<h1 id="sequencing-run-qc">Sequencing run QC</h1>
-<h2 id="get-some-sequence-data">Get some sequence data</h2>
+
+  
+
+<a href="https://github.com/thegeneschool/metagenomics/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    thegeneschool/metagenomics
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Metagenome tutorial" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Metagenome tutorial
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/thegeneschool/metagenomics/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    thegeneschool/metagenomics
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../startup/" title="Jupyter" class="md-nav__link">
+      Jupyter
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        QC
+      </label>
+    
+    <a href="./" title="QC" class="md-nav__link md-nav__link--active">
+      QC
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#get-some-sequence-data" title="Get some sequence data" class="md-nav__link">
+    Get some sequence data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluating-sequence-quality-with-fastqc-and-multiqc" title="Evaluating sequence quality with FastQC and MultiQC" class="md-nav__link">
+    Evaluating sequence quality with FastQC and MultiQC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taxonomic-analysis" title="Taxonomic analysis" class="md-nav__link">
+    Taxonomic analysis
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#taxonomic-analysis-with-metaphlan2" title="Taxonomic analysis with Metaphlan2" class="md-nav__link">
+    Taxonomic analysis with Metaphlan2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taxonomic-analysis-with-other-tools" title="Taxonomic analysis with other tools" class="md-nav__link">
+    Taxonomic analysis with other tools
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluating-the-host-genomic-content" title="Evaluating the host genomic content" class="md-nav__link">
+    Evaluating the host genomic content
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#some-challenge-questions" title="Some challenge questions" class="md-nav__link">
+    Some challenge questions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-note-on-negative-controls" title="A note on negative controls" class="md-nav__link">
+    A note on negative controls
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../assembly/" title="Assembly" class="md-nav__link">
+      Assembly
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../binning/" title="Binning" class="md-nav__link">
+      Binning
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../anvio/" title="Visualization" class="md-nav__link">
+      Visualization
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../hic/" title="Hi-C" class="md-nav__link">
+      Hi-C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../everythingelse/" title="Everything Else" class="md-nav__link">
+      Everything Else
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#get-some-sequence-data" title="Get some sequence data" class="md-nav__link">
+    Get some sequence data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluating-sequence-quality-with-fastqc-and-multiqc" title="Evaluating sequence quality with FastQC and MultiQC" class="md-nav__link">
+    Evaluating sequence quality with FastQC and MultiQC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taxonomic-analysis" title="Taxonomic analysis" class="md-nav__link">
+    Taxonomic analysis
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#taxonomic-analysis-with-metaphlan2" title="Taxonomic analysis with Metaphlan2" class="md-nav__link">
+    Taxonomic analysis with Metaphlan2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taxonomic-analysis-with-other-tools" title="Taxonomic analysis with other tools" class="md-nav__link">
+    Taxonomic analysis with other tools
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluating-the-host-genomic-content" title="Evaluating the host genomic content" class="md-nav__link">
+    Evaluating the host genomic content
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#some-challenge-questions" title="Some challenge questions" class="md-nav__link">
+    Some challenge questions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-note-on-negative-controls" title="A note on negative controls" class="md-nav__link">
+    A note on negative controls
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/thegeneschool/metagenomics/edit/master/docs/qc.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="sequencing-run-qc">Sequencing run QC<a class="headerlink" href="#sequencing-run-qc" title="Permanent link">&para;</a></h1>
+<h2 id="get-some-sequence-data">Get some sequence data<a class="headerlink" href="#get-some-sequence-data" title="Permanent link">&para;</a></h2>
 <p>The first thing we'll do is to get some sequence data to work with. If you are working on a new sequencing project the data might come from a sequencing facility. For this tutorial we'll work with data that is available in public databases.
 Published sequence data is usually archived in the NCBI SRA, the ENA, and the DDBJ.
 These databases provide a <a href="https://www.ncbi.nlm.nih.gov/">convenient interface to search</a> the descriptions of samples by keyword, and by sample type (e.g. shotgun metagenome).
@@ -158,32 +543,31 @@ For the following exercises we'll use a set of small datasets (SRA accessions SR
 The easiest way to download data from these databases is via the <code>fastq-dump</code> software.
 First, let's install the parallel version of fastq-dump using conda.
 To do this, start a terminal session in your Jupyter server (click the Terminal icon) and run the following command (ok to copy and paste):</p>
-<pre><code>conda install -c bioconda parallel-fastq-dump 
-</code></pre>
+<div class="codehilite"><pre><span></span>conda install -c bioconda parallel-fastq-dump 
+</pre></div>
 
 <p>Now that you've installed fastq-dump we can use it to download data by accession number. Copy and paste the following to your terminal:</p>
-<pre><code>parallel-fastq-dump -s SRR9323808 -s SRR9323810 -s SRR9323811 -s SRR9323809 --threads 4 --outdir qc_data/ --split-files --gzip
-</code></pre>
+<div class="codehilite"><pre><span></span>parallel-fastq-dump -s SRR9323808 -s SRR9323810 -s SRR9323811 -s SRR9323809 --threads 4 --outdir qc_data/ --split-files --gzip
+</pre></div>
 
 <p>If the download was successful you should see something like the following on your terminal:</p>
 <p><img alt="Screenshot of parallel-fastq-dump" src="../img/screenshot_fastq_dump.png" /></p>
-<h2 id="evaluating-sequence-quality-with-fastqc-and-multiqc">Evaluating sequence quality with FastQC and MultiQC</h2>
+<h2 id="evaluating-sequence-quality-with-fastqc-and-multiqc">Evaluating sequence quality with FastQC and MultiQC<a class="headerlink" href="#evaluating-sequence-quality-with-fastqc-and-multiqc" title="Permanent link">&para;</a></h2>
 <p>The very first thing one would normally do when working with a new dataset is to look at some basic quality statistics on the data.
 There are many, many tools available to compute quality metrics. For our current data we will use the FastQC software, applied to each sample, and then combine the results using MultiQC to a single report. First step is to install <code>fastqc</code> and <code>multiqc</code>.</p>
-<pre><code>conda install -c bioconda fastqc
+<p><div class="codehilite"><pre><span></span>conda install -c bioconda fastqc
 pip install multiqc
-</code></pre>
-
-<p>In the above we've used conda to install fastqc, but we've used another way to install multiqc -- something called <code>pip</code>. pip is an installer for python programs, and like conda it will download and install the software along with any dependencies. The reason we use pip in this case is because conda can be very, very slow to install some programs and in this case pip is much faster.</p>
-<pre><code>cd qc_data
+</pre></div>
+In the above we've used conda to install fastqc, but we've used another way to install multiqc -- something called <code>pip</code>. pip is an installer for python programs, and like conda it will download and install the software along with any dependencies. The reason we use pip in this case is because conda can be very, very slow to install some programs and in this case pip is much faster.</p>
+<div class="codehilite"><pre><span></span>cd qc_data
 find . -name &quot;*.fastq.gz&quot; -exec fastqc {} \;
-</code></pre>
+</pre></div>
 
 <p>Let's unpack those commands a bit. The first part, <code>cd qc_data</code> just changes the current directory to qc_data, so any following commands run will run in that directory.
 The next command is <code>find . -name "*.fastq.gz" -exec fastqc {} \;</code>. The first part, <code>find</code> is a command that finds files. If you just run <code>find .</code> it will find all the files in and below the current directory (the <code>.</code> part specifies to look in the current directory). The next part, <code>-name "*.fastq.gz"</code> tells <code>find</code> that we only want it to find files with names that end with <code>.fastq.gz</code>. The <code>*</code> is a wildcard that matches anything. Finally, the last part <code>-exec fastqc {} \;</code> tells <code>find</code> that whenever it finds a file, it should run <code>fastqc</code> on that file, putting the name of the file where the <code>{}</code> are.</p>
 <p>If this step has worked, then you should have several new <code>.zip</code> files containing the QC data in that directory, along with some html files. When we have a lot of samples it is too tedious to look at all the QC reports individually for each sample, so we can summarize them using multiqc:</p>
-<pre><code>multiqc .
-</code></pre>
+<div class="codehilite"><pre><span></span>multiqc .
+</pre></div>
 
 <p>At this point a multiqc file will appear inside the QC directory. First double click to open the QC folder.
 <img alt="Screenshot of QC folder" src="../img/qc_folder.png" /></p>
@@ -192,37 +576,36 @@ We can open this file from within our jupyter browser environment and inspect it
 To open it, we need to right click (or two-finger tap) on the file name to get a context menu that will give several options for how to open it. It looks like this:</p>
 <p><img alt="Opening MultiQC context menu" src="../img/qc_open_in_browser_tab.png" /></p>
 <p>Click the option to "Open in a New Browser Tab". From here we can evaluate the quality of the libraries.</p>
-<h2 id="taxonomic-analysis">Taxonomic analysis</h2>
+<h2 id="taxonomic-analysis">Taxonomic analysis<a class="headerlink" href="#taxonomic-analysis" title="Permanent link">&para;</a></h2>
 <p>Metagenome taxonomic analysis offers a means to estimate a microbial community profile from metagenomic sequence data.
 It can give us a very high-level, rough idea of what kinds of microbes are present in a sample.
 It can also give an idea of how complex/diverse the microbial community is -- whether there are many species or few.
 It is useful as an initial quality check to ensure that the microbial community composition looks roughly as expected, and to confirm that nothing obvious went wrong during the sample collection and sequencing steps.</p>
-<h3 id="taxonomic-analysis-with-metaphlan2">Taxonomic analysis with Metaphlan2</h3>
+<h3 id="taxonomic-analysis-with-metaphlan2">Taxonomic analysis with Metaphlan2<a class="headerlink" href="#taxonomic-analysis-with-metaphlan2" title="Permanent link">&para;</a></h3>
 <p>While it may be possible to install metaphlan2 via conda, at least in my experience, conda struggles with "solving the environment".
 Therefore it's suggested to install it via the simple download method described on the <a href="https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial">metaphlan tutorial page</a>:</p>
-<pre><code>cd ; wget -c -O metaphlan.tar.bz2 https://bitbucket.org/nsegata/metaphlan/get/default.tar.bz2
+<div class="codehilite"><pre><span></span>cd ; wget -c -O metaphlan.tar.bz2 https://bitbucket.org/nsegata/metaphlan/get/default.tar.bz2
 tar xvjf metaphlan.tar.bz2
 mv nsegata-metaphlan* metaphlan
-</code></pre>
+</pre></div>
 
 <p>Once metaphlan has been downloaded we can run it on our QC samples:</p>
-<pre><code>cd ~/qc_data
+<div class="codehilite"><pre><span></span>cd ~/qc_data
 pig_samples=&quot;SRR9323808 SRR9323810 SRR9323811 SRR9323809&quot;
 for s in ${pig_samples}
 do
      zcat ${s}*.fastq.gz | python2 ~/metaphlan/metaphlan.py --input_type multifastq --bt2_ps very-sensitive --bowtie2db ~/metaphlan/bowtie2db/mpa  --bowtie2out ${s}.bt2out -o ${s}.mph2
 done
-</code></pre>
+</pre></div>
 
 <p>The above series of commands creates a "for loop" where each iteration processes one of our metagenome samples. This is a convenient way to process many samples without having to type out the commands for each sample. The sample names get stored in a variable <code>$pig_samples</code> and at each loop iteration, one of the sample names is placed into the loop variable <code>${s}</code>, where it can get used in the command inside the loop.</p>
-<p>Finally we can plot the taxonomic profile of the samples:</p>
-<pre><code>python2 ~/metaphlan/utils/merge_metaphlan_tables.py *.mph2 &gt; pig_mph2.merged
+<p>Finally we can plot the taxonomic profile of the samples:
+<div class="codehilite"><pre><span></span>python2 ~/metaphlan/utils/merge_metaphlan_tables.py *.mph2 &gt; pig_mph2.merged
 python2 ~/metaphlan/plotting_scripts/metaphlan_hclust_heatmap.py -c bbcry --top 25 --minv 0.1 -s log --in pig_mph2.merged --out mph2_heatmap.png
-</code></pre>
-
+</pre></div></p>
 <p>Once that has completed successfully, a new file called <code>mph2_heatmap.png</code> will appear in the qc_data folder of our Jupyter file browser. We can double click it to view.</p>
 <p>There are other ways to visualize the data, and they are described in the graphlan section of the <a href="https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial">metaphlan tutorial</a> page.</p>
-<h3 id="taxonomic-analysis-with-other-tools">Taxonomic analysis with other tools</h3>
+<h3 id="taxonomic-analysis-with-other-tools">Taxonomic analysis with other tools<a class="headerlink" href="#taxonomic-analysis-with-other-tools" title="Permanent link">&para;</a></h3>
 <p>There are a whole range of other software tools available for metagenome taxonomic analysis. 
 They all have strengths and weaknesses.</p>
 <p>A few other commonly used tools are listed here:</p>
@@ -232,7 +615,7 @@ They all have strengths and weaknesses.</p>
 <li><a href="http://www.ccb.jhu.edu/software/centrifuge/manual.shtml">Centrifuge</a></li>
 <li><a href="http://clark.cs.ucr.edu/">CLARK</a></li>
 </ul>
-<h2 id="evaluating-the-host-genomic-content">Evaluating the host genomic content</h2>
+<h2 id="evaluating-the-host-genomic-content">Evaluating the host genomic content<a class="headerlink" href="#evaluating-the-host-genomic-content" title="Permanent link">&para;</a></h2>
 <p>In many applications of metagenomics we are working with host-associated samples. 
 The samples might have come from an animal gut, mouth, or other surface.
 Similarly for plants we might be working with leaf or root surfaces or rhizobia.
@@ -240,28 +623,25 @@ When such samples are collected the resulting DNA extracts can include a signifi
 Let's have a look at what this looks like in data.
 To do so, we'll download another set of pig gut samples: a set of samples that was taken using scrapings or swabs from different parts of the porcine digestive system, including the duodenum, jejunum, ileum, colon, and caecum.
 Rather than using metaphlan2 to profile these, we will use the kraken2 classifier in conjunction with the bracken tool for estimating relative abundances.
-We first need to install kraken2 and bracken:</p>
-<pre><code>conda install -c bioconda kraken2 bracken
-</code></pre>
-
+We first need to install kraken2 and bracken:
+<div class="codehilite"><pre><span></span>conda install -c bioconda kraken2 bracken
+</pre></div></p>
 <p>Next, we need to get a kraken2 database.
 For this tutorial we will simply use a precomputed kraken2 database but note the very important limitation that the only non-microbial genome it includes is the human genome.
 If you would like to evaluate host genomic content on plants or other things you should follow the instructions on the kraken2 web site to build a complete database.
-We can download and unpack the kraken2 database with:</p>
-<pre><code>cd ; wget -c ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v2_8GB_201904_UPDATE.tgz
+We can download and unpack the kraken2 database with:
+<div class="codehilite"><pre><span></span>cd ; wget -c ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v2_8GB_201904_UPDATE.tgz
 tar xvzf minikraken2_v2_8GB_201904_UPDATE.tgz
-</code></pre>
-
+</pre></div></p>
 <p>Finally we are ready to profile our samples with kraken2 and bracken.
 We'll first download the sample set with <code>parallel-fastq-dump</code> and then run kraken2 and bracken's <code>est_abundance.py</code> script on each sample using a bash for loop.
-The analysis can be run as follows:</p>
-<pre><code>parallel-fastq-dump  -s SRR9332442 -s SRR9332438 -s SRR9332439 -s SRR9332443 -s SRR9332440 --threads 4 --outdir host_qc/ --split-files --gzip
+The analysis can be run as follows:
+<div class="codehilite"><pre><span></span>parallel-fastq-dump  -s SRR9332442 -s SRR9332438 -s SRR9332439 -s SRR9332443 -s SRR9332440 --threads 4 --outdir host_qc/ --split-files --gzip
 cd host_qc
 samples=&quot;SRR9332442 SRR9332438 SRR9332439 SRR9332443 SRR9332440&quot;
 for s in $samples; do kraken2 --paired ${s}_1.fastq.gz ${s}_2.fastq.gz --db ../minikraken2_v2_8GB_201904_UPDATE/ --report ${s}.kreport &gt; ${s}.kraken; done
 for s in $samples; do est_abundance.py -i ${s}.kreport -k ../minikraken2_v2_8GB_201904_UPDATE/database150mers.kmer_distrib -o ${s}.bracken; done
-</code></pre>
-
+</pre></div></p>
 <p>Once the above has completed, navigate over to the <code>host_qc</code> folder in the Jupyter file browser and click on the <code>*.bracken</code> files to open them.
 What do you see?
 In particular, why does sample SRR9332438 look so different to sample SRR9332440?
@@ -296,7 +676,7 @@ Keep in mind the isolation sources of the samples were as follows:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="some-challenge-questions">Some challenge questions</h3>
+<h3 id="some-challenge-questions">Some challenge questions<a class="headerlink" href="#some-challenge-questions" title="Permanent link">&para;</a></h3>
 <ul>
 <li>If we sequenced samples from pigs, why is human DNA being predicted in these samples?</li>
 <li>If we were to design a large study around these samples which of them would be suitable for metagenomics, and why?</li>
@@ -304,54 +684,89 @@ Keep in mind the isolation sources of the samples were as follows:</p>
 <li>Are there really six species of <em>Lactobacillus</em> present in SRR9332440?</li>
 <li>Go to the <a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=search_obj">NCBI SRA search tool</a> and find a metagenome of interest to you. Download the first 100000 reads from it (use the <code>--maxSpotId</code> parameter) and analyse it with kraken2. Is it what you expected? How does it compare to the others we've looked at?</li>
 </ul>
-<h2 id="a-note-on-negative-controls">A note on negative controls</h2>
+<h2 id="a-note-on-negative-controls">A note on negative controls<a class="headerlink" href="#a-note-on-negative-controls" title="Permanent link">&para;</a></h2>
 <p>Negative controls are a key element in any microbiome profiling or metagenome analysis work.
 Every aspect of the sample collection and processing can be impacted by the presence of contaminating microbial DNA.
 This is true even of 'sterile' material -- just because no viable cells exist in a sample collection swab, for example, does not mean there is no microbial DNA on that swab.
 It is well known that molecular biology reagents frequently contain contaminating DNA.
 Usually it is at low levels, but this is not always the case.</p>
 <p>Therefore, the best practice is to collect multiple negative control samples that are taken all the way through sequencing.
-These negative controls can then be used to correct for contamination artifacts in the remaining samples.</p></div>
-            
+These negative controls can then be used to correct for contamination artifacts in the remaining samples.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
-        <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-        <script src="../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../startup/" title="Jupyter" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
-        </div>
-
-    </body>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Jupyter
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../assembly/" title="Assembly" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Assembly
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML"></script>
+      
+    
+  </body>
 </html>

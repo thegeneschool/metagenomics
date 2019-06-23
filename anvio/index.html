@@ -1,204 +1,511 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A tutorial covering practical elements of metagenomic analysis">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Visualization - Metagenome tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
         
         
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
         
-        <link rel="shortcut icon" href="../img/favicon.ico">
-
-	<title>Visualization - Metagenome tutorial</title>
-
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/highlight.css">
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
         
-    </head>
-
-    <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-            <a class="navbar-brand" href="..">Metagenome tutorial</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#visualization-of-metagenome-data" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Metagenome tutorial" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Metagenome tutorial
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Visualization
+              
+            </span>
+          
         </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="..">Home</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../startup/">Jupyter</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../qc/">QC</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../assembly/">Assembly</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../binning/">Binning</a>
-                    </li>
-                
-                
-                
-                    <li class="active">
-                        <a href="./">Visualization</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../hic/">HiC</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../everythingelse/">Everything Else</a>
-                    </li>
-                
-                
-                </ul>
-            
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                
-                    <li >
-                        <a rel="next" href="../binning/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../hic/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
-                
-                
-            </ul>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-        <div class="container">
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
             
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-    
-        <li class="main active"><a href="#visualization-of-metagenome-data">Visualization of metagenome data</a></li>
-        
-            <li><a href="#installing-anvio">Installing anvi'o</a></li>
-        
-            <li><a href="#preparing-data-for-anvio">Preparing data for anvi'o</a></li>
-        
-            <li><a href="#connecting-to-an-anvio-server">Connecting to an anvi'o server</a></li>
-        
-            <li><a href="#refining-mags-with-anvio">Refining MAGs with anvi'o</a></li>
-        
-    
-    </ul>
-</div></div>
-                <div class="col-md-9" role="main">
 
-<h1 id="visualization-of-metagenome-data">Visualization of metagenome data</h1>
+
+  
+
+<a href="https://github.com/thegeneschool/metagenomics/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    thegeneschool/metagenomics
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Metagenome tutorial" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Metagenome tutorial
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/thegeneschool/metagenomics/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    thegeneschool/metagenomics
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../startup/" title="Jupyter" class="md-nav__link">
+      Jupyter
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../qc/" title="QC" class="md-nav__link">
+      QC
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../assembly/" title="Assembly" class="md-nav__link">
+      Assembly
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../binning/" title="Binning" class="md-nav__link">
+      Binning
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Visualization
+      </label>
+    
+    <a href="./" title="Visualization" class="md-nav__link md-nav__link--active">
+      Visualization
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-anvio" title="Installing anvi'o" class="md-nav__link">
+    Installing anvi'o
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-data-for-anvio" title="Preparing data for anvi'o" class="md-nav__link">
+    Preparing data for anvi'o
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-to-an-anvio-server" title="Connecting to an anvi'o server" class="md-nav__link">
+    Connecting to an anvi'o server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refining-mags-with-anvio" title="Refining MAGs with anvi'o" class="md-nav__link">
+    Refining MAGs with anvi'o
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../hic/" title="Hi-C" class="md-nav__link">
+      Hi-C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../everythingelse/" title="Everything Else" class="md-nav__link">
+      Everything Else
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-anvio" title="Installing anvi'o" class="md-nav__link">
+    Installing anvi'o
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-data-for-anvio" title="Preparing data for anvi'o" class="md-nav__link">
+    Preparing data for anvi'o
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-to-an-anvio-server" title="Connecting to an anvi'o server" class="md-nav__link">
+    Connecting to an anvi'o server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refining-mags-with-anvio" title="Refining MAGs with anvi'o" class="md-nav__link">
+    Refining MAGs with anvi'o
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/thegeneschool/metagenomics/edit/master/docs/anvio.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="visualization-of-metagenome-data">Visualization of metagenome data<a class="headerlink" href="#visualization-of-metagenome-data" title="Permanent link">&para;</a></h1>
 <p>In this section we will explore ways to visualize the metagenomic data, with a view toward understanding the MAGs that we have reconstructed from our metagenomes.
 For this we will use software called anvi'o, a highly versatile visualization and analysis environment for metagenomic (and pan-genomic) data.
 The anvi'o software is extensively documented on <a href="http://merenlab.org/software/anvio/">the anvi'o website</a>, and rather than recapitulate all of that material here we will just go through the basic steps involved in getting our data loaded into anvi'o.
 For further details on using the variety of features in anvi'o you can refer to the above site.</p>
-<h2 id="installing-anvio">Installing anvi'o</h2>
+<h2 id="installing-anvio">Installing anvi'o<a class="headerlink" href="#installing-anvio" title="Permanent link">&para;</a></h2>
 <p>The simplest way to install anvi'o is via conda:</p>
-<pre><code>conda create -n anvio5 -c bioconda -c conda-forge anvio=5.5.0
-</code></pre>
+<div class="codehilite"><pre><span></span>conda create -n anvio5 -c bioconda -c conda-forge anvio=5.5.0
+</pre></div>
 
 <p>Notice this command is slightly different to our previous conda software installations, in this command we are invoking <code>conda create</code> which creates a new conda environment for anvi'o.
 Once the installation has completed, we will need to activate the environment with <code>conda activate anvio5</code> in order to use anvi'o.</p>
-<h2 id="preparing-data-for-anvio">Preparing data for anvi'o</h2>
+<h2 id="preparing-data-for-anvio">Preparing data for anvi'o<a class="headerlink" href="#preparing-data-for-anvio" title="Permanent link">&para;</a></h2>
 <p>First we need to prepare our data for use in anvi'o.
 Because we already have binning results from MetaBAT2 we will ask anvi'o to import those bins rather than computing new bins.
 This will allow us to use anvi'o to browse the bins and interactively check and refine them as necessary.
 But before we get to that, we need to get anvi'o to process the metagenome assembly contigs and the bam files of mapped reads:</p>
-<pre><code>anvi-gen-contigs-database -f contigs-fixnames.fa -o contigs.db -n 'A gene school DB'
+<div class="codehilite"><pre><span></span>anvi-gen-contigs-database -f contigs-fixnames.fa -o contigs.db -n &#39;A gene school DB&#39;
 anvi-run-hmms -c contigs.db
 for bam in `ls *.bam`; do anvi-profile -i $bam -c contigs.db; done
 anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clustering --skip-concoct-binning
-</code></pre>
+</pre></div>
 
 <p>The above series of commands will take us from assembly contigs to a working anvi'o database, but there is a lot of compute along the way so if the data set is anything more than extremely trivial you will have to be <em>very patient</em>.
 The pig metagenome timeseries dataset we are using in this tutorial requires over hours of CPU time to process with the above commands.
 If you have access to a large multicore machine (or large AWS instance) this process can be sped up by running many threads via the <code>-T</code> command-line parameter.</p>
 <p>Next, we need to create a file that will allow us to import our MetaBAT2 bins into anvi'o.
 This is a pretty simple process:</p>
-<pre><code>cd contigs-fixnames.fa.metabat-bins/
+<div class="codehilite"><pre><span></span>cd contigs-fixnames.fa.metabat-bins/
 grep &quot;&gt;&quot; bin.*fa | perl -p -i -e &quot;s/bin\.(.+).fa:&gt;(.+)/\$2\tbin_\$1/g&quot; &gt; ../binning_results.txt
 cd ..
 anvi-import-collection binning_results.txt -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C &quot;MetaBAT2&quot; --contigs-mode
 anvi-summarize -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C MetaBAT2 -o MERGED_SUMMARY
-</code></pre>
+</pre></div>
 
 <p>The idea is to create a tab-delimited text file with two columns: the first is contig name and the second is the name of the bin that contig belongs to.
 The command <code>grep "&gt;" bin.*fa</code> pulls out the contig names from each FastA bin file, and pipes the result to this command <code>perl -p -i -e "s/(.+).fa:&gt;(.+)/\$2\t\$1/g"</code> which is using a perl regular expression to extract the contig name (in $2) and bin ID (in $1) and report them in two columns separated by the tab character <code>\t</code>.
 The results are saved in a file called <code>binning_results.txt</code>.
 We can then import the binning results into our anvi'o database with <code>anvi-import-collection</code>, and then compute some useful summaries of the bins with <code>anvi-summarize</code>.</p>
-<h2 id="connecting-to-an-anvio-server">Connecting to an anvi'o server</h2>
+<h2 id="connecting-to-an-anvio-server">Connecting to an anvi'o server<a class="headerlink" href="#connecting-to-an-anvio-server" title="Permanent link">&para;</a></h2>
 <p>When used in interactive mode anvi'o is usually expected to be running locally on your own machine.
 However, we are working on VMs in the cloud and so we need to start up an anvi'o server on our remote machine and then connect to it with our web browser.
 Note that <em>this will only work with google chrome browser</em>. 
 anvi'o's interactive mode does not currently work with any other browsers. 
 You can try it of course but you're on your own when something goes wrong (which, in fact, could be said of almost anything in bioinformatics).</p>
-<pre><code>anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2
-</code></pre>
+<div class="codehilite"><pre><span></span>anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2
+</pre></div>
 
 <p>when anvi'o launches it will ask you to provide a password. 
 Make one up, and be sure to choose one you can remember at least long enough to log into the server!
 Once the server is running you can log into it via the chrome web browser by providing the IP address and port 8080 in the location bar, e.g. <code>http://AA.BB.CC.DD:8080</code> where AA.BB.CC.DD is the IP of your VM.</p>
-<h2 id="refining-mags-with-anvio">Refining MAGs with anvi'o</h2>
+<h2 id="refining-mags-with-anvio">Refining MAGs with anvi'o<a class="headerlink" href="#refining-mags-with-anvio" title="Permanent link">&para;</a></h2>
 <p>While the automated binning process implemented in MetaBAT2 is relatively easy to apply even to large datasets, these methods are not perfect and sometimes they can produce erroneous genome bins.
 anvi'o offers some useful data visualizations methods that can help us to identify cases where a MAG appears to have dubious features.
 This might be especially relevant if there is a genome that is particularly relevant for your study, for example a nitrogen fixing organism associated with a plant.
@@ -206,55 +513,89 @@ You might want to confirm that the genome bin looks correct prior to metabolic a
 With anvi'o we can inspect individual genome bins, and even modify them interactively, using the <code>anvi-refine</code> command.
 As with <code>anvi-interactive</code> above this runs via a web server/client structure, so we can launch it on our VM and connect to it with our browser in the same way.
 For example if we want to refine bin 42 we would run:</p>
-<pre><code>anvi-refine -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2 -b bin_42
-</code></pre>
-
-<p>and then point our browser at the anvi'o server as noted above.</p>
+<p><div class="codehilite"><pre><span></span>anvi-refine -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2 -b bin_42
+</pre></div>
+and then point our browser at the anvi'o server as noted above.</p>
 <p>For more details about bin refinement with anvi'o check out the tutorials and notes on the anvi'o website:</p>
 <ul>
 <li><a href="http://merenlab.org/2015/05/11/anvi-refine/">Refining MAGs with anvi'o</a></li>
 <li><a href="http://merenlab.org/2017/05/11/anvi-refine-by-veronika/">Notes on bin refinement with anvi'o</a></li>
-</ul></div>
-            
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
-        <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-        <script src="../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../binning/" title="Binning" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
-        </div>
-
-    </body>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Binning
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../hic/" title="Hi-C" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Hi-C
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML"></script>
+      
+    
+  </body>
 </html>
