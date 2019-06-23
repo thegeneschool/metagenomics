@@ -168,6 +168,7 @@ Keep in mind the isolation sources of the samples were as follows:
 * If we were to design a large study around these samples which of them would be suitable for metagenomics, and why?
 * How much sequencing data would we need to generate from sample SRR9332440 to reconstruct the genome of the _Bifidobacterium_ in that sample? What about the _E. coli_?
 * Are there really six species of _Lactobacillus_ present in SRR9332440?
+* Go to the [NCBI SRA search tool](https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=search_obj) and find a metagenome of interest to you. Download the first 100000 reads from it (use the `--maxSpotId` parameter) and analyse it with kraken2. Is it what you expected? How does it compare to the others we've looked at?
 
 ## A note on negative controls
 
