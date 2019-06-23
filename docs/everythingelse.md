@@ -7,6 +7,7 @@ As a research tool, metagenomics is now beginning to move away from being purely
 There are many, many things to consider when designing an experiment that involves metagenomics as a means to test a hypothesis.
 First among these is whether the effect would be measurable via metagenomic data, e.g. is metagenomics the right tool for the job?
 Then comes questions like:
+
 * How deeply will you sequence?
 * How many samples will you need?
 * Will samples be structured as a time-series, or transect of some kind?
@@ -19,6 +20,7 @@ One way to design and power a large metagenomic experiment is to carry out a com
 While this may seem tedious, I would argue that if the experiment is worth doing, then it is almost certainly worth doing a simulation study first.
 There are a number of advantages to this kind of an approach.
 For example:
+
 * Hidden obstacles to the data analysis will be identified _a priori_, before the long and expensive experimental work and data generation begins.
 * A data analysis workflow can be developed up front, so that when the data arrives the work to analyse it becomes simpler.
 * The experiment can be rationally designed, with clear expectations about the number and type of samples required to measure an effect of a particular size.
