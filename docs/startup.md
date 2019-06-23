@@ -25,6 +25,12 @@ bash Anaconda3-2018.12-Linux-x86_64.sh
 
 Be sure to answer `yes` to the license question and the question about installing the configuration to the `.bashrc` file.
 
+Many of the steps in the tutorial involve command-line work, so let's also install the bash kernel:
+```
+pip install bash_kernel
+python -m bash_kernel.install
+```
+
 Now we're ready to launch a jupyter server:
 
 ```
