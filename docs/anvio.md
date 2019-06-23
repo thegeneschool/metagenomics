@@ -28,7 +28,7 @@ But before we get to that, we need to get anvi'o to process the metagenome assem
 anvi-gen-contigs-database -f contigs-fixnames.fa -o contigs.db -n 'A gene school DB'
 anvi-run-hmms -c contigs.db
 for bam in `ls *.bam`; do anvi-profile -i $bam -c contigs.db; done
-anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clustering
+anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clustering --skip-concoct-binning
 ```
 
 The above series of commands will take us from assembly contigs to a working anvi'o database, but there is a lot of compute along the way so if the data set is anything more than extremely trivial you will have to be _very patient_.
@@ -74,5 +74,17 @@ While the automated binning process implemented in MetaBAT2 is relatively easy t
 anvi'o offers some useful data visualizations methods that can help us to identify cases where a MAG appears to have dubious features.
 This might be especially relevant if there is a genome that is particularly relevant for your study, for example a nitrogen fixing organism associated with a plant.
 You might want to confirm that the genome bin looks correct prior to metabolic analysis, for example, to predict culture conditions for isolating an organism.
+With anvi'o we can inspect individual genome bins, and even modify them interactively, using the `anvi-refine` command.
+As with `anvi-interactive` above this runs via a web server/client structure, so we can launch it on our VM and connect to it with our browser in the same way.
+For example if we want to refine bin 42 we would run:
 
+```
+anvi-refine -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2 -b bin_42
+```
+and then point our browser at the anvi'o server as noted above.
+
+For more details about bin refinement with anvi'o check out the tutorials and notes on the anvi'o website:
+
+* [Refining MAGs with anvi'o](http://merenlab.org/2015/05/11/anvi-refine/)
+* [Notes on bin refinement with anvi'o](http://merenlab.org/2017/05/11/anvi-refine-by-veronika/)
 
