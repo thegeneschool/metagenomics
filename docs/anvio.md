@@ -14,7 +14,7 @@ conda create -n anvio5 -c bioconda -c conda-forge anvio=5.5.0
 ```
 
 Notice this command is slightly different to our previous conda software installations, in this command we are invoking `conda create` which creates a new conda environment for anvi'o.
-After the installation has completed, to use anvi'o we will first need to activate the environment with `conda activate anvio5`.
+Once the installation has completed, we will need to activate the environment with `conda activate anvio5` in order to use anvi'o.
 
 
 ## Preparing data for anvi'o
@@ -32,7 +32,9 @@ anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clus
 ```
 
 The above series of commands will take us from assembly contigs to a working anvi'o database, but there is a lot of compute along the way so if the data set is anything more than extremely trivial you will have to be _very patient_.
-The pig metagenome timeseries dataset we are using in this tutorial will take 24 hours or more to process with the above commands.
+The pig metagenome timeseries dataset we are using in this tutorial requires over hours of CPU time to process with the above commands.
+If you have access to a large multicore machine (or large AWS instance) this process can be sped up by running many threads via the `-T` command-line parameter.
+
 Next, we need to create a file that will allow us to import our MetaBAT2 bins into anvi'o.
 This is a pretty simple process:
 
@@ -41,12 +43,13 @@ cd contigs-fixnames.fa.metabat-bins/
 grep ">" bin.*fa | perl -p -i -e "s/bin\.(.+).fa:>(.+)/\$2\tbin_\$1/g" > ../binning_results.txt
 cd ..
 anvi-import-collection binning_results.txt -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C "MetaBAT2" --contigs-mode
+anvi-summarize -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C MetaBAT2 -o MERGED_SUMMARY
 ```
 
 The idea is to create a tab-delimited text file with two columns: the first is contig name and the second is the name of the bin that contig belongs to.
 The command `grep ">" bin.*fa` pulls out the contig names from each FastA bin file, and pipes the result to this command `perl -p -i -e "s/(.+).fa:>(.+)/\$2\t\$1/g"` which is using a perl regular expression to extract the contig name (in $2) and bin ID (in $1) and report them in two columns separated by the tab character `\t`.
 The results are saved in a file called `binning_results.txt`.
-
+We can then import the binning results into our anvi'o database with `anvi-import-collection`, and then compute some useful summaries of the bins with `anvi-summarize`.
 
 ## Connecting to an anvi'o server
 
@@ -59,3 +62,12 @@ You can try it of course but you're on your own when something goes wrong (which
 ```
 anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2
 ```
+
+## Refining MAGs with anvi'o
+
+While the automated binning process implemented in MetaBAT2 is relatively easy to apply even to large datasets, these methods are not perfect and sometimes they can produce erroneous genome bins.
+anvi'o offers some useful data visualizations methods that can help us to identify cases where a MAG appears to have dubious features.
+This might be especially relevant if there is a genome that is particularly relevant for your study, for example a nitrogen fixing organism associated with a plant.
+You might want to confirm that the genome bin looks correct prior to metabolic analysis, for example, to predict culture conditions for isolating an organism.
+
+
