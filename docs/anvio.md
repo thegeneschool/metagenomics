@@ -63,6 +63,11 @@ You can try it of course but you're on your own when something goes wrong (which
 anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2
 ```
 
+when anvi'o launches it will ask you to provide a password. 
+Make one up, and be sure to choose one you can remember at least long enough to log into the server!
+Once the server is running you can log into it via the chrome web browser by providing the IP address and port 8080 in the location bar, e.g. `http://AA.BB.CC.DD:8080` where AA.BB.CC.DD is the IP of your VM.
+
+
 ## Refining MAGs with anvi'o
 
 While the automated binning process implemented in MetaBAT2 is relatively easy to apply even to large datasets, these methods are not perfect and sometimes they can produce erroneous genome bins.
