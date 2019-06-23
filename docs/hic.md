@@ -115,6 +115,11 @@ For a singnle timepoint, we'll grab a small Hi-C read-set and an associated shot
     # fetch the bin3c image
     sudo docker pull cerebis/bin3c:latest
     ```
+!!! warning "Make sure you have parallel-fastq-dump"
+    If you've skipped the first section on Sequencing run QC, please do this first.
+    ```
+    conda install -c bioconda parallel-fastq-dump 
+    ```
     
 ### Create metagenome assembly and map Hi-C reads
 

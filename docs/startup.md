@@ -23,7 +23,8 @@ wget https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
 bash Anaconda3-2018.12-Linux-x86_64.sh
 ```
 
-Be sure to answer `yes` to the license question and the question about installing the configuration to the `.bashrc` file.
+!!! warning "Don't go too fast here"
+    Be sure to answer `yes` to the license agreement **^^and^^** the question about installing the configuration to the `.bashrc` file. If not, conda will not be configured properly.
 
 Many of the steps in the tutorial involve command-line work, so let's also install the bash kernel:
 ```
@@ -38,7 +39,8 @@ source .bashrc
 jupyter lab --no-browser --ip 0.0.0.0 --LabApp.token=112233445566778899
 ```
 
-IMPORTANT: replace the string of numbers `112233445566778899` with your own string -- this is the secret key that will allow you (and only you) to connect to your jupyter server and run commands, so you want something that neither human nor robot will guess. Hexadecimal (lowercase) values are ok here too.
+!!! warning "IMPORTANT"
+    Make sure to replace the string of numbers `112233445566778899` with your own string -- this is the secret key that will allow you (and only you) to connect to your jupyter server and run commands, so you want something that neither human nor robot will guess. Hexadecimal (lowercase) values are ok here too.
 
 ## Connect to the Jupyter web interface
 
@@ -49,6 +51,7 @@ We're finally ready to connect to the web interface. To do so simply point your 
 Some of the steps in the tutorial use [singularity](https://singularity.lbl.gov) or [docker](https://docker.com) to run analysis tools.
 To carry out those steps singularity will need to be installed on the machine:
 ```bash
+sudo apt update
 sudo apt install -y singularity-container docker.io
 ```
 
