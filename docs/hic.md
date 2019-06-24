@@ -230,11 +230,11 @@ Overall, for BAM mode, the reliability of results is connected to the quality an
         - map Hi-C reads to the reference 
     - The distribution of assembly contig lengths will affect the maximum mapping distance.
 
-### K-mer mode analysis with qc3C
+### _k_-mer mode analysis with qc3C
 
-To analyze our small Hi-C read-set using a K-mer approach, we will first create a k-mer library using Jellyfish. Since this Hi-C experiment used the 4-cutter Sau3AI, which produces an 8-mer junction, we'll use a mer size of 24 for the library. This will give us 8 nucleotides either side of any prospective junction, for specificity. 
+To analyze our small Hi-C read-set using a _k_-mer approach, we will first create a _k_-mer library using Jellyfish. Since this Hi-C experiment used the 4-cutter Sau3AI, which produces an 8-mer junction, we'll use a mer size of 24 for the library. This will give us 8 nucleotides either side of any prospective junction, for specificity. 
 
-Choosing how large a mer size to use for the library is a trade-off between computational complexity and minimising false discovery. You can try sizes bigger and smaller.
+Choosing how large a _k_-mer size to use for the library is a trade-off between computational complexity and minimising false discovery. You can try sizes bigger and smaller.
 
 !!! example "Running k-mer based analyses"
     On the Hi-C data
@@ -298,7 +298,7 @@ Therefore, the Hi-C library appears to have a reasonable fraction of Hi-C reads.
 
 ## Metagenome Binning with Hi-C Data
 
-As was done with timeseries data at `MetaBAT`, metagenome binning can be performed using Hi-C. The primary difference here is that accurate and precise binning is possible from a single timepoint, so long as you have you have both a shotgun and Hi-C read-set. Currenty, only a few tools exist which were made specifically for this purpose (`bin3C`, `ProxiMeta`) [6,7]. 
+As we saw by processing timeseries data with `MetaBAT2`, metagenome binning can also be performed using Hi-C. The primary difference here is that accurate and precise binning is possible from a single timepoint, so long as you have you have both a shotgun and Hi-C read-set. Currenty, only a few tools exist which were made specifically for this purpose (`bin3C`, `ProxiMeta`) [6,7]. 
 
 In this tutorial we will use bin3C, as it is open-source and easy to use. 
 
@@ -347,7 +347,7 @@ After reaching this point, standard downstream analyses would be to profile the 
 !!! info "Expectations from Hi-C binning"
     ![](img/ami_wgs_vs_hic.png){: style="margin-left: 25%; width:50%"}
     
-    Hi-C metagenome binning is dependent on both the quality of the shotgun assembly and the depth of true Hi-C read-pairs. For a Hi-C data-set with strong signal (perhaps 10%) and reasonable depth of sequencing (100M pairs), it is reasonable to expect a 50-100 nearly complete MAGs [6].
+    Hi-C metagenome binning is dependent on both the quality of the shotgun assembly and the depth of true Hi-C read-pairs. For a Hi-C data-set with strong signal (perhaps 10%) and reasonable depth of sequencing (100M pairs), it is reasonable to expect 50-100 nearly complete MAGs [6].
  
 ## References
 
