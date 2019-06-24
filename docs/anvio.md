@@ -32,7 +32,7 @@ anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clus
 ```
 
 The above series of commands will take us from assembly contigs to a working anvi'o database, but there is a lot of compute along the way so if the data set is anything more than extremely trivial you will have to be _very patient_.
-The pig metagenome timeseries dataset we are using in this tutorial requires over hours of CPU time to process with the above commands.
+The pig metagenome timeseries dataset we are using in this tutorial requires over 900 hours of CPU time to process with the above commands.
 If you have access to a large multicore machine (or large AWS instance) this process can be sped up by running many threads via the `-T` command-line parameter.
 
 Next, we need to create a file that will allow us to import our MetaBAT2 bins into anvi'o.
@@ -65,7 +65,8 @@ anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 808
 
 when anvi'o launches it will ask you to provide a password. 
 Make one up, and be sure to choose one you can remember at least long enough to log into the server!
-Once the server is running you can log into it via the chrome web browser by providing the IP address and port 8080 in the location bar, e.g. `http://AA.BB.CC.DD:8080` where AA.BB.CC.DD is the IP of your VM.
+Once the server is running you can log into it via the chrome web browser by providing the IP address and port 8080 in the location bar, e.g. `http://AA.BB.CC.DD:8080` where AA.BB.CC.DD is the IP of your VM. 
+Alternatively if you are using the a provided workshop VM you can just open (in a new tab) the `anvio.html` file from Jupyter and it will redirect the browser to port 8080.
 
 
 ## Refining MAGs with anvi'o
@@ -87,4 +88,12 @@ For more details about bin refinement with anvi'o check out the tutorials and no
 
 * [Refining MAGs with anvi'o](http://merenlab.org/2015/05/11/anvi-refine/)
 * [Notes on bin refinement with anvi'o](http://merenlab.org/2017/05/11/anvi-refine-by-veronika/)
+
+
+### Challenge exercises
+
+* Using `anvi-interactive` Find a bin with a high predicted redundancy rate and another with a low rate. Then load each bin in `anvi-refine`. How do their profiles differ?
+* If we had a metagenome with two strains where 80% of the gene content was common to both strains, and the binning software reconstructed the most abundant one as a bin, what would the coverage profile for that bin look like in `anvi-refine`? What about the coverage standard deviation?
+* What can Single Nucleotide Variants (SNVs) tell us about a genome bin?
+
 
