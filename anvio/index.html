@@ -350,6 +350,19 @@
     Refining MAGs with anvi'o
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#challenge-exercises" title="Challenge exercises" class="md-nav__link">
+    Challenge exercises
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -433,6 +446,19 @@
     Refining MAGs with anvi'o
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#challenge-exercises" title="Challenge exercises" class="md-nav__link">
+    Challenge exercises
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -478,7 +504,7 @@ anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clus
 </pre></div>
 
 <p>The above series of commands will take us from assembly contigs to a working anvi'o database, but there is a lot of compute along the way so if the data set is anything more than extremely trivial you will have to be <em>very patient</em>.
-The pig metagenome timeseries dataset we are using in this tutorial requires over hours of CPU time to process with the above commands.
+The pig metagenome timeseries dataset we are using in this tutorial requires over 900 hours of CPU time to process with the above commands.
 If you have access to a large multicore machine (or large AWS instance) this process can be sped up by running many threads via the <code>-T</code> command-line parameter.</p>
 <p>Next, we need to create a file that will allow us to import our MetaBAT2 bins into anvi'o.
 This is a pretty simple process:</p>
@@ -504,7 +530,8 @@ You can try it of course but you're on your own when something goes wrong (which
 
 <p>when anvi'o launches it will ask you to provide a password. 
 Make one up, and be sure to choose one you can remember at least long enough to log into the server!
-Once the server is running you can log into it via the chrome web browser by providing the IP address and port 8080 in the location bar, e.g. <code>http://AA.BB.CC.DD:8080</code> where AA.BB.CC.DD is the IP of your VM.</p>
+Once the server is running you can log into it via the chrome web browser by providing the IP address and port 8080 in the location bar, e.g. <code>http://AA.BB.CC.DD:8080</code> where AA.BB.CC.DD is the IP of your VM. 
+Alternatively if you are using the a provided workshop VM you can just open (in a new tab) the <code>anvio.html</code> file from Jupyter and it will redirect the browser to port 8080.</p>
 <h2 id="refining-mags-with-anvio">Refining MAGs with anvi'o<a class="headerlink" href="#refining-mags-with-anvio" title="Permanent link">&para;</a></h2>
 <p>While the automated binning process implemented in MetaBAT2 is relatively easy to apply even to large datasets, these methods are not perfect and sometimes they can produce erroneous genome bins.
 anvi'o offers some useful data visualizations methods that can help us to identify cases where a MAG appears to have dubious features.
@@ -520,6 +547,12 @@ and then point our browser at the anvi'o server as noted above.</p>
 <ul>
 <li><a href="http://merenlab.org/2015/05/11/anvi-refine/">Refining MAGs with anvi'o</a></li>
 <li><a href="http://merenlab.org/2017/05/11/anvi-refine-by-veronika/">Notes on bin refinement with anvi'o</a></li>
+</ul>
+<h3 id="challenge-exercises">Challenge exercises<a class="headerlink" href="#challenge-exercises" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Using <code>anvi-interactive</code> Find a bin with a high predicted redundancy rate and another with a low rate. Then load each bin in <code>anvi-refine</code>. How do their profiles differ?</li>
+<li>If we had a metagenome with two strains where 80% of the gene content was common to both strains, and the binning software reconstructed the most abundant one as a bin, what would the coverage profile for that bin look like in <code>anvi-refine</code>? What about the coverage standard deviation?</li>
+<li>What can Single Nucleotide Variants (SNVs) tell us about a genome bin?</li>
 </ul>
                 
                   
