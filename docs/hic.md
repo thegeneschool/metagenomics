@@ -2,11 +2,11 @@
 
 ## What is Metagenomic Hi-C?
 
-As the name suggest, Metagenomic Hi-C incorporates a new form of sequencing datas, named Hi-C, in to traditional shotgun metagenomes. In doing so, modern analyses, such as genome binning, can be performed accurately and precisely using only a single time-point.
+As the name suggests, Metagenomic Hi-C is an adaptation of the Hi-C protocol for chromosome 3D structur profiling to shotgun metagenome analysis. Metagenomic Hi-C is a useful addition to the metagenome analysis toolbox because it enables things like genome binning to be carried out accurately and precisely from a single sample rather than a large collection of samples.
 
-The Hi-C protocol was designed to capture genome-wide evidence of DNA molecules in close physical proximity _in vivo_, prior to cellular lysis. With the flexible nature of a chromosome and its capacity to bend back on itself, the most frequently observed interactions are usually those between loci on the same chromosome. After this, the next most frequent interactions are between chromosomes within the same cell (inter-chromosomal). The least common are inter-cellular interactions and are often seen at rates far below those found within a cell.
+The Hi-C protocol was designed to capture genome-wide evidence of DNA molecules in close physical proximity _in vivo_, prior to cellular lysis. With the flexible nature of a chromosome and its capacity to bend back on itself, the most frequently observed interactions are usually those between nearby loci on the same chromosome (intra-chromosomal). After this, the next most frequent interactions are between chromosomes within the same cell (inter-chromosomal). The least common are inter-cellular interactions and are often seen at rates far below those found within a cell.
 
-The original purpose of Hi-C was to study the 3-dimensional conformation of the human genome [1], but this captured proximity information can be readily applied to draft assemblies. Here the proximity information is used to infer which assembly fragments (contigs) originated from the same cell (or chromosome). Though the power of the "proximity signal" should provide a precision down to the level of the chromosome, metagenomic analysis tools currently aim to associate assembly fragments at the genome level.
+The original purpose of Hi-C was to study the 3-dimensional conformation of the human genome [1], but this captured proximity information can be readily applied to improve draft genome and metagenome assemblies. In metagenomics we can use the proximity information to infer which assembly fragments (contigs) originated from the same cell (or chromosome). Though the power of the "proximity signal" should provide a level of precision down to individual chromosomes, metagenomic analysis tools currently aim to associate assembly fragments at the genome level into MAGs (as described in the earlier tutorial section on genome binning).
 
 ## The Hi-C Library Protocol
 
@@ -15,13 +15,13 @@ The original purpose of Hi-C was to study the 3-dimensional conformation of the 
 
 ### Basic Concept
 
-Though Hi-C read-sets are generated using conventional high-throughput Illumina paired-end sequencing, the more complicated Hi-C protocol produces a significantly different library. Rather than in traditional shotgun sequencing, where the paired reads originate from nearby regions on the same contiguous DNA molecule (i.e. chromosome, plasmid, etc), the intention of the Hi-C protocol is generate read-pairs from DNA loci that were merely in close physical proximity within the cell. So long as any two DNA loci interact spatially, regardless of their location with the genome, there is a chance of producing a Hi-C read-pair from that interaction. Hi-C paired reads can therefore originate from far-away regions of the same molecule or from entirely different molecules.
+Though Hi-C read-sets are generated using conventional high-throughput Illumina paired-end sequencing, the more complicated Hi-C protocol produces a very different library. Unlike traditional shotgun sequencing, where read pairs originate from nearby regions on the same contiguous DNA molecule (i.e. chromosome, plasmid, etc), the Hi-C protocol can generate read-pairs from any two strands of DNA that were in close physical proximity within the cell. So long as the two DNA loci interact, regardless of their location with the genome, there is a chance of producing a Hi-C read-pair from that interaction. Hi-C read pairs can therefore originate from far-away regions of the same molecule or from entirely different molecules.
 
-To achieve this, the Hi-C library protocol adds a number of steps upstream of Illumina adapter ligation and is more challenging to get right. As a result, commercial kits have begun to appear which aim to simplify the process and improve quality and consistency of the resulting libraries.
+To achieve this, the Hi-C library protocol involves several steps upstream of Illumina adapter ligation and is more challenging to execute in the lab. As a result, commercial kits have been developed which can simplify the process and improve quality and consistency of the resulting libraries.
 
 ### Protocol Outline
 
-1. **DNA Fixation:** Beginning with intact cells, the first step of the Hi-C protocol is formalin fixation. The act of cross-linking freezes close-by conformation arrangements within the DNA that existed in the cells at the time of fixation.
+1. **DNA Fixation:** Beginning with intact cells, the first step of the Hi-C protocol is formalin fixation. The act of cross-linking "locks in" close-by conformation arrangements within the DNA that existed in the cells at the time of fixation.
 
 2. **Cell Lysis:** The cells are lysed and DNA-protein complexes extracted and purified.
 
@@ -29,39 +29,43 @@ To achieve this, the Hi-C library protocol adds a number of steps upstream of Il
 
 4. **Biotin Tagging:** The overhangs produced during digestion are end-filled with biotinylated nucleotides.
 
-5. **Free-end Ligation:** in dilute conditions or immobilised on a substrate, free-ends protruding from the DNA-protein complexes are ligated. This stochastic process favours any two ends which were nearby within the complex, however random ligation and self-ligation can occur and are non-informative.
+5. **Free-end Ligation:** in dilute conditions or immobilised on a substrate, free-ends protruding from the DNA-protein complexes are ligated. This stochastic process favours any two ends which were nearby within the complex, however random ligation and self-ligation can occur and the reads resulting from such events create noise/error in the data.
 
-6. **Crosslink Reversal:** The formalin fixation is reversed, allowing the now free DNA to be purified.
+6. **Crosslink Reversal:** The bonds created by formalin fixation are removed, allowing the now free DNA to be purified. Proteinase digestion is common following this step.
 
 7. **Un-ligated End Clean-up:** Free-ends which failed to form ligation products are unwanted in subsequent steps but could still be biotin tagged. To minimise their inclusion, a light exonuclease 3' to 5' favoured chew-back can be applied.
 
-8. **DNA Sheering:** With ligation completed, the DNA is mechanically sheered and the size range of the resulting fragment selected suitability with Illumina paired-end sequencing. 
+8. **DNA Shearing:** With ligation completed, the DNA is mechanically sheared and the size range of the resulting fragment selected suitability with Illumina paired-end sequencing. 
 
 9. **DNA repair:** Sonication can lead to damaged ends and nicks, which can be repaired.
 
 10. **Proximity Ligation Enrichment:** Biotin tagged fragments are pulled down using affinity purification. 
 
-11. **Adpater Ligation:** Illumina paired-end adapter ligation and associated steps to produce a sequencing library are now applied.
+11. **Adapter Ligation:** Illumina paired-end adapter ligation and associated steps to produce a sequencing library are now applied.
 
 
 ## Quality Control: is my library ok?
 
-As is commonly seen in any laboratory experiment, ideal results are a rarity when generating a Hi-C dataset. The added protocol complexity and the variability of samples under study offer fertile enough ground to produce a technical hitch or two when making a library. Putting aside whether we can ultimately identify the source, most frequently these hitches translate into less efficient capture of proximity information. Less efficient in the sense that, an increasingly small proportion of the resulting read-pairs are actually due to a proximity ligation event. The remainder are essentially conventional shotgun read-pairs, which in the context of conformation capture are uninformative. 
+Due to the highly variable nature of environmental microbe samples, the possible presence of enzyme inhibitors, and other reasons, the metagenomic Hi-C protocol may not always work with high efficiency, or at all. Problems with sample processing can sometimes be identified prior to sequencing, for example if the measured library yield is very low. But other problems may be difficult to diagnose prior to sequencing, for example, it is very difficult to estimate the efficiency of proximity ligation and thus the fraction of sequencing reads that will be Hi-C reads without actually sequencing the sample. The reads that are not Hi-C reads are essentially conventional shotgun read-pairs, which in the context of Hi-C are uninformative. 
 
-The value of the proximity information contained within a Hi-C read-set is such that, even with a low efficiency library, it can be worthwhile to compensate by sequencing more deeply. Thus, determining the percentage of read-pairs formed through the process of proximity ligation (the efficiency) is an important measure of Hi-C library quality. Rather than submit a library to a large and costly sequencing run immediately, a small pilot run is sufficient to confidently estimate efficiency. Armed with this information, a researcher can make informed decisions about further action; such as whether a prospective library should be fully sequenced and to what depth. 
+The value of the proximity information contained within a Hi-C read-set is high enough that even with a low efficiency library, it can be worthwhile to compensate for low efficiency by sequencing more deeply to obtain more Hi-C read pairs. Thus, determining the percentage of Hi-C read-pairs in the library is important, because it can tell us how deeply we need to sequence our library. Rather than submit a library to a large and costly sequencing run immediately, a small pilot sequencing run can be sufficient to confidently estimate the Hi-C efficiency. Armed with this information, a researcher can make informed decisions about further action; such as whether a candidate Hi-C library should be fully sequenced and to what depth. 
+
+We now discuss various ways to estimate the fraction of Hi-C reads in a library.
 
 #### Evidence of Proximity Ligation
 
 ##### Long-range pairs
 
-The separation distance for intra-chromosomal Hi-C read-pairs is bounded only by the length of the chromosome. This is opposed to shotgun read-pairs whose separation is unlikely to be more than a few hundred nucleotides. Though less direct that looking for evidence of cut-site duplication events, this can also be used to infer the percentage of Hi-C read-pairs.
+The separation distance for intra-chromosomal Hi-C read-pairs is bounded only by the length of the chromosome. This is unlike shotgun read-pairs whose separation is rarely more than a thousand nucleotides due to chemistry limitations on Illumina instruments. Though it is less direct than looking for evidence of cut-site duplication events, a simple count of the number of read pairs than map far apart can be used to infer the percentage of Hi-C read-pairs.
+The main limitation of this approach is that it requires a high quality reference assembly against which the Hi-C read pairs can be mapped.
+In many metagenomic projects, such an assembly is not actually available, either because a good quality shotgun metagenome dataset has not yet been generated for the sample or because there are no close reference genomes in public databases for the organisms in the sample.
 
 !!! success ""
     Counting the number of of pairs which map at long-range can as be used to infer the percentage of Hi-C read-pairs.
 
 ##### Proximity ligation junctions
 
-In the Hi-C protocol outlined above, the steps of creating of free-ends through enzymatic digestion, subsequent end-repair, and finally re-ligation introduces a artifact at the junction point. This artifact is a short sequence duplication and is enzyme dependent. The duplication is produced when the cleavage site overhangs are subjected to end-repair. When repaired blunt ends are subsequently ligated, their junction contains two copies of the overhang sequence.
+In the Hi-C protocol outlined above, the steps of creating free-ends through enzymatic digestion, subsequent end-repair, and finally re-ligation introduces an artifact at the junction point. This artifact is a short sequence duplication and the exact sequence enzyme dependent. The duplication is produced when the cleavage site overhangs are subjected to end-repair. When the repaired blunt ends are subsequently ligated, their junction contains two copies of the overhang sequence.
 
 !!! info "Proximity junction for the enzyme Sau3AI"
     
@@ -88,7 +92,11 @@ In the Hi-C protocol outlined above, the steps of creating of free-ends through 
     3'-xxxxCTAGCTAGyyyy-5'
     ```
 
-After the steps of DNA sheering and size selection, fragments which eventually go on to DNA sequencing can contain a junction at any point along their extent. An Illumina paired-end sequencing run, which generates reads at either end of a fragment, thus has two chances of crossing over the junction. This event is also termed read-through.
+After the steps of DNA shearing and size selection, fragments which eventually go on to DNA sequencing can contain a junction at any point along their extent. An Illumina paired-end sequencing run, which generates reads at either end of a fragment, thus has two chances to read through the junction.
+This approach has two main drawbacks:
+
+* If the fragments in the sequencing library are long relative to the read length, there may be junctions within the fragment that remain unobserved, and this fact must be corrected for in the estimate.
+* If the sample was degraded there may have been free ends that were not created by an enzyme cut. These could become proximity-ligated, and therefore ligation junctions may exist that do not contain the obvious junction sequence.
 
 !!! success ""
     Searching the read-set for examples of this junction sequence is one means of measuring the percentage of Hi-C read-pairs in a given library.
@@ -100,11 +108,11 @@ Though the methodology of Hi-C QC has yet to achieve standardisation, a number o
 In this tutorial we will use `qc3C` to assess Hi-C library quality in two different ways: 
 
 1. Read mapping based analysis
-2. K-mer based analysis. 
+2. _k_-mer based analysis. 
 
 ### Get some Hi-C data and tools
 
-For a singnle timepoint, we'll grab a small Hi-C read-set and an associated shotgun read-set. Also, we'll pull down the Docker images for `qc3C` (quality testing) and `bin3C` (metagenome binning)
+For a single timepoint, we'll first download a small Hi-C read-set and its associated shotgun read-set. Also, we'll pull down the Docker images for `qc3C` (quality testing) and `bin3C` (metagenome binning)
 
 !!! example "Get some Hi-C data and the qc3C and bin3C docker images"
     ```Bash
@@ -121,9 +129,9 @@ For a singnle timepoint, we'll grab a small Hi-C read-set and an associated shot
     conda install -c bioconda parallel-fastq-dump 
     ```
     
-### Create metagenome assembly and map Hi-C reads
+### Create a metagenome assembly and map Hi-C reads
 
-The shotgun dataset has been limited to 1M read-pairs, this is only 1/165th of the total. Obviously this reduction in total coverage will lead to a much sparser sampling of the community and a more fragmented assembly. None the less, we can use this for demonstrating the concept of QC and Hi-C metagenome binning.
+The shotgun dataset has been limited to 1M read-pairs, this is only 1/165th of the total. Obviously this reduction in total coverage will lead to a much sparser sampling of the community and a more fragmented assembly. Nevertheless, it is enough data to demonstrate the concept of QC and Hi-C metagenome binning.
 
 Lets assemble the shotgun data and map both library types to the resulting contigs.
 
@@ -146,13 +154,13 @@ Lets assemble the shotgun data and map both library types to the resulting conti
 !!! tip "Breaking down the read mapping command" 
     1. We are providing Docker access to our host filesystem using a bind mount (`-v $PWD:/opt/app-root`)
     2. Next we are specifying the image to run (`cerebis/bin3c:latest`).
-    3. Finally we include the actual call, which involves pipes between `bwa` and `samtools`. To achieve this requires we instead pass `bash` itself our complex command, which it then executures within the container. 
+    3. Finally we include the actual call, which involves pipes between `bwa` and `samtools`. To achieve this we pass the `bash` shell our complex command, which it then executes within the container. 
 
 ### BAM mode analysis with qc3C
 
 We begin with the conceptually simpler approach to Hi-C QC, counting the number of long-range read-pairs from a Hi-C read-set. As a rule of thumb, to work well with Illumina sequencing, the physical size of fragments is likely to be <1000nt. We shall therefore simply count the number of pairs which map with a separation >1000, >5000 and >10,000 nt. 
 
-As the separation grows, we expect an increasingly large proportion of these pairs will be due to Hi-C proximity ligation.
+As the mapped read-pair separation grows beyond 1000nt we expect an increasingly large proportion of these pairs will be due to Hi-C proximity ligation.
 
 Conversely, when analysing a shotgun read-set, we expect to see very few.
 
@@ -170,7 +178,7 @@ Conversely, when analysing a shotgun read-set, we expect to see very few.
     
 #### Estimation of fragment size
 
-As we are not sure of the mean insert length, we guess it is 400nt. This is one handy benefit of the BAM mode approach, we can infer a reasonably good estimate of the fragment (insert) length. In k-mer mode, having an accurate value becomes important if we wish to estimate the probable fraction of unobserved proximity junctions. That is to say, for long fragments and short reads, much of each fragment goes unsequenced and so we will miss evidence junctions.
+As we are not sure of the mean insert length, we guess it to be 400nt. This is one handy benefit of the BAM mode approach, we can infer a reasonably good estimate of the fragment (insert) length. In _k_-mer mode, having an accurate value becomes important if we wish to estimate the probable fraction of unobserved proximity junctions. That is to say, for long fragments and short reads, much of each fragment goes unsequenced and so we will miss the evidence of junctions.
 
 In our resulting log from above, `qc3C` reports an observed mean fragment length of 445nt for the Hi-C read-set. 
 
@@ -200,11 +208,11 @@ For the Hi-C library, the fraction of pairs separated by more than 10kb was ~2.7
     INFO     | 2019-06-23 18:56:13,331 | qc3C.bam_based | Relative fraction of all obs:   0.0007268,   0.0001101,   5.886e-05
     ```
 
-It is important to keep in mind that as the assembly was very low coverage, the length of contigs is significantly reduced. This will impair the odds of seeing pairs which map far away. Despite this, the 97% of pairs in the shotgun library map to the same sequence. In contrast, 72% of Hi-C pairs mapped to the same contig.
+It is important to keep in mind that as the assembly was made from a shotgun dataset downsampled to very low coverage, the length of contigs is significantly lower than would have been obtained with the full dataset. This will impair the odds of seeing pairs which map far away. Despite this, the 97% of pairs in the shotgun library map to the same contig sequence. In contrast, 72% of Hi-C pairs mapped to the same contig.
 
-Overall, for BAM mode, the reliability of results a connected to the quality and completeness of the available references. 
+Overall, for BAM mode, the reliability of results is connected to the quality and completeness of the available references. 
 
-!!! tip "Breaking down invocation of `qc3C`" 
+!!! tip "Breaking down the invocation of `qc3C`" 
     1. We are providing Docker access to our host filesystem using a bind mount (`-v $PWD:/opt/app-root`)
     2. Next we are specifying the image to run (`cerebis/qc3c:alpine`).
     3. Finally we include the actual call to `qc3C`, along with its own options. 
