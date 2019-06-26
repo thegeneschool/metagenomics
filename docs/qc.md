@@ -11,7 +11,7 @@ First, let's install the parallel version of fastq-dump using conda.
 To do this, start a terminal session in your Jupyter server (click the Terminal icon) and run the following command (ok to copy and paste):
 
 ```
-conda install -c bioconda parallel-fastq-dump 
+conda install -y -c bioconda parallel-fastq-dump 
 ```
 
 Now that you've installed fastq-dump we can use it to download data by accession number. Copy and paste the following to your terminal:
@@ -31,7 +31,7 @@ The very first thing one would normally do when working with a new dataset is to
 There are many, many tools available to compute quality metrics. For our current data we will use the FastQC software, applied to each sample, and then combine the results using MultiQC to a single report. First step is to install `fastqc` and `multiqc`.
 
 ```
-conda install -c bioconda fastqc
+conda install -y -c bioconda fastqc
 pip install multiqc
 ```
 In the above we've used conda to install fastqc, but we've used another way to install multiqc -- something called `pip`. pip is an installer for python programs, and like conda it will download and install the software along with any dependencies. The reason we use pip in this case is because conda can be very, very slow to install some programs and in this case pip is much faster.

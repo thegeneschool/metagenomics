@@ -63,7 +63,7 @@ megahit creates contigs with names like ``, but the whitespace in these names ca
 Therefore as a final step in the assembly process we need to rename the contigs with the following commands:
 
 ```
-cd assembly
+cd assembly/metaasm
 cp final.contigs.fa contigs-fixnames.fa
 perl -p -i -e "s/(>\w+) flag.*/\$1/g" contigs-fixnames.fa
 ```

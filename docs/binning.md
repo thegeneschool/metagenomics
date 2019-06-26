@@ -22,7 +22,7 @@ When timeseries data is available, [MetaBAT2](https://bitbucket.org/berkeleylab/
 MetaBAT2 can be installed via conda as follows:
 
 ```
-conda install -c bioconda metabat2
+conda install -y -c bioconda metabat2
 ```
 
 ### MetaBAT2 input data
