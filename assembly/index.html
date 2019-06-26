@@ -528,7 +528,7 @@ We can use this file for subsequent analyses.
 One small detail we need to resolve is the formatting of contig names in the assembly file.
 megahit creates contigs with names like ``, but the whitespace in these names causes problems for certain downstream analyses, such as visualization with anvi'o.
 Therefore as a final step in the assembly process we need to rename the contigs with the following commands:</p>
-<div class="codehilite"><pre><span></span>cd assembly
+<div class="codehilite"><pre><span></span>cd assembly/metaasm
 cp final.contigs.fa contigs-fixnames.fa
 perl -p -i -e &quot;s/(&gt;\w+) flag.*/\$1/g&quot; contigs-fixnames.fa
 </pre></div>
