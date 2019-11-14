@@ -19,28 +19,29 @@ The process is fairly straightforward. First ssh into the instance: `ssh -i my_a
 Once logged in there are a few steps to installing the Jupyter server. First download and install anaconda:
 
 ```
-wget https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
-bash Anaconda3-2018.12-Linux-x86_64.sh
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
 !!! warning "Don't go too fast here"
     Be sure to answer `yes` to the license agreement **^^and^^** the question about installing the configuration to the `.bashrc` file. If not, conda will not be configured properly.
 
-Many of the steps in the tutorial involve command-line work, so let's also install the bash kernel:
+Many of the steps in the tutorial involve command-line work, so let's create an conda execution environment named `workshop to support that:
+
 ```
-pip install bash_kernel
-python -m bash_kernel.install
+conda config --add channels conda-forge --add channels bioconda
+conda install -y jupyterlab bash_kernel
 ```
 
 Now we're ready to launch a jupyter server:
 
 ```
-source .bashrc
-jupyter lab --no-browser --ip 0.0.0.0 --LabApp.token=112233445566778899
+conda activate base
+jupyter lab --no-browser --ip 0.0.0.0 --LabApp.token=abcd1234
 ```
 
 !!! warning "IMPORTANT"
-    Make sure to replace the string of numbers `112233445566778899` with your own string -- this is the secret key that will allow you (and only you) to connect to your jupyter server and run commands, so you want something that neither human nor robot will guess. Hexadecimal (lowercase) values are ok here too.
+    Make sure to replace `abcd1234` with a string of your own choosing that is a mixture of numbers and letters -- this is the secret key that will allow you (and only you) to connect to your jupyter server and run commands, so you want something that neither human nor robot will guess. Hexadecimal (lowercase) values are ok here too.
 
 ## Connect to the Jupyter web interface
 

@@ -115,18 +115,14 @@ In this tutorial we will use `qc3C` to assess Hi-C library quality in two differ
 For a single timepoint, we'll first download a small Hi-C read-set and its associated shotgun read-set. Also, we'll pull down the Docker images for `qc3C` (quality testing) and `bin3C` (metagenome binning)
 
 !!! example "Get some Hi-C data and the qc3C and bin3C docker images"
-    ```Bash
+    ```bash
     # download the read-set
-    parallel-fastq-dump -s SRR9323809 -s SRR8960211 --threads 4 --outdir hic_data/ --minSpotId 0 --maxSpotId 1000000 --split-files --gzip
+    parallel-fastq-dump/parallel-fastq-dump -s SRR9323809 -s SRR8960211 --threads 4 --outdir hic_data/ \
+        --minSpotId 0 --maxSpotId 1000000 --split-files --gzip
     # fetch the qc3C image
     sudo docker pull cerebis/qc3c:alpine
     # fetch the bin3c image
     sudo docker pull cerebis/bin3c:latest
-    ```
-!!! warning "Make sure you have parallel-fastq-dump"
-    If you've skipped the first section on Sequencing run QC, please do this first.
-    ```
-    conda install -c bioconda parallel-fastq-dump 
     ```
     
 ### Create a metagenome assembly and map Hi-C reads
@@ -136,7 +132,7 @@ The shotgun dataset has been limited to 1M read-pairs, this is only 1/165th of t
 Lets assemble the shotgun data and map both library types to the resulting contigs.
 
 !!! example "Create a SPAdes assembly"
-    ```Bash
+    ```bash
     # enter the hic data directory
     cd hic_data
     # launch spades in metagenomic mode
@@ -165,7 +161,7 @@ As the mapped read-pair separation grows beyond 1000nt we expect an increasingly
 Conversely, when analysing a shotgun read-set, we expect to see very few.
 
 !!! example "Run a BAM based analysis"
-    ```Bash
+    ```bash
     # enter the hic data folder
     cd hic_data
     # perform bam based QC analysis on Hi-C data 
@@ -182,7 +178,7 @@ As we are not sure of the mean insert length, we guess it to be 400nt. This is o
 
 In our resulting log from above, `qc3C` reports an observed mean fragment length of 445nt for the Hi-C read-set. 
 
-!!! example ""
+!!! note ""
     ```
     INFO     | 2019-06-23 18:55:18,652 | qc3C.bam_based | Observed mean of short-range pair separation: 445nt
     ```
@@ -193,7 +189,7 @@ The last three lines of the output from `qc3C` report the absolute number and re
  
 For the Hi-C library, the fraction of pairs separated by more than 10kb was ~2.7%, while in contrast for the known shotgun library the fraction was <0.006%. 
 
-!!! example ""
+!!! note ""
     Hi-C result
     ```
     INFO     | 2019-06-23 18:55:18,654 | qc3C.bam_based | Long-range distance intervals:    1000nt,    5000nt,   10000nt

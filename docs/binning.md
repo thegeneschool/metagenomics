@@ -21,9 +21,10 @@ There are many binning tools available to extract MAGs from metagenome assemblie
 When timeseries data is available, [MetaBAT2](https://bitbucket.org/berkeleylab/metabat/src/master/) is a good choice because it is both easy to use and offers good performance.
 MetaBAT2 can be installed via conda as follows:
 
-```
-conda install -y -c bioconda metabat2
-```
+!!! example "Install MetaBAT2"
+    ```bash
+    conda install -y -n workshop metabat2
+    ```
 
 ### MetaBAT2 input data
 
@@ -32,10 +33,11 @@ We will not cover the read mapping process in this tutorial, but it can be carri
 Be sure to sort and index the bam files with [samtools](http://www.htslib.org/) prior to running metabat.
 Assuming we have bam files of mapped reads and the metagenome assembly available in a directory called `~/data` we can compute genome bins as follows:
 
-```
-mkdir ~/metabat ; cd ~/metabat
-runMetaBat.sh ~/data/contigs-fixnames.fa ~/data/*.bam 
-```
+!!! example "Analyse the assembled timeseries data-set with `runMetaBat.sh`"
+    ```bash
+    mkdir ~/metabat ; cd ~/metabat
+    runMetaBat.sh ~/data/contigs-fixnames.fa ~/data/*.bam 
+    ```
 
 Depending on how much data you've got this can take a long time to compute.
 Luckily MetaBAT2 has a good parallel implementation so it can go faster if you run on a large multi-core machine.
