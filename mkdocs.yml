@@ -42,7 +42,7 @@ site_name: Metagenomics Tutorial
 site_description: A tutorial covering practical elements of metagenomic analysis
 
 nav:
-- Home: 'index.md'
+#- Home: 'index.md'
 - Jupyter Setup: 'startup.md'
 - Quality Control: 'qc.md'
 - Assembly: 'assembly.md'
