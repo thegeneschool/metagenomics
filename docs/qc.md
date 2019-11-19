@@ -18,9 +18,13 @@ To do this, start a terminal session in your Jupyter server (click the Terminal 
     # fast download from github
     git clone https://github.com/rvalieris/parallel-fastq-dump.git
     # create a new conda environment and activate it
-    conda create -y -n workshop "python<3"
+    conda create -y -n workshop "python<3" sra-tools
     conda activate workshop
     ```
+    
+!!! info
+    We've just created a new conda environment and activated it. You will see your prompt now tells you this fact with `(workshop)`.    
+    
 Now that you've installed fastq-dump we can use it to download data by accession number. Copy and paste the following to your terminal:
 
 !!! example "Download the sequencing data for our data-sets"
@@ -152,12 +156,16 @@ It is useful as an initial quality check to ensure that the microbial community 
 While it may be possible to install metaphlan2 via conda, at least in my experience, conda struggles with "solving the environment".
 Therefore it's suggested to install it via the simple download method described on the [metaphlan tutorial page](https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial):
 
+!!! warning "Skip downloading metaphlan2"
+    The >500MB Metaphlan2 package has already been downloaded and we'll just be extracting it.
+
 !!! example "Obtaining `metaphlan`"
     ```bash
-    # download metaphlan with reference data
-    cd ; wget -c -O metaphlan.tar.bz2 https://bitbucket.org/nsegata/metaphlan/get/default.tar.bz2
+    # this would be how you could download the package yourself
+    # wget -c -O metaphlan.tar.bz2 https://bitbucket.org/nsegata/metaphlan/get/default.tar.bz2
+    
     # extract the archive
-    tar xvjf metaphlan.tar.bz2
+    cd ; tar xvjf /data/metaphlan.tar.bz2
     # rename the folder to something simple
     mv nsegata-metaphlan* metaphlan
     # apply a technical fix for metaphlan plotting
@@ -166,7 +174,7 @@ Therefore it's suggested to install it via the simple download method described 
     conda install -y -n workshop bowtie2 numpy scipy matplotlib
     ```
 
-Once `metaphlan` has been downloaded we can run it on our QC samples:
+Once `metaphlan` has been prepared we can run it on our QC samples:
 
 !!! example "Running `metaphlan` on our data"
     ```bash
@@ -224,18 +232,23 @@ We first need to install `kraken2` and `bracken`:
     conda install -y -n workshop kraken2 bracken
     ```
 
-Next, we need to get a `kraken2` database.
-For this tutorial we will simply use a precomputed `kraken2` database but note the very important limitation that the only non-microbial genome it includes is the human genome.
-If you would like to evaluate host genomic content on plants or other things you should follow the instructions on the `kraken2` web site to build a complete database.
-We can download and unpack the `kraken2` database with:
+Next, we need a `kraken2` database.
 
-!!! example "Get the precomputed `kraken2` reference database"
+For this tutorial we will simply use a precomputed `kraken2` database, note however, the very important limitation that the only non-microbial genome it includes is the human genome.
+If you would like to evaluate host genomic content on plants or other things, you should follow the instructions on the `kraken2` web site to build a complete database.
+
+!!! warning "Skip downloading the database"
+    The Kraken team maintain this and a number of other prepared databases which they make available for download. However, as a matter of courtesy, we will avoid repeatedly requesting the same data.
+
+The archive has already been downloaded and we will just be extracting the contents as follows:
+
+!!! example "Extract the precomputed `kraken2` reference database"
     ```bash
-    cd ; wget -c ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v2_8GB_201904_UPDATE.tgz
-    tar xvzf minikraken2_v2_8GB_201904_UPDATE.tgz
+    cd ; tar xvzf /data/minikraken2_v2_8GB_201904_UPDATE.tgz
     ```
 
 Finally we are ready to profile our samples with `kraken2` and `bracken`.
+
 We'll first download the sample set with `parallel-fastq-dump` and then run `kraken2` and `bracken`'s `est_abundance.py` script on each sample using a bash for loop.
 The analysis can be run as follows:
 
@@ -251,11 +264,11 @@ The analysis can be run as follows:
     for s in $samples
     do
         # run kraken2 analysis
-        kraken2 --paired ${s}_1.fastq.gz ${s}_2.fastq.gz --db ../minikraken2_v2_8GB_201904_UPDATE/ \
+        kraken2 --paired ${s}_1.fastq.gz ${s}_2.fastq.gz --db ~/minikraken2_v2_8GB_201904_UPDATE/ \
             --report ${s}.kreport > ${s}.kraken
         # estimate abundance with braken
         est_abundance.py -i ${s}.kreport -o ${s}.bracken \
-            -k ../minikraken2_v2_8GB_201904_UPDATE/database150mers.kmer_distrib
+            -k ~/minikraken2_v2_8GB_201904_UPDATE/database150mers.kmer_distrib
     done
     ```
 
