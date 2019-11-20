@@ -151,9 +151,9 @@ Also, we'll pull down the Docker images for `qc3C` (quality testing) and `bin3C`
     parallel-fastq-dump/parallel-fastq-dump -s SRR9323809 -s SRR8960211 --threads 4 --outdir hic_data/ \
         --minSpotId 0 --maxSpotId 1000000 --split-files --gzip
     # fetch the qc3C image
-    sudo docker pull cerebis/qc3c:alpine
+    docker pull cerebis/qc3c:alpine
     # fetch the bin3c image
-    sudo docker pull cerebis/bin3c:latest
+    docker pull cerebis/bin3c:latest
     ```
     
 ### Create a metagenome assembly and map Hi-C reads
@@ -177,7 +177,7 @@ Once we have our assembly, we can map the Hi-C reads to the contigs. This mappin
 !!! example "Map Hi-C reads to assembly contigs"
     ```bash
     # index the contig fasta
-    sudo docker run -v $PWD:/opt/app-root cerebis/bin3c:latest bwa index asm/contigs.fasta
+    docker run -v $PWD:/opt/app-root cerebis/bin3c:latest bwa index asm/contigs.fasta
     # map hi-c reads to the contigs 
     docker run -v $PWD:/opt/app-root cerebis/bin3c:latest /bin/bash -c "bwa mem -t4 -5SP asm/contigs.fasta SRR9323809_1.fastq.gz SRR9323809_2.fastq.gz | samtools view -uS -F 0x904 - | samtools sort -@4 -n -o hic_to_ctg.bam -"
     # map shotgun reads to the contigs 
