@@ -1,5 +1,5 @@
 ---
-title: 'The Gene School Metagenomics'
+title: 'Genome-centric metagenomics, from experimental design to metagenomic Hi-C'
 tags:
   - metagenomics
   - microbiome
@@ -10,6 +10,12 @@ tags:
 authors:
   - name: Matthew Z DeMaere
     orcid: 0000-0002-7601-5108
+    affiliation: 1
+  - name: Daniela Gaio
+    orcid: 0000-0002-7695-3145
+    affiliation: 1
+  - name: Kay Anantanawat
+    orcid: 0000-0002-7862-0969
     affiliation: 1
   - name: Aaron E Darling
     orcid: 0000-0003-2397-7925
@@ -27,7 +33,7 @@ bibliography: paper.bib
 <!-- Describe the submission, and explain its eligibility for JOSE. -->
 This short manuscript describes an open educational resource for teaching applied metagenomic data analysis.
 The material assumes that trainees have a basic knowledge of metagenomics and computing, or that such knowledge is supplied separately via lecture material.
-Text documents provided herein are licensed as CC-BY and all software used is available under an OSI-approved license.
+Text documents provided herein are licensed as CC-BY-SA and all software used is available under an OSI-approved license.
 
 # Statement of need
 <!-- Include a “Statement of Need” section, explaining how the submitted artifacts contribute to computationally enabled teaching and learning, and describing how they might be adopted by others. -->
@@ -68,7 +74,7 @@ Students trained with this module are expected to develop the following skills:
 
 # Content
 
-This open educational resource comprises a collection of markdown-formatted workshop pages, a collection of publicly available data sets, and a virtual machine image preloaded with data & results so that compute-intensive steps can be skipped during course delivery.
+This open educational resource comprises a collection of markdown-formatted workshop pages, a collection of publicly available data sets which we have generated, and a virtual machine image preloaded with data & results so that compute-intensive steps can be skipped during course delivery.
 
 # Instructional design
 
@@ -82,7 +88,7 @@ This course material was first delivered at The Gene School 2019, held at Kasets
 For that workshop, a budget from registration fees was used to spawn a fleet of virtual machines in the Amazon Web Services cloud, with one VM per student.
 Each student received a unique URL at the start of the workshop to access the preconfigured Jupyter server on their own VM.
 This approach worked very well, providing a stable and homogenous computing environment for the learning.
-An interactive online discussion system was used during the workshop, and student questions posed in that system, and verbally, highlighted deficiencies in the first revision of the workshop material.
+An interactive online discussion system was used during the workshop, and the student questions posed in that system as well as verbally, highlighted deficiencies in the first revision of the workshop material.
 The material was delivered a second time at a workshop held at Western Sydney University, Sydney, Australia.
 When combined with lecture material, this module requires approximately 6 hours to deliver.
 
@@ -90,6 +96,6 @@ When combined with lecture material, this module requires approximately 6 hours 
 
 This work was funded in part via the Australian Research Council’s Discovery scheme, under ARC Discovery project DP180101506.
 We thank Passorn Wonnapinij, Arinthip Thamchaipenet, Alexie Papanicolaou, Thomas Jeffries, and Kay Anantanawat for their roles in organizing the workshop at which this material was first delivered. 
-That workshop was supported in part by the Australian Academy of Sciences and the Genetics Society of Thailand.
+That workshop was supported in part by the Australian Academy of Sciences Regional Collaborations Programme and the Genetics Society of Thailand.
 
 # References
