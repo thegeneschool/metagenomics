@@ -68,6 +68,7 @@ Make one up, and be sure to choose one you can remember at least long enough to 
 Once the server is running you can log into it via the chrome web browser by providing the IP address and port 8080 in the location bar, e.g. `http://AA.BB.CC.DD:8080` where AA.BB.CC.DD is the IP of your VM. 
 Alternatively if you are using the a provided workshop VM you can just open (in a new tab) the `anvio.html` file from Jupyter and it will redirect the browser to port 8080.
 
+*IMPORTANT:* if you are working in the Jupyter bash notebook you must remove the parameter `--password-protected` from the above command because it is impossible to interact with running shell programs, and therefore impossible to provide the password that anvi'o requests.
 
 ## Refining MAGs with anvi'o
 
@@ -84,6 +85,9 @@ anvi-refine -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --p
 ```
 and then point our browser at the anvi'o server as noted above.
 
+*IMPORTANT:* if you are working in the Jupyter bash notebook you must remove the parameter `--password-protected` from the above command because it is impossible to interact with running shell programs, and therefore impossible to provide the password that anvi'o requests.
+
+
 For more details about bin refinement with anvi'o check out the tutorials and notes on the anvi'o website:
 
 * [Refining MAGs with anvi'o](http://merenlab.org/2015/05/11/anvi-refine/)
@@ -92,7 +96,7 @@ For more details about bin refinement with anvi'o check out the tutorials and no
 
 ### Challenge exercises
 
-* Using `anvi-interactive` Find a bin with a high predicted redundancy rate and another with a low rate. Then load each bin in `anvi-refine`. How do their profiles differ?
+* Using `anvi-interactive` find a bin with a high predicted redundancy rate and another with a low rate. Then load each bin in `anvi-refine`. How do their profiles differ?
 * If we had a metagenome with two strains where 80% of the gene content was common to both strains, and the binning software reconstructed the most abundant one as a bin, what would the coverage profile for that bin look like in `anvi-refine`? What about the coverage standard deviation?
 * What can Single Nucleotide Variants (SNVs) tell us about a genome bin?
 
