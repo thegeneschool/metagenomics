@@ -31,16 +31,16 @@ bibliography: paper.bib
 # Summary
 
 <!-- Describe the submission, and explain its eligibility for JOSE. -->
-This short manuscript describes an open educational resource for teaching applied metagenomic data analysis.
+This short manuscript describes an open educational resource for teaching applied metagenomic data analysis called [The Gene School: Metagenomics](https://thegeneschool.github.io/metagenomics/).
 The material assumes that trainees have a basic knowledge of metagenomics and computing, or that such knowledge is supplied separately via lecture material.
-Text documents provided herein are licensed as CC-BY-SA and all software used is available under an OSI-approved license.
+Text documents provided herein are licensed as CC-BY-SA and all third-party software used is available under an OSI-approved license.
 
 # Statement of need
 <!-- Include a “Statement of Need” section, explaining how the submitted artifacts contribute to computationally enabled teaching and learning, and describing how they might be adopted by others. -->
 The importance and pervasiveness of microbial communities in biological systems is now widely appreciated, and high throughput DNA sequencing has provided a means to characterize and quantify such microbial communities, in particular via metagenome sequencing.
-Successful application of metagenome sequencing requires careful experimental design and planning, not just for the sampling process but also for the sequencing and data analysis components.
+Successful application of metagenome sequencing benefits from careful experimental design and planning, not just for the sampling process but also for the sequencing and data analysis components.
 A wholistic view of the entire process from sampling to data analysis is required.
-The educational materials we present in this open module are designed to give students hands-on experience with several aspects of experimental design and data analysis for metagenome analysis.
+The educational materials we present in this open module are designed to give students hands-on experience with several aspects of experimental design and data analysis for metagenomics.
 The material introduces several state of the art (as of 2019) data analysis methods for metagenome quality control, genome assembly, and genome binning.
 The module also covers the application of emerging techniques such as metagenomic Hi-C for which open source analysis software has only recently been introduced and no previous educational material has been developed.
 
@@ -75,6 +75,7 @@ Students trained with this module are expected to develop the following skills:
 # Content
 
 This open educational resource comprises a collection of markdown-formatted workshop pages, a collection of publicly available data sets which we have generated, and a virtual machine image preloaded with data & results so that compute-intensive steps can be skipped during course delivery.
+The precomputed results are also provided outside the VM image for ease of use in other computing environments.
 
 # Instructional design
 
@@ -85,7 +86,7 @@ The active learning material has been designed for use in Jupyter, enabling stud
 # Experience of use
 
 This course material was first delivered at The Gene School 2019, held at Kasetsart University, Bangkok, Thailand.
-For that workshop, a budget from registration fees was used to spawn a fleet of virtual machines in the Amazon Web Services cloud, with one VM per student.
+For that workshop a budget from registration fees was used to spawn a fleet of virtual machines in the Amazon Web Services cloud, with one VM per student.
 Each student received a unique URL at the start of the workshop to access the preconfigured Jupyter server on their own VM.
 This approach worked very well, providing a stable and homogenous computing environment for the learning.
 An interactive online discussion system was used during the workshop, and the student questions posed in that system as well as verbally, highlighted deficiencies in the first revision of the workshop material.
@@ -95,7 +96,7 @@ When combined with lecture material, this module requires approximately 6 hours 
 # Acknowledgements
 
 This work was funded in part via the Australian Research Council’s Discovery scheme, under ARC Discovery project DP180101506.
-We thank Passorn Wonnapinij, Arinthip Thamchaipenet, Alexie Papanicolaou, Thomas Jeffries, and Kay Anantanawat for their roles in organizing the workshop at which this material was first delivered. 
+We thank Passorn Wonnapinij, Arinthip Thamchaipenet, Alexie Papanicolaou, and Thomas Jeffries for their roles in organizing the workshop at which this material was first delivered. 
 That workshop was supported in part by the Australian Academy of Sciences Regional Collaborations Programme and the Genetics Society of Thailand.
 
 # References
