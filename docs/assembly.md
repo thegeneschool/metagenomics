@@ -31,9 +31,10 @@ Therefore as a consensus representation, these assembled chromosome sequences ma
 ## Assembling some example data
 
 ```
+cd
 parallel-fastq-dump -t 4 --outdir asm --split-files --gzip -s SRR8960410 -s SRR8960409 -s SRR8960402 -s SRR8960368 -s SRR8960420 -s SRR8960739 -s SRR8960679 -s SRR8960627 -s SRR8960591 -s SRR8960887 --minSpotId 0 --maxSpotId 50000 && mv asm assembly
 ```
-The above command will download the first 50000 read-pairs of a set of samples.
+The above commands first move us to the home directory, and then will download the first 50000 read-pairs of a set of samples.
 All of these samples come from the same pig, and were collected at different time points in consecutive weeks.
 
 Now we can assemble with megahit:
