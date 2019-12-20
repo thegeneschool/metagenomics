@@ -38,17 +38,17 @@ markdown_extensions:
           class: arithmatex
           format: !!python/name:pymdownx.arithmatex.fence_mathjax_format
 
-site_name: Metagenome tutorial
+site_name: Metagenomics Tutorial
 site_description: A tutorial covering practical elements of metagenomic analysis
 
 nav:
 #- Home: 'index.md'
-- Jupyter: 'startup.md'
-- QC: 'qc.md'
+- Jupyter Setup: 'startup.md'
+- Quality Control: 'qc.md'
 - Assembly: 'assembly.md'
 - Binning: 'binning.md'
-- Visualization: 'anvio.md'
 - Hi-C: 'hic.md'
+- Visualization: 'anvio.md'
 - Everything Else: 'everythingelse.md'
 
 theme:
