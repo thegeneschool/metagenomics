@@ -30,18 +30,25 @@ Therefore as a consensus representation, these assembled chromosome sequences ma
 
 ## Assembling some example data
 
-```
-cd
-parallel-fastq-dump -t 4 --outdir asm --split-files --gzip -s SRR8960410 -s SRR8960409 -s SRR8960402 -s SRR8960368 -s SRR8960420 -s SRR8960739 -s SRR8960679 -s SRR8960627 -s SRR8960591 -s SRR8960887 --minSpotId 0 --maxSpotId 50000 && mv asm assembly
-```
+!!! example "Get a timeseries dataset"
+    ```bash
+    cd
+    parallel-fastq-dump/parallel-fastq-dump -t 4 --outdir assembly --split-files --gzip  --minSpotId 0 --maxSpotId 50000 \
+        -s SRR8960410 -s SRR8960409 -s SRR8960402 -s SRR8960368 -s SRR8960420 \
+        -s SRR8960739 -s SRR8960679 -s SRR8960627 -s SRR8960591 -s SRR8960887
+    ```
 The above commands first move us to the home directory, and then will download the first 50000 read-pairs of a set of samples.
 All of these samples come from the same pig, and were collected at different time points in consecutive weeks.
 
 Now we can assemble with megahit:
 
-```
-singularity exec -B ~/assembly/:/data docker://quay.io/biocontainers/megahit:1.1.3--py36_0 megahit -1 /data/SRR8960410_1.fastq.gz,/data/SRR8960409_1.fastq.gz,/data/SRR8960402_1.fastq.gz,/data/SRR8960368_1.fastq.gz,/data/SRR8960420_1.fastq.gz,/data/SRR8960739_1.fastq.gz,/data/SRR8960679_1.fastq.gz,/data/SRR8960627_1.fastq.gz,/data/SRR8960591_1.fastq.gz,/data/SRR8960887_1.fastq.gz -2 /data/SRR8960410_2.fastq.gz,/data/SRR8960409_2.fastq.gz,/data/SRR8960402_2.fastq.gz,/data/SRR8960368_2.fastq.gz,/data/SRR8960420_2.fastq.gz,/data/SRR8960739_2.fastq.gz,/data/SRR8960679_2.fastq.gz,/data/SRR8960627_2.fastq.gz,/data/SRR8960591_2.fastq.gz,/data/SRR8960887_2.fastq.gz -o /data/metaasm
-```
+!!! example "Assemble using megahit"
+    ```bash
+    singularity exec -B ~/assembly/:/data docker://quay.io/biocontainers/megahit:1.1.3--py36_0 megahit -m 16e9 \
+        -1 /data/SRR8960410_1.fastq.gz,/data/SRR8960409_1.fastq.gz,/data/SRR8960402_1.fastq.gz,/data/SRR8960368_1.fastq.gz,/data/SRR8960420_1.fastq.gz,/data/SRR8960739_1.fastq.gz,/data/SRR8960679_1.fastq.gz,/data/SRR8960627_1.fastq.gz,/data/SRR8960591_1.fastq.gz,/data/SRR8960887_1.fastq.gz \
+        -2 /data/SRR8960410_2.fastq.gz,/data/SRR8960409_2.fastq.gz,/data/SRR8960402_2.fastq.gz,/data/SRR8960368_2.fastq.gz,/data/SRR8960420_2.fastq.gz,/data/SRR8960739_2.fastq.gz,/data/SRR8960679_2.fastq.gz,/data/SRR8960627_2.fastq.gz,/data/SRR8960591_2.fastq.gz,/data/SRR8960887_2.fastq.gz \
+        -o /data/metaasm
+    ```
 
 That's a big command-line, so let's unpack what's happening. 
 First, we're invoking `singularity`. 
@@ -57,15 +64,19 @@ Therefore the programs running inside the container (e.g. megahit) will be able 
 This includes parameters `-1` and `-2` with a list of the FastQ files we want to assemble. 
 Finally we ask megahit to save the assembly in the container path `/data/metaasm`, so it will show up in `~/assembly/metaasm` when the container has finished running.
 
-At the end of this process we will have a metagenome assembly saved in the file `~/assembly/final.contigs.fa`. 
+At the end of this process we will have a metagenome assembly saved in the file `~/assembly/metaasm/final.contigs.fa`. 
 We can use this file for subsequent analyses.
-One small detail we need to resolve is the formatting of contig names in the assembly file.
-megahit creates contigs with names like ``, but the whitespace in these names causes problems for certain downstream analyses, such as visualization with anvi'o.
-Therefore as a final step in the assembly process we need to rename the contigs with the following commands:
 
-```
-cd assembly/metaasm
-cp final.contigs.fa contigs-fixnames.fa
-perl -p -i -e "s/(>\w+) flag.*/\$1/g" contigs-fixnames.fa
-```
+### Simplifying contig multi-fasta headers
+ 
+One small detail we still need to resolve is the formatting of contig headers within the assembly file.
+Besides just sequence names (eg `>k141_1`), megahit includes additional information in the faster header (eg `>k141_1 flag=1 multi=2.0000 len=315`). Although this is a valid use of the format, the whitespace can be problematic in downstream analyses, such as visualization with anvi'o.
 
+So, as a final step in our assembly process, we'll remove the extra information from the headers with the following commands:
+
+!!! example "Simplifying contig names"
+    ```bash
+    cd assembly/metaasm
+    # use pattern replacement to remove extra details from fasta headers
+    sed -r 's/(>[^ ]+).*/\1/' final.contigs.fa > contigs-fixnames.fa
+    ```

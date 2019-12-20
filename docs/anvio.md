@@ -9,13 +9,20 @@ For further details on using the variety of features in anvi'o you can refer to 
 
 The simplest way to install anvi'o is via conda:
 
-```
-conda create -n anvio5 -c bioconda -c conda-forge anvio=5.5.0
-```
+!!! example "Create a new environment for anvio"
+    ```bash
+    conda create -y -n anvio5 anvio=5.5.0
+    conda activate anvio5
+    ```
 
-Notice this command is slightly different to our previous conda software installations, in this command we are invoking `conda create` which creates a new conda environment for anvi'o.
-Once the installation has completed, we will need to activate the environment with `conda activate anvio5` in order to use anvi'o.
+Notice that this command is slightly different to what we've been using more frequently for conda software installations. 
+In this command we are invoking `conda create` which creates a new conda environment just for anvi'o.
+As software tools can sometimes have clashing dependencies, doing this means conda needs only resolve software dependencies for anvio.
+We're also being explicit about which version of anvio we wish to install (`avio=5.5.0`). 
+Without a version specifier, conda will install the latest version that it is aware of. 
+Overriding this behaviour can be handy as unexpected changes to such things as the user interface or program output can break scripts.   
 
+Once the installation has completed, we activate it `conda activate anvio5`.
 
 ## Preparing data for anvi'o
 
@@ -24,12 +31,13 @@ Because we already have binning results from MetaBAT2 we will ask anvi'o to impo
 This will allow us to use anvi'o to browse the bins and interactively check and refine them as necessary.
 But before we get to that, we need to get anvi'o to process the metagenome assembly contigs and the bam files of mapped reads:
 
-```
-anvi-gen-contigs-database -f contigs-fixnames.fa -o contigs.db -n 'A gene school DB'
-anvi-run-hmms -c contigs.db
-for bam in `ls *.bam`; do anvi-profile -i $bam -c contigs.db; done
-anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clustering --skip-concoct-binning
-```
+!!! example "Preparing to use anvi'o"
+    ```bash
+    anvi-gen-contigs-database -f contigs-fixnames.fa -o contigs.db -n 'A gene school DB'
+    anvi-run-hmms -c contigs.db
+    for bam in `ls *.bam`; do anvi-profile -i $bam -c contigs.db; done
+    anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --skip-hierarchical-clustering --skip-concoct-binning
+    ```
 
 The above series of commands will take us from assembly contigs to a working anvi'o database, but there is a lot of compute along the way so if the data set is anything more than extremely trivial you will have to be _very patient_.
 The pig metagenome timeseries dataset we are using in this tutorial requires over 900 hours of CPU time to process with the above commands.
@@ -38,13 +46,14 @@ If you have access to a large multicore machine (or large AWS instance) this pro
 Next, we need to create a file that will allow us to import our MetaBAT2 bins into anvi'o.
 This is a pretty simple process:
 
-```
-cd contigs-fixnames.fa.metabat-bins/
-grep ">" bin.*fa | perl -p -i -e "s/bin\.(.+).fa:>(.+)/\$2\tbin_\$1/g" > ../binning_results.txt
-cd ..
-anvi-import-collection binning_results.txt -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C "MetaBAT2" --contigs-mode
-anvi-summarize -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C MetaBAT2 -o MERGED_SUMMARY
-```
+!!! example "Making the anvi'o profile"
+    ```bash
+    cd contigs-fixnames.fa.metabat-bins/
+    grep ">" bin.*fa | perl -p -i -e "s/bin\.(.+).fa:>(.+)/\$2\tbin_\$1/g" > ../binning_results.txt
+    cd ..
+    anvi-import-collection binning_results.txt -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C "MetaBAT2" --contigs-mode
+    anvi-summarize -p SAMPLES-MERGED/PROFILE.db -c contigs.db -C MetaBAT2 -o MERGED_SUMMARY
+    ```
 
 The idea is to create a tab-delimited text file with two columns: the first is contig name and the second is the name of the bin that contig belongs to.
 The command `grep ">" bin.*fa` pulls out the contig names from each FastA bin file, and pipes the result to this command `perl -p -i -e "s/(.+).fa:>(.+)/\$2\t\$1/g"` which is using a perl regular expression to extract the contig name (in $2) and bin ID (in $1) and report them in two columns separated by the tab character `\t`.
@@ -59,9 +68,11 @@ Note that *this will only work with google chrome browser*.
 anvi'o's interactive mode does not currently work with any other browsers. 
 You can try it of course but you're on your own when something goes wrong (which, in fact, could be said of almost anything in bioinformatics).
 
-```
-anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2
-```
+!!! example "Starting an interactive anvi'o session"
+    ```bash
+    anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 \
+        --password-protected -C MetaBAT2
+    ```
 
 when anvi'o launches it will ask you to provide a password. 
 Make one up, and be sure to choose one you can remember at least long enough to log into the server!
@@ -80,9 +91,12 @@ With anvi'o we can inspect individual genome bins, and even modify them interact
 As with `anvi-interactive` above this runs via a web server/client structure, so we can launch it on our VM and connect to it with our browser in the same way.
 For example if we want to refine bin 42 we would run:
 
-```
-anvi-refine -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 --password-protected -C MetaBAT2 -b bin_42
-```
+!!! example "Refining bins using anvi'o"
+    ```
+    anvi-refine -p SAMPLES-MERGED/PROFILE.db -c contigs.db --server-only -P 8080 \
+        --password-protected -C MetaBAT2 -b bin_42
+    ```
+    
 and then point our browser at the anvi'o server as noted above.
 
 *IMPORTANT:* if you are working in the Jupyter bash notebook you must remove the parameter `--password-protected` from the above command because it is impossible to interact with running shell programs, and therefore impossible to provide the password that anvi'o requests.
