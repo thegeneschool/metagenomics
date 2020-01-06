@@ -55,6 +55,7 @@ Students trained with this module are expected to develop the following skills:
 - Carry out QC for metagenome data samples
   - Sequencing QC with FastQC and MultiQC [@ewels:2016]
   - Taxonomic profiling as QC using metaphlan and kraken2 [@segata:2012; @wood:2019]
+- Clean sequencing data using fastp [@chen:2018]
 - Understand the limitations of reference databases for metagenome analysis
 - Learn how a pilot study can inform experimental design
   - Learn how to estimate metagenome sequencing depth requirements
