@@ -61,6 +61,19 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
+## Precomputed results
+
+Some of the analysis steps in the tutorial are very CPU-heavy, requiring hundreds of CPU hours to compute.
+The metagenome assemblies and the anvi'o profile computation in particular are very demanding.
+We have archived pre-computed results from these steps and suggest [downloading the archive](https://doi.org/10.5281/zenodo.3585993) to your machine so that it becomes possible to continue through the tutorial without waiting for the computation to complete.
+
+```bash
+wget https://zenodo.org/record/3585993/files/tutorial_data.tar.gz
+tar xzf tutorial_data.tar.gz
+```
+
+In case the above link is not working, the archive is hosted on Zenodo with DOI 10.5281/zenodo.3585993
+
 ## Ways to get started without using Amazon Web Services
 
 Not everyone will have access to Amazon EC2, or may not have access all the time.
