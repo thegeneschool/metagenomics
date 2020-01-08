@@ -75,8 +75,8 @@ Students trained with this module are expected to develop the following skills:
 
 # Content
 
-This open educational resource comprises a collection of markdown-formatted workshop pages, a collection of publicly available data sets which we have generated, and a virtual machine image preloaded with data & results so that compute-intensive steps can be skipped during course delivery.
-The precomputed results are also provided outside the VM image for ease of use in other computing environments.
+This open educational resource comprises a collection of markdown-formatted workshop pages, a collection of publicly available data sets which we have generated, and instructions to set up a virtual machine image preloaded with data & results so that compute-intensive steps can be skipped during course delivery.
+The precomputed results are also provided via Zenodo DOI 10.5281/zenodo.3585993 for ease of use in other computing environments.
 
 # Instructional design
 
