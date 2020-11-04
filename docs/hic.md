@@ -151,7 +151,7 @@ Also, we'll pull down the Docker images for `qc3C` (quality testing) and `bin3C`
     parallel-fastq-dump/parallel-fastq-dump -s SRR9323809 -s SRR8960211 --threads 4 --outdir hic_data/ \
         --minSpotId 0 --maxSpotId 1000000 --split-files --gzip
     # fetch the qc3C image
-    docker pull cerebis/qc3c:alpine
+    docker pull cerebis/qc3c:latest
     # fetch the bin3c image
     docker pull cerebis/bin3c:latest
     ```
@@ -170,12 +170,16 @@ Lets assemble the shotgun data and map both library types to the resulting conti
     cd hic_data
     # launch spades in metagenomic mode
     docker run -v $PWD:/opt/app-root cerebis/bin3c:latest spades.py --meta -1 SRR8960211_1.fastq.gz -2 SRR8960211_2.fastq.gz -o asm
+    # return to your home directory
+    cd
     ```
 
 Once we have our assembly, we can map the Hi-C reads to the contigs. This mapping forms the basis of what binning tools like `bin3C` use to infer proximity associations between DNA loci.
 
 !!! example "Map Hi-C reads to assembly contigs"
     ```bash
+    # enter the hic data directory
+    cd hic_data
     # index the contig fasta
     docker run -v $PWD:/opt/app-root cerebis/bin3c:latest bwa index asm/contigs.fasta
     # map hi-c reads to the contigs 
@@ -203,12 +207,12 @@ Conversely, when analysing a shotgun read-set, we expect to see very few.
 
 !!! example "Run a BAM based analysis"
     ```bash
-    # enter the hic data folder
+    # enter the hic data directory
     cd hic_data
     # perform bam based QC analysis on Hi-C data 
-    docker run -v $PWD:/opt/app-root cerebis/qc3c:alpine ash -c "qc3C bam -m 400 -e Sau3AI -e MluCI -b hic_to_ctg.bam"
+    docker run -v $PWD:/app cerebis/qc3c bam -M 200000 -m 400 -e Sau3AI -e MluCI -f asm/contigs.fasta -b hic_to_ctg.bam"
     # now perform the analysis on shotgun data
-    docker run -v $PWD:/opt/app-root cerebis/qc3c:alpine ash -c "qc3C bam -m 400 -e Sau3AI -e MluCI -b wgs_to_ctg.bam"
+    docker run -v $PWD:/app cerebis/qc3c bam -M 200000 -m 400 -e Sau3AI -e MluCI -f asm/contigs.fasta -b wgs_to_ctg.bam"
     # return to your home directory
     cd 
     ```
@@ -238,15 +242,15 @@ For the Hi-C library, the fraction of pairs separated by more than 10kb was ~2.6
     Hi-C result
     ```
     INFO     | 2019-11-19 08:31:13,975 | qc3C.bam_based | Long-range distance intervals:    1000nt,    5000nt,   10000nt
-    INFO     | 2019-11-19 08:31:13,975 | qc3C.bam_based | Number of observed pairs:          366,       169,        84
-    INFO     | 2019-11-19 08:31:13,975 | qc3C.bam_based | Relative fraction of all cis:   0.1149,   0.05308,   0.02638
-    INFO     | 2019-11-19 08:31:13,976 | qc3C.bam_based | Relative fraction of all pairs: 0.04934,   0.02278,   0.01132
+    INFO     | 2019-11-19 08:31:13,975 | qc3C.bam_based | Number of observed pairs:            366,       169,        84
+    INFO     | 2019-11-19 08:31:13,975 | qc3C.bam_based | Relative fraction of all cis:     0.1149,   0.05308,   0.02638
+    INFO     | 2019-11-19 08:31:13,976 | qc3C.bam_based | Relative fraction of all pairs:  0.04934,   0.02278,   0.01132
     ```
     
     Shotgun result
     ```
-    INFO     | 2019-11-19 08:31:42,171 | qc3C.bam_based | Long-range distance intervals:    1000nt,    5000nt,   10000nt
-    INFO     | 2019-11-19 08:31:42,171 | qc3C.bam_based | Number of observed pairs:          284,        43,        23
+    INFO     | 2019-11-19 08:31:42,171 | qc3C.bam_based | Long-range distance intervals:     1000nt,      5000nt,     10000nt
+    INFO     | 2019-11-19 08:31:42,171 | qc3C.bam_based | Number of observed pairs:             284,          43,          23
     INFO     | 2019-11-19 08:31:42,172 | qc3C.bam_based | Relative fraction of all cis:   0.0007268,   0.0001101,   5.886e-05
     INFO     | 2019-11-19 08:31:42,172 | qc3C.bam_based | Relative fraction of all pairs: 0.0003572,   5.408e-05,   2.893e-05
     ```
@@ -260,7 +264,7 @@ Overall, for BAM mode, the reliability of results is connected to the quality an
 
 !!! tip "Breaking down the invocation of `qc3C`" 
     1. We are providing Docker access to our host filesystem using a bind mount (`-v $PWD:/opt/app-root`)
-    2. Next we are specifying the image to run (`cerebis/qc3c:alpine`).
+    2. Next we are specifying the image to run (`cerebis/qc3c:latest`).
     3. Finally we include the actual call to `qc3C`, along with its own options. 
 
 !!! info "Potential Concerns"
@@ -278,7 +282,7 @@ Overall, for BAM mode, the reliability of results is connected to the quality an
 
 ### _k_-mer mode analysis with qc3C
 
-To analyze our small Hi-C read-set using a _k_-mer approach, we will first create a _k_-mer library using Jellyfish.
+To analyze our small Hi-C read-set using a _k_-mer approach, we will first create a _k_-mer library.
 Since this Hi-C experiment used the 4-cutter Sau3AI, which produces an 8-mer junction, we'll use a mer size of 24 for the library.
 This will give us 8 nucleotides either side of any prospective junction, for specificity.
 
@@ -290,12 +294,10 @@ You can try sizes bigger and smaller.
     ```Bash
     # enter the hic data folder
     cd hic_data
-    # create a generator used by Jellyfish for compressed files
-    rm -f gen_fq && for fn in `ls SRR9323809*fastq.gz`; do echo gzip -dc $fn >> gen_fq; done
-    # use jellyfish to create a 24-mer library from FastQ reads
-    docker run -v $PWD:/opt/app-root cerebis/qc3c:alpine jellyfish count -t 4 -m 24 -s 100M -C -g gen_fq -o hic24.jf
+    # create a kmer library from FastQ reads
+    docker run -v $PWD:/opt/app cerebis/qc3c mkdb -t 4 -r SRR9323809_1.fastq.gz -r SRR9323809_2.fastq.gz -l hic.jf
     # perform k-mer based QC analysis
-    docker run -v $PWD:/opt/app-root cerebis/qc3c:alpine ash -c "qc3C kmer -m 445 -s 1234 -e Sau3AI -l hic24.jf -r SRR9323809_1.fastq.gz -r SRR9323809_2.fastq.gz"
+    docker run -v $PWD:/opt/app cerebis/qc3c kmer -t 4 -M 200000 -m 445 -e Sau3AI -l hic.jf -r SRR9323809_1.fastq.gz -r SRR9323809_2.fastq.gz"
     # return back to your home directory
     cd 
     ```
@@ -303,12 +305,10 @@ You can try sizes bigger and smaller.
     ```Bash
     # enter the hic data folder
     cd hic_data
-    # create a generator used by Jellyfish for compressed files
-    echo "gzip -dc SRR8960211_1.fastq.gz" > gen_sg
-    # use jellyfish to create a 24-mer library from FastQ reads
-    docker run -v $PWD:/opt/app-root cerebis/qc3c:alpine jellyfish count -t 4 -m 24 -s 100M -C -g gen_sg -o wgs24.jf
+    # create a kmer library from FastQ reads
+    docker run -v $PWD:/opt/app cerebis/qc3c mkdb -t 4 -r SRR8960211_1.fastq.gz -r SRR8960211_2.fastq.gz -l wgs.jf
     # perform k-mer based QC analysis
-    docker run -v $PWD:/opt/app-root cerebis/qc3c:alpine ash -c "qc3C kmer -m 306 -s 1234 -e Sau3AI -l wgs24.jf -r SRR8960211_1.fastq.gz -p 0.05"
+    docker run -v $PWD:/opt/app-root cerebis/qc3c kmer -t 4 -M 200000 -m 306 -e Sau3AI -l wgs.jf -r SRR8960211_1.fastq.gz -r SRR8960211_2.fastq.gz
     # return back to your home directory
     cd 
     ```
@@ -347,10 +347,10 @@ If it were a pilot sequencing run, this result would be sufficient evidence to c
     INFO     | 2019-11-19 08:37:46,434 | qc3C.kmer_based | Adjusted estimation of Hi-C read fraction: 0.09493 ± 0.003048 %
     ```
 
-!!! tip "Breaking down the invocation of `jellyfish`" 
-    1. We are providing Docker access to our host filesystem using a bind mount (`-v $PWD:/opt/app-root`)
-    2. Next we are specifying the image to run (`cerebis/qc3c:alpine`).
-    3. Finally we include the actual call to `jellyfish`, along with its own options. 
+!!! tip "Breaking down the creation of a k-mer library" 
+    1. We are providing Docker access to our host filesystem using a bind mount (`-v $PWD:/app`)
+    2. Next we are specifying the image to run (`cerebis/qc3c`).
+    3. Finally we include the actual call to `qc3C mkdb`, along with its own options. 
 
 !!! info "K-mer mode requirements"
     - No-assembly or reference required
