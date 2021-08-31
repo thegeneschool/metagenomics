@@ -154,7 +154,7 @@ It is useful as an initial quality check to ensure that the microbial community 
 ### Taxonomic analysis with Metaphlan2
 
 While it may be possible to install metaphlan2 via conda, at least in my experience, conda struggles with "solving the environment".
-Therefore it's suggested to install it via the simple download method described on the [metaphlan tutorial page](https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial):
+Therefore it's suggested to install it via the simple download method described on the [metaphlan2 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn2#installation):
 
 !!! warning "Skip downloading metaphlan2"
     The >500MB Metaphlan2 package has already been downloaded and we'll just be extracting it.
