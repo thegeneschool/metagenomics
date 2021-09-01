@@ -18,7 +18,7 @@ To do this, start a terminal session in your Jupyter server (click the Terminal 
     # fast download from github
     git clone https://github.com/rvalieris/parallel-fastq-dump.git
     # create a new conda environment and activate it
-    conda create -y -n workshop "python<3" sra-tools
+    conda create -y -n workshop python "sra-tools==2.10.1"
     conda activate workshop
     ```
     
@@ -153,25 +153,19 @@ It is useful as an initial quality check to ensure that the microbial community 
 
 ### Taxonomic analysis with Metaphlan2
 
-While it may be possible to install metaphlan2 via conda, at least in my experience, conda struggles with "solving the environment".
-Therefore it's suggested to install it via the simple download method described on the [metaphlan2 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn2#installation):
+Per the author's documentation, Metaphlan is best installed as a separate conda environment. After installation of the software, we will need to install and index the database. This process will take some time to complete.
 
-!!! warning "Skip downloading metaphlan2"
-    The >500MB Metaphlan2 package has already been downloaded and we'll just be extracting it.
+!!! warning "Alert: Consumption of storage space"
+Metaphlan's required reference data will be installed to the conda environment we are about to create. If you are using your personal machine please keep this workspace will consume roughly 4GB of disk space.
 
 !!! example "Obtaining `metaphlan`"
     ```bash
-    # this would be how you could download the package yourself
-    # wget -c -O metaphlan.tar.bz2 https://bitbucket.org/nsegata/metaphlan/get/default.tar.bz2
-    
-    # extract the archive
-    cd ; tar xvjf /data/metaphlan.tar.bz2
-    # rename the folder to something simple
-    mv nsegata-metaphlan* metaphlan
-    # apply a technical fix for metaphlan plotting
-    sed -i 's/axisbg/facecolor/' metaphlan/plotting_scripts/metaphlan_hclust_heatmap.py
-    # install dependencies
-    conda install -y -n workshop bowtie2 numpy scipy matplotlib
+    # create a standalone environment for metaphlan
+    conda install -y -n mpa metaphlan "tbb<2021" hclust2
+    # activate
+    conda activate mpa
+    # download and index the reference database
+    metaphlan --install
     ```
 
 Once `metaphlan` has been prepared we can run it on our QC samples:
@@ -181,27 +175,32 @@ Once `metaphlan` has been prepared we can run it on our QC samples:
     cd ~/qc_data
     for pig in SRR9323808 SRR9323810 SRR9323811 SRR9323809
     do
-         zcat ${pig}*.fastq.gz | ~/metaphlan/metaphlan.py --input_type multifastq --bt2_ps very-sensitive \
-                --bowtie2db ~/metaphlan/bowtie2db/mpa --bowtie2out ${pig}.bt2out -o ${pig}.mph2
+         zcat ${pig}*.fastq.gz | metaphlan --input_type fastq --bt2_ps \
+            very-sensitive -bowtie2out ${pig}.bt2out -o ${pig}.mph3
     done
     ```
 
 !!! info "Unpacking the commands"
-    The above series of commands is another exampe of a Bash "for loop", where each iteration processes one of our metagenome samples. As before, this is a convenient and less error-prone way to process many samples by avoiding the need to type out the commands for each sample. At each loop iteration, one of the sample names is placed into the loop variable `${pig}`, where it can get used in the command inside the loop.
+    The above series of commands is another example of a Bash "for loop", where each iteration processes one of our metagenome samples. As before, this is a convenient and less error-prone way to process many samples by avoiding the need to type out the commands for each sample. At each loop iteration, one of the sample names is placed into the loop variable `${pig}`, where it can get used in the command inside the loop.
     
-    Secondly, we decompress (`zcat`) and then feed each pig's sequencing data to `metaphlan` through a pipe (`|`)
+    Secondly, we decompress (`zcat`) and then feed each pig's sequencing data to `metaphlan` through a pipe (`|`). The pipe is necessary to have Metaphlan process the two paired read files together.
 
 Finally we can plot the taxonomic profile of the samples:
 
 !!! example "Plot the taxonomic profile of each sample"
     ```
-    ~/metaphlan/utils/merge_metaphlan_tables.py *.mph2 > pig_mph2.merged
-    ~/metaphlan/plotting_scripts/metaphlan_hclust_heatmap.py -c bbcry --top 25 --minv 0.1 -s log --in pig_mph2.merged --out mph2_heatmap.png
+    merge_metaphlan_tables.py *.mph3 > pig_mph3.merged
+    awk  '/g__/ && !/s__/ {OFS="\t"; if ($3+$4+$5+$6 == 0) next;
+        match($1,/(g__.*)/,a); print a[1],$3,$4,$5,$6}' pig_mph3.merged > pig_mph3.hclust
+    hclust2.py -c Reds --ftop 25 --minv 0.1 --log_scale -i pig_mph3.hclust \
+        --out mph3_heatmap.png
     ```
+!!! info "Unpacking the commands"
+    In the previous steps, we first merged metaphlan's results for each sample. Afterwards, we used the command-line text parser Awk to create a file suitable for use with the generalised hierarchical clustering package hclust2. Here, we returned a genus-rank profile, making sure to only report taxons which were seen in at least one sample. Lastly, hclust2 was used to create a red-shaded heatmap with log-scale intensities.
 
-Once that has completed successfully, a new file called `mph2_heatmap.png` will appear in the qc_data folder of our Jupyter file browser. We can double click it to view.
+Once that has completed successfully, a new file called `mph3_heatmap.png` will appear in the qc_data folder of our Jupyter file browser. We can double click it to view.
 
-There are other ways to visualize the data, and they are described in the graphlan section of the [metaphlan tutorial](https://bitbucket.org/nsegata/metaphlan/wiki/MetaPhlAn_Pipelines_Tutorial) page.
+There are other ways to visualize the data, and they are described in the Graphlan section of the [metaphlan wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0) page.
 
 ### Taxonomic analysis with other tools
 
